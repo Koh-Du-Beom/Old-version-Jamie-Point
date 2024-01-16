@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import React from "react";
-import Todo from "../types/todos";
+import Todo from "../../types/study/todos";
 import TodoItem from "./TodoItem";
 import classes from '../styles/Todos.module.css'
 const Todos: React.FC<{items: Todo[]; onRemoveTodo: (id: string) => void }> = (props) => {
