@@ -1,6 +1,6 @@
 /*eslint-disable*/
 import React, { useEffect, useState } from 'react';
-import ActivityDropDownData from '../stores/data/ActivityDropDown.data';
+import ActivityDropDownData from '../../stores/data/ActivityDropDown.data';
 import styled from 'styled-components';
 
 interface Point {
