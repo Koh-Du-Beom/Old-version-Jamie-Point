@@ -1,7 +1,7 @@
-import classes from '../styles/UserInfoInput.module.css';
+import classes from '../styles/UserInfoForm.module.css';
 import ImageControler from './ImageControler';
 
-const UserInfoInput : React.FC = () => {
+const UserInfoForm : React.FC = () => {
 	return (
 		<div className={classes.container}>
 			<div className={classes.wrapper}>
@@ -12,7 +12,8 @@ const UserInfoInput : React.FC = () => {
 			<div className={classes.big_title}>기본 정보</div>
 			<div className={classes.wrapper}>
 				<div className={classes.small_title}>이름</div>
-				<input className={classes.input} type='text'/>
+				<input 
+					className={classes.input} type='text'/>
 			</div>
 
 			<div className={`${classes.wrapper} ${classes.double}`}>
@@ -35,13 +36,14 @@ const UserInfoInput : React.FC = () => {
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>통장사본</div>
+					<ImageControler/>
 				</div>
 			</div>
 			
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>신분증사본</div>
-					
+					<ImageControler/>
 				</div>
 			</div>
 
@@ -51,4 +53,4 @@ const UserInfoInput : React.FC = () => {
 	)
 }
 
-export default UserInfoInput;
+export default UserInfoForm;
