@@ -1,0 +1,37 @@
+.container{
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	background-color: #D0B0FF;
+	margin: 30px;
+	border-radius: 20px;
+}
+
+.wrapper{
+	margin-right: 10px;
+}
+
+.double{
+	display: flex;
+	flex-direction: row;
+}
+
+.big_title{
+	font-size: 20px;
+	color: #ffffff;
+}
+
+.small_title{
+	font-size: 15px;
+	color: #ffffff;
+}
+
+.input{
+	margin: 10px 0;
+	border-radius: 10px;
+	border: none;
+}
+
+
+
+

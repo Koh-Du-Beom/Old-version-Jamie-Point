@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import classes from '../styles/RightNavBar.module.css';
+import { useNavigate } from "react-router-dom";
+import rightNavBarData from "../stores/data/RightNavBarData/RightNavBarData.data";
 
 const RightNavBar: React.FC = () => {
-  const [buttonData] = useState<string[]>(['회원정보', 'SW핵심', 'SW산학협력', 'SW가치확산', 'SW융합']);
+	const navigate = useNavigate();
+	const navBarData = rightNavBarData(navigate);
 
   return (
     <div className={classes.navbar}>
-      {buttonData.map((item, index) => (
-        <button key={index} className={classes.button}>{item}</button>
+      {navBarData.map((item, index) => (
+        <button key={index} className={classes.button} onClick={item.onClick}>{item.title}</button>
       ))}
     </div>
   )

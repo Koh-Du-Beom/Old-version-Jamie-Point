@@ -9,6 +9,7 @@ const MainLayout: React.FC<{children : React.ReactNode}> = ({children}) => {
       <TopNavBar/>
       <div className={classes.content}>
         {children}
+				
       </div>
       <RightNavBar/>
     </div>
