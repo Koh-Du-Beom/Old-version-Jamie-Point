@@ -1,6 +1,6 @@
 /*eslint-disable*/
-import React, { useState } from 'react';
-import ActivityDropDownData from '../stores/ActivityDropDown.data';
+import React, { useEffect, useState } from 'react';
+import ActivityDropDownData from '../stores/data/ActivityDropDown.data';
 import styled from 'styled-components';
 
 interface Point {
@@ -21,7 +21,6 @@ const Wrapper = styled.div`
 const Selection = styled.div`
   margin: 20px 0;
 `
-
 
 const ActivityDropDown: React.FC = () => {
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
@@ -51,7 +50,6 @@ const ActivityDropDown: React.FC = () => {
     setSelectedTopic(null);
     setSelectedPoint(null);
 
-    // Automatically select the first topic and point if available
     const foundType = ActivityDropDownData.find(area => area.area === selectedArea)
       ?.programs.find(program => program.program === selectedProgram)
       ?.types.find(type => type.type === selectedTypeValue);
@@ -100,7 +98,7 @@ const ActivityDropDown: React.FC = () => {
         <Selection>
           {selectedProgram && (
             <select value={selectedType ?? ''} onChange={handleTypeChange}>
-              <option value="">프로그램 종류를 선택해주세요</option>
+              <option value="">종류를 선택해주세요</option>
               {ActivityDropDownData.find(area => area.area === selectedArea)
                 ?.programs.find(program => program.program === selectedProgram)
                 ?.types.map((type, index) => (
@@ -109,6 +107,7 @@ const ActivityDropDown: React.FC = () => {
             </select>
           )}
         </Selection>
+      
         <Selection>
           {selectedType && selectedTopic !== '' && (
             <select value={selectedTopic ?? ''} onChange={handleTopicChange}>
@@ -123,6 +122,7 @@ const ActivityDropDown: React.FC = () => {
           )}
         </Selection>
         {selectedPoint !== null && <p>선택한 점수: {selectedPoint}</p>}
+
       </Wrapper>
     </Container>
   );
