@@ -5,7 +5,15 @@
 }
 
 .content {
-  padding-top: 50px; 
 	display: flex;
 	margin: 0 auto;
+	padding-top: 50px; 
+}
+
+.childrenWrapper{
+	flex : 1;
+}
+
+.rightNavBarWrapper{
+	flex : 0;
 }

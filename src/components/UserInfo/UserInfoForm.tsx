@@ -1,8 +1,9 @@
 import classes from '../../styles/UserInfoForm.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
+import useAutoSave from '../../hooks/useAutoSave';
 
-const InfoForm : React.FC = () => {
+const UserInfoForm : React.FC = () => {
 	const [name, setName] = useState<string>('');
 	const [grade, setGrade] = useState<string>('');
 	const [studentNumber, setStudentNumber] = useState<string>('');
@@ -11,7 +12,6 @@ const InfoForm : React.FC = () => {
 	const [bankBookImg, setBankBookImg] = useState<File|null>(null);
 	const [idCardImg, setIdCardImg] = useState<File|null>(null);
   
-	
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.target.value);
@@ -41,7 +41,20 @@ const InfoForm : React.FC = () => {
 		setIdCardImg(file);
 	}
 
+	const formData = [
+		{
+			pageType : "userInfo", // 어떤 페이지에서 온 정보인지 밝히기?
+			name : name,
+			grade : grade,
+			studentNumber : studentNumber,
+			phoneNumber : phoneNumber,
+			email : email,
+			bankBookImg: bankBookImg,
+			idCardImg : idCardImg,
+		}
+	]
 
+	useAutoSave(formData);
 
 	return (
 		<div className={classes.container}>
@@ -113,7 +126,6 @@ const InfoForm : React.FC = () => {
 				<div>
 					<div className={classes.small_title}>통장사본</div>
 					<ImageControler onImageChange={handlebankBookImg}/>
-
 				</div>
 			</div>
 			
@@ -121,14 +133,10 @@ const InfoForm : React.FC = () => {
 				<div>
 					<div className={classes.small_title}>신분증사본</div>
 					<ImageControler onImageChange={handleIdCardImg}/>
-					
 				</div>
 			</div>
-
-
-
 		</div>
 	)
 }
 
-export default InfoForm;
+export default UserInfoForm;

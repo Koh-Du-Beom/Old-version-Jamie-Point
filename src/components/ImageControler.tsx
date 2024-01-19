@@ -1,4 +1,3 @@
-import Image from 'react-bootstrap/Image';
 import classes from '../styles/components/ImageControler.module.css';
 import { useState } from 'react';
 interface ImageControlerProps {
@@ -23,9 +22,13 @@ const ImageControler : React.FC<ImageControlerProps> = ({onImageChange}) => {
 
 	return (
 		<div>
-			<div className={classes.imageContainer}>
-				{imgURL && <img src={imgURL} alt='imgURL'/>}
-			</div>
+			{
+				imgURL ? 
+				<div className={classes.imageContainer}>
+					<img src={imgURL} alt='imgURL'/>
+				</div> :
+				null
+			}
 			<input type="file" accept="image/*" onChange={handleFileChange} />
 		</div>
 		
