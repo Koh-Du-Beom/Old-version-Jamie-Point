@@ -1,7 +1,7 @@
 import React from 'react';
 import TopNavBar from '../components/TopNavBar';
 import RightNavBar from '../components/RightNavBar';
-import classes from '../styles/MainLayout.module.css';
+import classes from '../styles/layouts/MainLayout.module.css';
 
 const MainLayout: React.FC<{children : React.ReactNode}> = ({children}) => {
   return (

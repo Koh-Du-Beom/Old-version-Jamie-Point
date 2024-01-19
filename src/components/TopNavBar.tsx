@@ -1,4 +1,4 @@
-import classes from '../styles/TopNavBar.module.css';
+import classes from '../styles/components/TopNavBar.module.css';
 import React from 'react';
 const TopNavBar:React.FC = () => {
   return (
