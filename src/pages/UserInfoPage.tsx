@@ -1,5 +1,5 @@
 import MainLayout from "../layouts/MainLayout";
-import UserInfoForm from "../components/UserInfoForm";
+import UserInfoForm from "../components/UserInfo/UserInfoForm";
 
 const UserInfoPage:React.FC = () => {
 	return (
