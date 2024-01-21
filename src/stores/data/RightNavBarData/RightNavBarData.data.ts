@@ -19,7 +19,7 @@ const rightNavBarData = (navigate : NavigateFunction) => {
 		},
 		{
 			title : 'SW융합',
-			onClick : () => {navigate('/activity/SW 융합역량')},
+			onClick : () => {navigate('/activity/SW융합역량')},
 		},
 		
 	]

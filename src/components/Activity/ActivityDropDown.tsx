@@ -67,11 +67,6 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea}) => {
     }
   };
 
-	
-	useEffect(()=>{
-		console.log("페이지 옮긴 후", selectedProgram, selectedType, selectedTopic);
-	}) // 데이터 확인
-
 	useEffect(()=>{
 		setSelectedProgram(null);
 		setSelectedType(null);
