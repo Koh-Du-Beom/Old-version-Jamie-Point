@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import ActivityDropDownData from '../../stores/data/ActivityDropDown.data';
 import styled from 'styled-components';
 
+interface ActivityDropDownProps {
+	selectedArea?: string;
+}
 
 interface Point {
   topic: string;
@@ -23,20 +26,11 @@ const Selection = styled.div`
   margin: 20px 0;
 `
 
-const ActivityDropDown: React.FC<{}> = () => {
-  const [selectedArea, setSelectedArea] = useState<string | null>(null);
+const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea}) => {
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
-
-  const handleAreaChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedArea(event.target.value);
-    setSelectedProgram(null);
-    setSelectedType(null);
-    setSelectedTopic(null);
-    setSelectedPoint(null);
-  };
 
   const handleProgramChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProgram(event.target.value);
@@ -73,10 +67,20 @@ const ActivityDropDown: React.FC<{}> = () => {
     }
   };
 
+	
+	useEffect(()=>{
+		console.log("페이지 옮긴 후", selectedProgram, selectedType, selectedTopic);
+	}) // 데이터 확인
+
+	useEffect(()=>{
+		setSelectedProgram(null);
+		setSelectedType(null);
+		setSelectedTopic(null);
+	}, [selectedArea]) // 페이지 옮기고 option 초기화하기
+
   return (
     <Container>
       <Wrapper>
-             
         <Selection>
           {selectedArea && (
             <select value={selectedProgram ?? ''} onChange={handleProgramChange}>

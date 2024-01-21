@@ -357,7 +357,7 @@ const ActivityDropDownData = [
     ]
   },
   {
-    area : 'SW산학협력 · 창업역량',
+    area : 'SW산학협력·창업역량',
     programs : [
       {
         program : 'SW 인턴십',
@@ -610,7 +610,7 @@ const ActivityDropDownData = [
     ]
   },
   {
-    area : 'SW 융합 역량',
+    area : 'SW융합역량',
     programs : [
       {
         program : 'SW융합트랙',

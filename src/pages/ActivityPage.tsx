@@ -1,12 +1,15 @@
-import ActivityDropDown from "../components/Activity/ActivityDropDown";
 import MainLayout from "../layouts/MainLayout";
+import Activity from "../components/Activity/Activity";
+import { useParams } from "react-router-dom";
 
-const ActivityPage = () => {
-  return (
-    <MainLayout>
-      <ActivityDropDown/>
-    </MainLayout>
-  )
+
+const ActivityPage:React.FC = () => {
+	const {area} = useParams<{area?: string}>();
+	return (
+		<MainLayout>
+			<Activity area={area}/>
+		</MainLayout>
+	)
 }
 
 export default ActivityPage;

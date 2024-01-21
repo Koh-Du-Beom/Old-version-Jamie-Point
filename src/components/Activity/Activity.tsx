@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classes from "../../styles/FormStyles.module.css";
 import ImageControler from "../ImageControler";
 import ActivityDropDown from "./ActivityDropDown";
 import useAutoSave from "../../hooks/useAutoSave";
 
-const Activity : React.FC = () => {
+interface ActivityProps {
+	area?: string
+}
+
+
+const Activity : React.FC<ActivityProps> = ({area}) => {
 	const [activityImg, setActivityImg] = useState<File|null>(null);
 
 	const handleActivityImg = (file : File | null) => {
@@ -21,10 +26,15 @@ const Activity : React.FC = () => {
 
 	useAutoSave(formData);
 
+	useEffect(()=> {
+		console.log(area);
+		
+	})
+
 	return (
 		<div className={classes.container}>
 			
-			<div className={classes.big_title}>선택한 카테고리</div>
+			<div className={classes.big_title}>{area}</div>
 			<hr/>
 			
 			<div className={classes.wrapper}>
@@ -34,7 +44,7 @@ const Activity : React.FC = () => {
 
 			<div className={classes.wrapper}>
 				<div className={classes.big_title}>활동 내역</div>
-				<ActivityDropDown />
+				<ActivityDropDown selectedArea={area}/>
 			</div>
 			
 			<div className={classes.big_title}>활동 세부 사항 </div>

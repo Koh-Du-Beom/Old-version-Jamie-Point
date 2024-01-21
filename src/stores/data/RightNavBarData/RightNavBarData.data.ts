@@ -6,20 +6,20 @@ const rightNavBarData = (navigate : NavigateFunction) => {
 			onClick : () => {navigate('/info')},
 		},
 		{
-			title : 'SW핵심',
-			onClick : () => {navigate('/sw-core')},
+			title : 'SW핵심역량',
+			onClick : () => {navigate('/activity/SW핵심역량')},
 		},
 		{
 			title : 'SW산학협력',
-			onClick : () => {navigate('/sw-cooperation')},
+			onClick : () => {navigate('/activity/SW산학협력·창업역량')},
 		},
 		{
 			title : 'SW가치확산',
-			onClick : () => {navigate('/sw-value')},
+			onClick : () => {navigate('/activity/SW가치확산역량')},
 		},
 		{
 			title : 'SW융합',
-			onClick : () => {navigate('/sw-convergence')},
+			onClick : () => {navigate('/activity/SW 융합역량')},
 		},
 		
 	]
