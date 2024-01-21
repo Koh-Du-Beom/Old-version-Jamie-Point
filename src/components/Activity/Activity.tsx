@@ -11,15 +11,43 @@ interface ActivityProps {
 
 const Activity : React.FC<ActivityProps> = ({area}) => {
 	const [activityImg, setActivityImg] = useState<File|null>(null);
+	const [program, setProgram] = useState<string | null>("");
+	const [type, setType] = useState<string | null>("");
+	const [topic, setTopic] = useState<string | null>("");
+	const [point, setPoint] = useState<number | null>(null);
+	
+	const [agency, setAgency] = useState<string>("");
+	const [date, setDate] = useState<string>("");
+	const [detail, setDetail] = useState<string>("");
+	
 
 	const handleActivityImg = (file : File | null) => {
 		setActivityImg(file);
 	}
 
+	const handleAgency = (event : React.ChangeEvent<HTMLInputElement>) => {
+		setAgency(event.target.value);
+	}
+
+	const handleDate = (event : React.ChangeEvent<HTMLInputElement>) => {
+		setDate(event.target.value);
+	}
+
+	const handleDetail = (event : React.ChangeEvent<HTMLInputElement>) => {
+		setDetail(event.target.value);
+	}
+
 	const formData = [
 		{
+			pageType : area,
 			activityImg : activityImg,
-
+			program: program,
+			type : type,
+			topic : topic, 
+			point : point,
+			agency : agency,
+			date : date,
+			detail : detail,
 		}
 		
 	]
@@ -27,9 +55,29 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 	useAutoSave(formData);
 
 	useEffect(()=> {
-		console.log(area);
+		setActivityImg(null);
+		setProgram(null);
+		setType(null);
+		setTopic(null);
+		setPoint(null);
+		setAgency("");
+		setDate("");
+		setDetail("");
+	}, [area])
+
+	const handleDropDownChange = (selectedData : {
+		selectedProgram: string | null;
+		selectedType : string | null;
+		selectedTopic : string | null;
+		selectedPoint : number | null;
+	}) => {
+		const {selectedProgram, selectedType, selectedTopic, selectedPoint} = selectedData;
+		setProgram(selectedProgram);
+		setType(selectedType);
+		setTopic(selectedTopic);
+		setPoint(selectedPoint);
 		
-	})
+	}
 
 	return (
 		<div className={classes.container}>
@@ -44,7 +92,10 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 
 			<div className={classes.wrapper}>
 				<div className={classes.big_title}>활동 내역</div>
-				<ActivityDropDown selectedArea={area}/>
+				<ActivityDropDown 
+					selectedArea={area}
+					onDropDownChange={handleDropDownChange}/>
+				{point ? <div className={classes.small_title}>{`환산점수 : ${point}`}</div> : null}
 			</div>
 			
 			<div className={classes.big_title}>활동 세부 사항 </div>
@@ -55,7 +106,8 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 						<input 
 							className={classes.input}
 							type='text'
-							
+							onChange={handleAgency}
+							value={agency}
 						/>
 					</div>
 				</div>
@@ -66,9 +118,21 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 						<input
 							className={classes.input} 
 							type='text'
+							onChange={handleDate}
+							value={date}
 						/>
 					</div>
 				</div>
+			</div>
+
+			<div className={classes.wrapper}>
+				<div className={classes.small_title}>상세정보</div>
+				<input 
+					className={classes.input}
+					type='text'
+					onChange={handleDetail}
+					value={detail}
+				/>
 			</div>
 		</div>
 	)
