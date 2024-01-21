@@ -43,7 +43,7 @@ const UserInfo : React.FC = () => {
 
 	const formData = [
 		{
-			pageType : "userInfo", // 어떤 페이지에서 온 정보인지 밝히기?
+			pageType : "회원정보", // 어떤 페이지에서 온 정보인지 밝히기?
 			name : name,
 			grade : grade,
 			studentNumber : studentNumber,
