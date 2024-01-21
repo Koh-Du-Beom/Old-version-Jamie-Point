@@ -1,9 +1,9 @@
-import classes from '../../styles/UserInfoForm.module.css';
+import classes from '../../styles/FormStyles.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
 import useAutoSave from '../../hooks/useAutoSave';
 
-const UserInfoForm : React.FC = () => {
+const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
 	const [grade, setGrade] = useState<string>('');
 	const [studentNumber, setStudentNumber] = useState<string>('');
@@ -58,11 +58,9 @@ const UserInfoForm : React.FC = () => {
 
 	return (
 		<div className={classes.container}>
-			<div className={classes.wrapper}>
-				<div className={classes.big_title}>내 정보</div>
-			</div>
-
+			<div className={classes.big_title}>내 정보</div>
 			<hr/>
+			
 			<div className={classes.big_title}>기본 정보</div>
 			<div className={classes.wrapper}>
 				<div className={classes.small_title}>이름</div>
@@ -139,4 +137,4 @@ const UserInfoForm : React.FC = () => {
 	)
 }
 
-export default UserInfoForm;
+export default UserInfo;

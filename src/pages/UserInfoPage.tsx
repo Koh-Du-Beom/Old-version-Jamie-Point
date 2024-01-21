@@ -1,10 +1,10 @@
 import MainLayout from "../layouts/MainLayout";
-import UserInfoForm from "../components/UserInfo/UserInfoForm";
+import UserInfo from "../components/UserInfo/UserInfo";
 
 const UserInfoPage:React.FC = () => {
 	return (
 		<MainLayout>
-			<UserInfoForm/>
+			<UserInfo/>
 		</MainLayout>
 	)
 }

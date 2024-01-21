@@ -27,7 +27,9 @@ const ImageControler : React.FC<ImageControlerProps> = ({onImageChange}) => {
 				<div className={classes.imageContainer}>
 					<img src={imgURL} alt='imgURL'/>
 				</div> :
-				null
+				<div className={classes.imageContainer}>
+					사진을 입력해주세요 : 디자인 추가예정
+				</div>
 			}
 			<input type="file" accept="image/*" onChange={handleFileChange} />
 		</div>

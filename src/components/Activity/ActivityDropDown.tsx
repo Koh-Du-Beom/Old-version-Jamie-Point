@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ActivityDropDownData from '../../stores/data/ActivityDropDown.data';
 import styled from 'styled-components';
 
+
 interface Point {
   topic: string;
   point: number;
@@ -22,7 +23,7 @@ const Selection = styled.div`
   margin: 20px 0;
 `
 
-const ActivityDropDown: React.FC = () => {
+const ActivityDropDown: React.FC<{}> = () => {
   const [selectedArea, setSelectedArea] = useState<string | null>(null);
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -75,15 +76,7 @@ const ActivityDropDown: React.FC = () => {
   return (
     <Container>
       <Wrapper>
-        <Selection>
-          <select value={selectedArea ?? ''} onChange={handleAreaChange}>
-            <option value="">영역을 선택해주세요</option>
-            {ActivityDropDownData.map((areaData, index) => (
-              <option key={index} value={areaData.area}>{areaData.area}</option>
-            ))}
-          </select>
-        </Selection>
-        
+             
         <Selection>
           {selectedArea && (
             <select value={selectedProgram ?? ''} onChange={handleProgramChange}>
