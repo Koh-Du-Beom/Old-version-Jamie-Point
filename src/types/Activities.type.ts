@@ -1,6 +1,6 @@
 interface Activities{
 	pageType : string,
-	activityImg : File,
+	activityImg : File | null,
 	program: string | null,
 	type : string | null,
 	topic : string | null, 

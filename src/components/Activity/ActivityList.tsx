@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ActivityListProps {
-	area?: string
+	area?: string;
+	activitiesData : Activities[]
 }
 
-const ActivityList:React.FC<ActivityListProps> = ({area}) => {
+const ActivityList:React.FC<ActivityListProps> = ({area, activitiesData}) => {
 	
 	const navigate = useNavigate();
-	const [activityInfos, setActivityInfos] = useState<Activities[]>([]);
+	const [activityInfos, setActivityInfos] = useState<Activities[]>(activitiesData);
 
 	const addNewActivity = () => {
 		const newActivity: Activities = {
@@ -38,10 +39,12 @@ const ActivityList:React.FC<ActivityListProps> = ({area}) => {
 				{activityInfos.map((activity, index) => (
 					<div key={index}>
 						<button onClick={() => goToActivity(index)}>
-							{area}
-							{/* 그냥 area가 아닌 pageType에서 받아온 데이터가 있어야할것임. */}
+							{activity.pageType}
+							
 							<br/>
 							{activity.program || `활동${index + 1}`}
+							<br/>
+							{activity.type || `주제${index + 1}`}
 						</button>
 					</div>
 				))}

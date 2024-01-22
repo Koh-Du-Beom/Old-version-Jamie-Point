@@ -5,9 +5,10 @@ import ActivityDropDown from "./ActivityDropDown";
 import useAutoSave from "../../hooks/useAutoSave";
 
 interface ActivityProps {
-	area?: string
+	area?: string;
 }
 
+//Activity 데이터가 area 별로 여러개 있을텐데, 이걸 index별로 어떻게 받아와볼지 고민.
 
 const Activity : React.FC<ActivityProps> = ({area}) => {
 	const [activityImg, setActivityImg] = useState<File|null>(null);
