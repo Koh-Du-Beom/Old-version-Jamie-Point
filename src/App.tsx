@@ -1,6 +1,5 @@
 /*eslint-disable*/
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from './pages/HomePage';
@@ -14,6 +13,8 @@ function App() {
 			<Route path="/" element={<HomePage/>}/>
 			<Route path='/info' element={<UserInfoPage/>}/>
 			<Route path='/activity/:area' element={<ActivityPage/>}/>
+				
+			<Route path="activity/:area/:activityId" element={<ActivityPage/>}/>
 		</Routes>
     
   );

@@ -2,7 +2,7 @@
 import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
 import { useParams } from "react-router-dom";
-import ActivityBar from "../components/Activity/ActivityBar";
+import ActivityList from "../components/Activity/ActivityList";
 
 const ActivityPage:React.FC = () => {
 	const {area} = useParams<{area?: string}>();
@@ -10,7 +10,7 @@ const ActivityPage:React.FC = () => {
 	return (
 		<MainLayout>
 			<Activity area={area}/>
-			{area && <ActivityBar area={area}/>}
+			{area && <ActivityList area={area}/>}
 		</MainLayout>
 	)
 	//페이지 추가하는 버튼 기능구현하기 + 사진 제대로 전송되는지 확인

@@ -2,11 +2,11 @@ import Activities from "../../types/Activities.type";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface ActivityBarProps {
+interface ActivityListProps {
 	area?: string
 }
 
-const ActivityBar:React.FC<ActivityBarProps> = ({area}) => {
+const ActivityList:React.FC<ActivityListProps> = ({area}) => {
 	
 	const navigate = useNavigate();
 	const [activityInfos, setActivityInfos] = useState<Activities[]>([]);
@@ -55,4 +55,4 @@ const ActivityBar:React.FC<ActivityBarProps> = ({area}) => {
 	)
 };
 
-export default ActivityBar;
+export default ActivityList;
