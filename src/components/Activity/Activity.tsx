@@ -50,7 +50,7 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 			detail : detail,
 		}
 		
-	]
+	];
 
 	useAutoSave(formData);
 
