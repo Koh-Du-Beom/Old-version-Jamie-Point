@@ -38,25 +38,34 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
   const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
 
   const handleProgramChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedProgram(event.target.value);
+    const selectedProgramValue = event.target.value;
+		setSelectedProgram(selectedProgramValue);
     setSelectedType(null);
     setSelectedTopic(null);
     setSelectedPoint(null);
+
+		onDropDownChange({
+			selectedProgram: selectedProgramValue,
+			selectedType : null,
+			selectedTopic : null,
+			selectedPoint : null,
+		})
+
   };
 
   const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedTypeValue = event.target.value;
 		setSelectedType(selectedTypeValue);
-		setSelectedTopic('');
-		setSelectedPoint(0); // 기본값 설정
+		setSelectedTopic(null);
+		setSelectedPoint(null); 
 
 		const foundType = ActivityDropDownData.find(area => area.area === selectedArea)
 			?.programs.find(program => program.program === selectedProgram)
 			?.types.find(type => type.type === selectedTypeValue);
 
-		if (foundType && foundType.points && foundType.points.length > 0) {
+		if (foundType && foundType.points && foundType.points.length < 2) {
 			setSelectedPoint(foundType.points[0].point);
-		}
+		} // points 배열에 데이터 하나만 들어있으면 점수 미리 결정해줄 수 있게.
 
 		setTimeout(() => {
 			onDropDownChange({
@@ -142,20 +151,29 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
             </select>
           )}
         </Selection> */}
-
 				<Selection>
 					{selectedType && (
-						<select value={selectedTopic ?? ''} onChange={handleTopicChange}>
-							<option value="">주제를 선택해주세요</option>
-							{ActivityDropDownData.find(area => area.area === selectedArea)
-								?.programs.find(program => program.program === selectedProgram)
-								?.types.find(type => type.type === selectedType)
-								?.points.map((point, index) => (
-									<option key={index} value={point.topic}>{point.topic}</option>
-							))}
-						</select>
+						ActivityDropDownData.find(area => area.area === selectedArea)
+							?.programs.find(program => program.program === selectedProgram)
+							?.types.find(type => type.type === selectedType)
+							?.points.length === 1 &&
+							ActivityDropDownData.find(area => area.area === selectedArea)
+							?.programs.find(program => program.program === selectedProgram)
+							?.types.find(type => type.type === selectedType)
+							?.points[0].topic === '' 
+							? null
+							: <select value={selectedTopic ?? ''} onChange={handleTopicChange}>
+									<option value="">주제를 선택해주세요</option>
+									{ActivityDropDownData.find(area => area.area === selectedArea)
+										?.programs.find(program => program.program === selectedProgram)
+										?.types.find(type => type.type === selectedType)
+										?.points.map((point, index) => (
+											<option key={index} value={point.topic}>{point.topic}</option>
+									))}
+								</select>
 					)}
 				</Selection>
+				
       </Wrapper>
     </Container>
   );
