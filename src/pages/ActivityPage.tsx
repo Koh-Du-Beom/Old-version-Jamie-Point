@@ -2,8 +2,8 @@
 import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
 import { useParams } from "react-router-dom";
-import AddActivityButton from "../components/AddActivityButton";
 import { useState } from "react";
+import ActivityAddBar from "../components/ActivityAddBar";
 
 
 const ActivityPage:React.FC = () => {
