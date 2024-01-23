@@ -14,7 +14,7 @@ const SWCorePage:React.FC = () => {
 	
 	return (
 		<MainLayout>
-			<Activity area={area}/>
+			<Activity area={area} activitiesData={activitiesData}/>
 			<ActivityList area={area} activitiesData={activitiesData}/>
 		</MainLayout>
 	)

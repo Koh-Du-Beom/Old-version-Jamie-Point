@@ -23,7 +23,7 @@ const ActivityMock : ActivityType[] = [
 		date : '2023/12/11',
 		detail : '대회 대상'
 	},
-
+	
 ];
 
 export default ActivityMock;
