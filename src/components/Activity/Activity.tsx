@@ -3,13 +3,19 @@ import classes from "../../styles/FormStyles.module.css";
 import ImageControler from "../ImageControler";
 import ActivityDropDown from "./ActivityDropDown";
 import useAutoSave from "../../hooks/useAutoSave";
-
+import ActivityType from "../../types/ActivityType.type";
+import { useParams } from "react-router-dom";
 interface ActivityProps {
-	area?: string
+	area?: string;
+	activitiesData : ActivityType[];
 }
 
+//Activity 데이터가 area 별로 여러개 있을텐데, 이걸 index별로 어떻게 받아와볼지 고민.
 
-const Activity : React.FC<ActivityProps> = ({area}) => {
+const Activity : React.FC<ActivityProps> = ({area, activitiesData}) => {
+	const dataIndex : string | undefined = useParams().activityId;
+	
+
 	const [activityImg, setActivityImg] = useState<File|null>(null);
 	const [program, setProgram] = useState<string | null>("");
 	const [type, setType] = useState<string | null>("");
@@ -19,6 +25,7 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 	const [agency, setAgency] = useState<string>("");
 	const [date, setDate] = useState<string>("");
 	const [detail, setDetail] = useState<string>("");
+	
 	
 
 	const handleActivityImg = (file : File | null) => {
@@ -37,7 +44,7 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 		setDetail(event.target.value);
 	}
 
-	const formData = [
+	const formData : ActivityType = 
 		{
 			pageType : area,
 			activityImg : activityImg,
@@ -48,11 +55,27 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 			agency : agency,
 			date : date,
 			detail : detail,
-		}
+	}
 		
-	];
 
 	useAutoSave(formData);
+
+	useEffect(()=>{
+		if(dataIndex){
+			const index = Number(dataIndex);
+			const myData = activitiesData[index]; // 인덱스에 맞게 추출한 데이터
+			console.log(index, myData);
+			
+			setActivityImg(myData.activityImg);
+			setProgram(myData.program);
+			setType(myData.type);
+			setTopic(myData.topic);
+			setPoint(myData.point);
+			setAgency(myData.agency);
+			setDate(myData.date);
+			setDetail(myData.detail);
+		}
+	}, [dataIndex])
 
 	useEffect(()=> {
 		setActivityImg(null);
@@ -78,6 +101,7 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 		setPoint(selectedPoint);
 		
 	}
+
 
 	return (
 		<div className={classes.container}>

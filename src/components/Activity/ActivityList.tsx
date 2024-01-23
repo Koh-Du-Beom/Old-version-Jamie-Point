@@ -1,18 +1,19 @@
-import Activities from "../../types/Activities.type";
+import ActivityType from "../../types/ActivityType.type";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-interface ActivityBarProps {
-	area?: string
+interface ActivityListProps {
+	area?: string;
+	activitiesData : ActivityType[]
 }
 
-const ActivityBar:React.FC<ActivityBarProps> = ({area}) => {
+const ActivityList:React.FC<ActivityListProps> = ({area, activitiesData}) => {
 	
 	const navigate = useNavigate();
-	const [activityInfos, setActivityInfos] = useState<Activities[]>([]);
+	const [activityInfos, setActivityInfos] = useState<ActivityType[]>(activitiesData);
 
 	const addNewActivity = () => {
-		const newActivity: Activities = {
+		const newActivity: ActivityType = {
 			pageType : area || 'undefined', //현재 페이지에서 가지고 있는 area정보를 렌더링하게 수정
 			activityImg : new File([], ''),
 			program : null,
@@ -38,10 +39,12 @@ const ActivityBar:React.FC<ActivityBarProps> = ({area}) => {
 				{activityInfos.map((activity, index) => (
 					<div key={index}>
 						<button onClick={() => goToActivity(index)}>
-							{area}
-							{/* 그냥 area가 아닌 pageType에서 받아온 데이터가 있어야할것임. */}
+							{activity.pageType}
+							
 							<br/>
 							{activity.program || `활동${index + 1}`}
+							<br/>
+							{activity.type || `주제${index + 1}`}
 						</button>
 					</div>
 				))}
@@ -55,4 +58,4 @@ const ActivityBar:React.FC<ActivityBarProps> = ({area}) => {
 	)
 };
 
-export default ActivityBar;
+export default ActivityList;
