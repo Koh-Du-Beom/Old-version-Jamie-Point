@@ -1,19 +1,19 @@
-import Activities from "../../types/Activities.type";
+import ActivityType from "../../types/ActivityType.type";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface ActivityListProps {
 	area?: string;
-	activitiesData : Activities[]
+	activitiesData : ActivityType[]
 }
 
 const ActivityList:React.FC<ActivityListProps> = ({area, activitiesData}) => {
 	
 	const navigate = useNavigate();
-	const [activityInfos, setActivityInfos] = useState<Activities[]>(activitiesData);
+	const [activityInfos, setActivityInfos] = useState<ActivityType[]>(activitiesData);
 
 	const addNewActivity = () => {
-		const newActivity: Activities = {
+		const newActivity: ActivityType = {
 			pageType : area || 'undefined', //현재 페이지에서 가지고 있는 area정보를 렌더링하게 수정
 			activityImg : new File([], ''),
 			program : null,

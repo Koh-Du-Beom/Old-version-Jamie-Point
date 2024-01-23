@@ -1,6 +1,6 @@
-import Activities from "../types/Activities.type";
+import ActivityType from "../types/ActivityType.type";
 
-const ActivityMock : Activities[] = [
+const ActivityMock : ActivityType[] = [
 	{
 		pageType : 'SW핵심역량',
 		activityImg : null,

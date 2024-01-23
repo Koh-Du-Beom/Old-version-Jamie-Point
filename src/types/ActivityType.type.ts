@@ -1,5 +1,5 @@
-interface Activities{
-	pageType : string,
+interface ActivityType{
+	pageType : string | undefined,
 	activityImg : File | null,
 	program: string | null,
 	type : string | null,
@@ -10,4 +10,4 @@ interface Activities{
 	detail : string,
 }
 
-export default Activities;
+export default ActivityType;

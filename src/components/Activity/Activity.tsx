@@ -3,7 +3,7 @@ import classes from "../../styles/FormStyles.module.css";
 import ImageControler from "../ImageControler";
 import ActivityDropDown from "./ActivityDropDown";
 import useAutoSave from "../../hooks/useAutoSave";
-
+import ActivityType from "../../types/ActivityType.type";
 interface ActivityProps {
 	area?: string;
 }
@@ -38,7 +38,7 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 		setDetail(event.target.value);
 	}
 
-	const formData = [
+	const formData : ActivityType = 
 		{
 			pageType : area,
 			activityImg : activityImg,
@@ -49,9 +49,8 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 			agency : agency,
 			date : date,
 			detail : detail,
-		}
+	}
 		
-	];
 
 	useAutoSave(formData);
 
@@ -79,6 +78,7 @@ const Activity : React.FC<ActivityProps> = ({area}) => {
 		setPoint(selectedPoint);
 		
 	}
+
 
 	return (
 		<div className={classes.container}>
