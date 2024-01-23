@@ -58,7 +58,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData}) => {
 	}
 		
 
-	useAutoSave(formData);
+	// useAutoSave(formData);
 
 	useEffect(()=>{
 		if(dataIndex){
