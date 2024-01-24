@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
-import ActivityList from "../components/Activity/ActivityList";
+
 import axios from "axios";
 import ActivityMock from "../mocks/Activity.mock";
 import ActivityType from "../types/ActivityType.type";
@@ -12,8 +12,8 @@ const SWConvergencePage:React.FC = () => {
 	
 	return (
 		<MainLayout>
-			<Activity area={area} activitiesData={activitiesData}/>
-			<ActivityList area={area} activitiesData={activitiesData}/>
+			{/* <Activity area={area} activitiesData={activitiesData}/> */}
+			아무데이터
 		</MainLayout>
 	)
 };

@@ -2,7 +2,6 @@
 import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
 import { useParams } from "react-router-dom";
-import ActivityList from "../components/Activity/ActivityList";
 import axios from "axios";
 import ActivityMock from "../mocks/Activity.mock";
 import ActivityType from "../types/ActivityType.type";
