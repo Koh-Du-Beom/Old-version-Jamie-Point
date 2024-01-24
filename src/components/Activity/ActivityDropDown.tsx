@@ -102,11 +102,11 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 	// }, [selectedProgram, selectedType, selectedTopic, selectedPoint])
 
 	useEffect(()=>{
-		setSelectedProgram(null);
-		setSelectedType(null);
-		setSelectedTopic(null);
-		setSelectedPoint(null);
-	}, [selectedArea]) // 페이지 옮기고 option 초기화하기
+		setSelectedProgram(dropDownData.program);
+		setSelectedType(dropDownData.type);
+		setSelectedTopic(dropDownData.topic);
+		setSelectedPoint(dropDownData.point);
+	}, [])
 
   return (
     <Container>
