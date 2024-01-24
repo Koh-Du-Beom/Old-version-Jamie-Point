@@ -3,14 +3,18 @@ import React, { useEffect, useState } from 'react';
 import ActivityDropDownData from '../../stores/data/ActivityDropDown.data';
 import styled from 'styled-components';
 
+interface SelectedData {
+	program : string | null;
+	type : string | null;
+	topic : string | null;
+	point : number | null;
+
+}
+
 interface ActivityDropDownProps {
 	selectedArea?: string;
-	onDropDownChange : (selectedData : {
-		selectedProgram: string | null;
-		selectedType : string | null;
-		selectedTopic : string | null;
-		selectedPoint : number | null;
-	}) => void;
+	onDropDownChange : (selectedData : SelectedData) => void;
+	dropDownData : SelectedData;
 }
 
 interface Point {
@@ -31,7 +35,7 @@ const Selection = styled.div`
   margin: 20px 0;
 `
 
-const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDropDownChange}) => {
+const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDropDownChange, dropDownData}) => {
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
@@ -39,66 +43,59 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 
   const handleProgramChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedProgramValue = event.target.value;
-		setSelectedProgram(selectedProgramValue);
+    setSelectedProgram(selectedProgramValue);
     setSelectedType(null);
     setSelectedTopic(null);
     setSelectedPoint(null);
 
-		onDropDownChange({
-			selectedProgram: selectedProgramValue,
-			selectedType : null,
-			selectedTopic : null,
-			selectedPoint : null,
-		})
+    onDropDownChange({
+        program: selectedProgramValue,
+        type: null,
+        topic: null,
+        point: null,
+    });
+	};
 
-  };
-
-  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+	const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedTypeValue = event.target.value;
 		setSelectedType(selectedTypeValue);
 		setSelectedTopic(null);
 		setSelectedPoint(null); 
 
 		const foundType = ActivityDropDownData.find(area => area.area === selectedArea)
-			?.programs.find(program => program.program === selectedProgram)
-			?.types.find(type => type.type === selectedTypeValue);
+		?.programs.find(program => program.program === selectedProgram)
+		?.types.find(type => type.type === selectedTypeValue);
 
-		if (foundType && foundType.points && foundType.points.length < 2) {
+		if (foundType && foundType.points && foundType.points.length === 1) {
 			setSelectedPoint(foundType.points[0].point);
-		} // points 배열에 데이터 하나만 들어있으면 점수 미리 결정해줄 수 있게.
+		}
 
-		setTimeout(() => {
-			onDropDownChange({
-				selectedProgram,
-				selectedType: selectedTypeValue, // 여기서 비동기프로그래밍 정확히 느낌
-				selectedTopic: '',
-				selectedPoint: foundType ? foundType.points[0].point : 0
-			});
-		}, 0);
+		onDropDownChange({
+			program: selectedProgram,
+			type: selectedTypeValue,
+			topic: null,
+			point: foundType && foundType.points.length === 1 ? foundType.points[0].point : null
+		});
 	};
-	
 
-  const handleTopicChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedTopicValue = event.target.value;
-    setSelectedTopic(selectedTopicValue);
+	const handleTopicChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const selectedTopicValue = event.target.value;
+		setSelectedTopic(selectedTopicValue);
 
-    const foundPoint = ActivityDropDownData.find(area => area.area === selectedArea)
-      ?.programs.find(program => program.program === selectedProgram)
-      ?.types.find(type => type.type === selectedType)
-      ?.points.find(point => point.topic === selectedTopicValue);
-    if (foundPoint) {
-      setSelectedPoint(foundPoint.point);
-    }
+		const foundPoint = ActivityDropDownData.find(area => area.area === selectedArea)
+		?.programs.find(program => program.program === selectedProgram)
+		?.types.find(type => type.type === selectedType)
+		?.points.find(point => point.topic === selectedTopicValue);
 
-		setTimeout(()=>{
-			onDropDownChange({
-				selectedProgram,
-				selectedType,
-				selectedTopic : selectedTopic,
-				selectedPoint: foundPoint ? foundPoint.point : null,
-			});
-		}, 0); 
-  };
+		setSelectedPoint(foundPoint ? foundPoint.point : null);
+		onDropDownChange({
+			program: selectedProgram,
+			type: selectedType,
+			topic: selectedTopicValue,
+			point: foundPoint ? foundPoint.point : null,
+		});
+	};
+
 
 	// useEffect(()=>{
 	// 	console.log(selectedProgram, selectedType,`토픽 : ${selectedTopic} ${typeof selectedTopic}`, selectedPoint);
@@ -138,19 +135,6 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
           )}
         </Selection>
       
-        {/* <Selection>
-          {selectedType && selectedTopic !== '' && (
-            <select value={selectedTopic ?? ''} onChange={handleTopicChange}>
-              <option value="">주제를 선택해주세요</option>
-              {ActivityDropDownData.find(area => area.area === selectedArea)
-                ?.programs.find(program => program.program === selectedProgram)
-                ?.types.find(type => type.type === selectedType)
-                ?.points.map((point, index) => (
-                  <option key={index} value={point.topic}>{point.topic}</option>
-              ))}
-            </select>
-          )}
-        </Selection> */}
 				<Selection>
 					{selectedType && (
 						ActivityDropDownData.find(area => area.area === selectedArea)

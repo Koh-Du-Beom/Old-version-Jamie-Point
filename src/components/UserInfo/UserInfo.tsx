@@ -97,6 +97,8 @@ const UserInfo : React.FC = () => {
 	
 	// useAutoSave(formData);
 
+
+
 	return (
 		<div className={classes.container}>
 			<div className={classes.big_title}>내 정보</div>
