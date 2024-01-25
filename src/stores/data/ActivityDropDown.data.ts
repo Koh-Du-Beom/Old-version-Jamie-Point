@@ -412,7 +412,7 @@ const ActivityDropDownData = [
         program : '연구활동',
         types : [
           {
-            type : '논문 게재 - 국내학괴/국외학외/국내저널/해외저널/SCIE 저널(SW 중심대학 사사표기시)',
+            type : '논문 게재 - 국내, 국외학회/국내, 해외, SCIE 저널(SW 중심대학 사사표기시)',
             points : [
               {
                 topic : '대상',
