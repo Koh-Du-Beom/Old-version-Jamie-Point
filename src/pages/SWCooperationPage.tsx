@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import SWCooperationActivityMock from "../mocks/SWCooperationActivity.mock";
 import ActivityType from "../types/ActivityType.type";
+import classes from '../styles/page/PageStyles.module.css';
 
 const SWCooperationPage : React.FC = () =>{
 	const [activitiesData, setActivitiesData] = useState<ActivityType[]>(SWCooperationActivityMock);
@@ -33,7 +34,9 @@ const SWCooperationPage : React.FC = () =>{
 
 	return (
 		<MainLayout>
-			<button onClick={handlePlusButton}>+</button>
+			<div className={classes.button_container}>
+				<button className={classes.button} onClick={handlePlusButton}>+</button>
+			</div>
 			{
 				activitiesData.map((item, index) => (
 					<Activity 

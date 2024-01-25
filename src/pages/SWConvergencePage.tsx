@@ -5,6 +5,7 @@ import SWConvergenceActivityMock from "../mocks/SWConvergenceActivity.mock";
 import axios from "axios";
 import { useState } from "react";
 import ActivityType from "../types/ActivityType.type";
+import classes from '../styles/page/PageStyles.module.css';
 
 const SWConvergencePage:React.FC = () => {
 	const [activitiesData, setActivitiesData] = useState<ActivityType[]>(SWConvergenceActivityMock);
@@ -33,7 +34,9 @@ const SWConvergencePage:React.FC = () => {
 
 	return (
 		<MainLayout>
-			<button onClick={handlePlusButton}>+</button>
+			<div className={classes.button_container}>
+				<button className={classes.button} onClick={handlePlusButton}>+</button>
+			</div>
 			{activitiesData.map((item, index) => (
 				<Activity 
 					key={index} 

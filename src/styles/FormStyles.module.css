@@ -33,4 +33,21 @@
 	border: none;
 }
 
+.button_wrapper{
+	margin: 0 10px 10px 0;
+	display: flex;
+	justify-content: space-between;
+}
 
+/*X 이쁘게 그리는 방법*/
+.close_button{
+	display: inline-block;
+	border-radius: 50%;
+	border: none;
+}
+
+.close_button:after{
+	display: inline-block;
+	content : "\00d7";
+	font-size: 15px;
+}

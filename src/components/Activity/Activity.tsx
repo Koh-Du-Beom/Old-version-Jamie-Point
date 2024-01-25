@@ -84,10 +84,10 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, ind
 	return (
 		<div className={classes.container}>
 			
-			<div className={classes.wrapper} >
+			<div className={`${classes.button_wrapper}`} >
 				<div className={classes.big_title}>{area}</div>
 				<div>
-					<button onClick={()=>onRemove(index)}>-</button>
+					<button className={classes.close_button} onClick={()=>onRemove(index)}></button>
 				</div>
 			</div>
 			

@@ -3,6 +3,8 @@
   height: 50px; 
   width: 100%;
   position: fixed;
+	margin-bottom: 20px; 
+	/* fixed 속성 사용하는 요소들이 흐름에서 벗어남. */
   top: 0; 
   left: 0; 
   z-index: 1000; 
