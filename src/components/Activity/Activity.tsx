@@ -5,9 +5,12 @@ import ImageControler from "../ImageControler";
 import ActivityDropDown from "./ActivityDropDown";
 import useAutoSave from "../../hooks/useAutoSave";
 import ActivityType from "../../types/ActivityType.type";
+
 interface ActivityProps {
 	area?: string;
 	activitiesData : ActivityType;
+	onRemove : (index : number) => void;
+	index : number;
 }
 
 interface ActivityDropDownProps {
@@ -19,7 +22,7 @@ interface ActivityDropDownProps {
 
 //Activity 데이터가 area 별로 여러개 있을텐데, 이걸 index별로 어떻게 받아와볼지 고민.
 
-const Activity : React.FC<ActivityProps> = ({area, activitiesData}) => {
+const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, index}) => {
 	const [activityImg, setActivityImg] = useState<File|null>(null);
 	const [program, setProgram] = useState<string | null>("");
 	const [type, setType] = useState<string | null>("");
@@ -66,7 +69,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData}) => {
 		setAgency(activitiesData.agency);
 		setDate(activitiesData.date);
 		setDetail(activitiesData.detail);	
-	}, []); // 페이지가 처음 렌더링 될때 실행
+	}, [activitiesData]); // 페이지가 처음 렌더링 될때 실행
 
 	const handleDropDownChange = (selectedData : ActivityDropDownProps) => {
 		const {program, type, topic, point} = selectedData;
@@ -80,13 +83,11 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData}) => {
 
 	return (
 		<div className={classes.container}>
-			<div className={`${classes.wrapper} ${classes.double}`}>
-				<div className={classes.wrapper}>
-					<div className={classes.big_title}>{area}</div>
-				</div>
-				
-				<div className={classes.wrapper}>
-					<button>X</button>
+			
+			<div className={classes.wrapper} >
+				<div className={classes.big_title}>{area}</div>
+				<div>
+					<button onClick={()=>onRemove(index)}>-</button>
 				</div>
 			</div>
 			
