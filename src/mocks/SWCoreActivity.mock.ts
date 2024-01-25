@@ -1,6 +1,6 @@
 import ActivityType from "../types/ActivityType.type";
 
-const ActivityMock : ActivityType[] = [
+const SWCoreActivityMock : ActivityType[] = [
 	{
 		pageType : 'SW핵심역량',
 		activityImg : null,
@@ -26,4 +26,4 @@ const ActivityMock : ActivityType[] = [
 	
 ];
 
-export default ActivityMock;
+export default SWCoreActivityMock;
