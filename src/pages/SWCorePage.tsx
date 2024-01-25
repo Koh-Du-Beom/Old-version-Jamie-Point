@@ -4,7 +4,7 @@ import Activity from "../components/Activity/Activity";
 import SWCoreActivityMock from "../mocks/SWCoreActivity.mock";
 import ActivityType from "../types/ActivityType.type";
 import { useState } from "react";
-
+import classes from '../styles/page/PageStyles.module.css';
 
 const SWCorePage:React.FC = () => {
 	
@@ -32,12 +32,13 @@ const SWCorePage:React.FC = () => {
 		const newActivitiesData = activitiesData.filter((_, idx) => idx !== index);
 		setActivitiesData(newActivitiesData);
 	}
-	
-
 
 	return (
 		<MainLayout>	
-			<button onClick={handlePlusButton}>+</button>
+			<div className={classes.button_container}>
+				<button className={classes.button} onClick={handlePlusButton}>+</button>
+			</div>
+			
 			{activitiesData.map((item, index) => (
 				<Activity 
 				key={index} 

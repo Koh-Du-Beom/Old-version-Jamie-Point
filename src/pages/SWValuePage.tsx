@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import SWValueActivityMock from "../mocks/SWValueActivity.mock";
 import ActivityType from "../types/ActivityType.type";
+import classes from '../styles/page/PageStyles.module.css';
 
 const SWValuePage:React.FC = () => {
 	const [activitiesData, setActivitiesData] = useState<ActivityType[]>(SWValueActivityMock);
@@ -32,7 +33,9 @@ const SWValuePage:React.FC = () => {
 	
 	return (
 		<MainLayout>
-			<button onClick={handlePlusButton}>+</button>
+			<div className={classes.button_container}>
+				<button className={classes.button} onClick={handlePlusButton}>+</button>
+			</div>
 			{activitiesData.map((item, index) => (
 				<Activity 
 					key={index} 
