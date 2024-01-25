@@ -1,7 +1,7 @@
 import React from "react";
 import classes from '../styles/components/RightNavBar.module.css';
 import { useNavigate } from "react-router-dom";
-import rightNavBarData from "../stores/data/RightNavBarData/RightNavBarData.data";
+import rightNavBarData from "../stores/data/RightNavBarData.data";
 
 const RightNavBar: React.FC = () => {
 	const navigate = useNavigate();

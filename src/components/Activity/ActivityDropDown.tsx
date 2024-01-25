@@ -102,11 +102,12 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 	// }, [selectedProgram, selectedType, selectedTopic, selectedPoint])
 
 	useEffect(()=>{
+		
 		setSelectedProgram(dropDownData.program);
 		setSelectedType(dropDownData.type);
 		setSelectedTopic(dropDownData.topic);
 		setSelectedPoint(dropDownData.point);
-	}, [])
+	}, [dropDownData])
 
   return (
     <Container>
