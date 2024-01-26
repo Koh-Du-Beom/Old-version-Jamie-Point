@@ -3,7 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
 import SWConvergenceActivityMock from "../mocks/SWConvergenceActivity.mock";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ActivityType from "../types/ActivityType.type";
 import classes from '../styles/page/PageStyles.module.css';
 
@@ -31,20 +31,32 @@ const SWConvergencePage:React.FC = () => {
 		setActivitiesData(newActivitiesData);
 	}
 	
+	const handleActivityChange = (index : number, updatedActivity : ActivityType) => {
+		const updatedActivitesData = activitiesData.map((item, idx) => 
+			idx === index ? updatedActivity : item
+		);
+		setActivitiesData(updatedActivitesData);
+	}
+
+	useEffect(()=> {
+		console.log(activitiesData);
+		
+	}, [activitiesData])
 
 	return (
-		<MainLayout>
+		<MainLayout>	
 			<div className={classes.button_container}>
 				<button className={classes.button} onClick={handlePlusButton}>+</button>
 			</div>
+			
 			{activitiesData.map((item, index) => (
 				<Activity 
-					key={index} 
-					area={area} 
-					activitiesData={item}
-					onRemove={handleRemoveActivity}
-					index={index}
-				/>
+				key={index} 
+				area={area} 
+				activitiesData={item}
+				onRemove={handleRemoveActivity}
+				onActivityChange={handleActivityChange}
+				index={index}/>
 			))}
 		</MainLayout>
 	)

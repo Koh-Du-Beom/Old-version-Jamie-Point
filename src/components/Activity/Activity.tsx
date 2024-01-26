@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import classes from "../../styles/FormStyles.module.css";
 import ImageControler from "../ImageControler";
 import ActivityDropDown from "./ActivityDropDown";
-import useAutoSave from "../../hooks/useAutoSave";
 import ActivityType from "../../types/ActivityType.type";
 
 interface ActivityProps {
 	area?: string;
 	activitiesData : ActivityType;
 	onRemove : (index : number) => void;
+	onActivityChange : (index : number, updatedActivity : ActivityType) => void;
 	index : number;
 }
 
@@ -22,7 +22,7 @@ interface ActivityDropDownProps {
 
 //Activity 데이터가 area 별로 여러개 있을텐데, 이걸 index별로 어떻게 받아와볼지 고민.
 
-const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, index}) => {
+const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , index}) => {
 	const [activityImg, setActivityImg] = useState<File|null>(null);
 	const [program, setProgram] = useState<string | null>("");
 	const [type, setType] = useState<string | null>("");
@@ -40,24 +40,53 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, ind
 		point : point,
 	}
 
-	const handleActivityImg = (file : File | null) => {
-		setActivityImg(file);
+	const handleActivityImg = (newImage : File | null) => {
+		setActivityImg(newImage);
+
+		const updatedActivity: ActivityType = {
+			...activitiesData,
+			activityImg : newImage,
+		};
+
+		onActivityChange(index, updatedActivity);
 	}
 
 	const handleAgency = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setAgency(event.target.value);
+		const newAgency = event.target.value;
+		setAgency(newAgency);
+
+		const updatedActivity : ActivityType = {
+			...activitiesData,
+			agency : newAgency,
+		};
+
+		onActivityChange(index, updatedActivity);
 	}
 
 	const handleDate = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setDate(event.target.value);
+		const newDate = event.target.value;
+		setDate(newDate);
+
+		const updatedActivity : ActivityType = {
+			...activitiesData,
+			date : newDate,
+		};
+
+		onActivityChange(index, updatedActivity);
 	}
 
 	const handleDetail = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setDetail(event.target.value);
+		const newDetail = event.target.value;
+		setDetail(newDetail);
+
+		const updatedActivity : ActivityType = {
+			...activitiesData,
+			detail : newDetail,
+		};
+
+		onActivityChange(index, updatedActivity);
 	}
 
-
-	// useAutoSave(formData);
 
 	useEffect(() => {		
 		setActivityImg(activitiesData.activityImg);
@@ -78,8 +107,16 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, ind
 		setTopic(topic);
 		setPoint(point);
 		
-	}
+		const updatedActivity: ActivityType = {
+			...activitiesData,
+			program: program,
+			type: type,
+			topic: topic,
+			point: point,
+		};
 
+		onActivityChange(index, updatedActivity);
+	}
 
 	return (
 		<div className={classes.container}>
@@ -116,7 +153,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, ind
 						<input 
 							className={classes.input}
 							type='text'
-							onChange={handleAgency}
+							onChange={(e) =>handleAgency(e)}
 							value={agency}
 						/>
 					</div>
@@ -128,7 +165,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, ind
 						<input
 							className={classes.input} 
 							type='text'
-							onChange={handleDate}
+							onChange={(e) => handleDate(e)}
 							value={date}
 						/>
 					</div>
@@ -140,7 +177,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, ind
 				<input 
 					className={classes.input}
 					type='text'
-					onChange={handleDetail}
+					onChange={(e) => handleDetail(e)}
 					value={detail}
 				/>
 			</div>

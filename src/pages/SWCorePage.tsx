@@ -3,7 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
 import SWCoreActivityMock from "../mocks/SWCoreActivity.mock";
 import ActivityType from "../types/ActivityType.type";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classes from '../styles/page/PageStyles.module.css';
 
 const SWCorePage:React.FC = () => {
@@ -33,6 +33,18 @@ const SWCorePage:React.FC = () => {
 		setActivitiesData(newActivitiesData);
 	}
 
+	const handleActivityChange = (index : number, updatedActivity : ActivityType) => {
+		const updatedActivitesData = activitiesData.map((item, idx) => 
+			idx === index ? updatedActivity : item
+		);
+		setActivitiesData(updatedActivitesData);
+	}
+
+	useEffect(()=> {
+		console.log(activitiesData);
+		
+	}, [activitiesData])
+
 	return (
 		<MainLayout>	
 			<div className={classes.button_container}>
@@ -45,6 +57,7 @@ const SWCorePage:React.FC = () => {
 				area={area} 
 				activitiesData={item}
 				onRemove={handleRemoveActivity}
+				onActivityChange={handleActivityChange}
 				index={index}/>
 			))}
 		</MainLayout>
