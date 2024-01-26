@@ -1,7 +1,7 @@
 /*eslint-disable*/
 import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import SWValueActivityMock from "../mocks/SWValueActivity.mock";
 import ActivityType from "../types/ActivityType.type";
@@ -31,18 +31,33 @@ const SWValuePage:React.FC = () => {
 		setActivitiesData(newActivitiesData);
 	}
 	
+
+	const handleActivityChange = (index : number, updatedActivity : ActivityType) => {
+		const updatedActivitesData = activitiesData.map((item, idx) => 
+			idx === index ? updatedActivity : item
+		);
+		setActivitiesData(updatedActivitesData);
+	}
+
+	useEffect(()=> {
+		console.log(activitiesData);
+		
+	}, [activitiesData])
+
 	return (
-		<MainLayout>
+		<MainLayout>	
 			<div className={classes.button_container}>
 				<button className={classes.button} onClick={handlePlusButton}>+</button>
 			</div>
+			
 			{activitiesData.map((item, index) => (
 				<Activity 
-					key={index} 
-					area={area} 
-					activitiesData={item}
-					onRemove={handleRemoveActivity}
-					index={index}/>
+				key={index} 
+				area={area} 
+				activitiesData={item}
+				onRemove={handleRemoveActivity}
+				onActivityChange={handleActivityChange}
+				index={index}/>
 			))}
 		</MainLayout>
 	)
