@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import classes from '../../styles/FormStyles.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
@@ -94,9 +95,6 @@ const UserInfo : React.FC = () => {
 			idCardImg : idCardImg,
 			signImg : signImg,
 		}
-	
-	// useAutoSave(formData);
-
 
 
 	return (
@@ -181,7 +179,7 @@ const UserInfo : React.FC = () => {
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>통장사본</div>
-					<ImageControler onImageChange={handlebankBookImg}/>
+					<ImageControler onImageChange={handlebankBookImg} data={bankBookImg}/>
 				</div>
 			</div>
 			<div className={`${classes.wrapper} ${classes.double}`}>
@@ -211,14 +209,14 @@ const UserInfo : React.FC = () => {
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>신분증사본</div>
-					<ImageControler onImageChange={handleIdCardImg}/>
+					<ImageControler onImageChange={handleIdCardImg} data={idCardImg}/>
 				</div>
 			</div>
 
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>사진 사진</div>
-					<ImageControler onImageChange={handleSignImg}/>
+					<ImageControler onImageChange={handleSignImg} data={signImg}/>
 				</div>
 			</div>
 			

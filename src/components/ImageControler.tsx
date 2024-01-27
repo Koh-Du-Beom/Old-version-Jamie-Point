@@ -1,10 +1,13 @@
+/*eslint-disable*/
 import classes from '../styles/components/ImageControler.module.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+
 interface ImageControlerProps {
 	onImageChange : (file : File | null) => void;
+	data : File | null;
 }
 
-const ImageControler : React.FC<ImageControlerProps> = ({onImageChange}) => {
+const ImageControler : React.FC<ImageControlerProps> = ({onImageChange, data}) => {
 
 	const [imgURL, setImgURL] = useState<string | null>(null);
 	const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,6 +31,15 @@ const ImageControler : React.FC<ImageControlerProps> = ({onImageChange}) => {
 	const handleCloseButtonClick = () => {
 		setImgURL(null);
 	}
+
+	useEffect(() => {
+		if (data) {
+			const fileUrl = URL.createObjectURL(data);
+			setImgURL(fileUrl);
+		} else {
+			setImgURL(null);
+		}
+	}, [data]);
 
 	return (
 		<div className={`${classes.imageContainer} ${imgURL ? classes.solidBorder : null}`} onClick={handleImageContainerClick}>

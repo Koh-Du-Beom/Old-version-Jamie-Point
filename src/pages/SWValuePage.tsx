@@ -8,8 +8,20 @@ import ActivityType from "../types/ActivityType.type";
 import classes from '../styles/page/PageStyles.module.css';
 
 const SWValuePage:React.FC = () => {
-	const [activitiesData, setActivitiesData] = useState<ActivityType[]>(SWValueActivityMock);
 	const area:string = 'SW가치확산역량';
+	const defaultActivity : ActivityType = {
+		pageType : area,
+		activityImg : null,
+		program: null,
+		type : null,
+		topic : null, 
+		point : null,
+		agency : "",
+		date : "",
+		detail : "",
+	}
+	const [activitiesData, setActivitiesData] = useState<ActivityType[]>([defaultActivity]);
+	
 
 	const handlePlusButton = () => {
 		const newActivity : ActivityType= {
@@ -24,6 +36,36 @@ const SWValuePage:React.FC = () => {
 			detail : "",
 		}
 		setActivitiesData([newActivity, ...activitiesData]);
+	}
+
+	const handleSaveButton = async() => {
+		try{
+			const formData = new FormData();
+			activitiesData.forEach((activity, index) => {
+				formData.append(`activities[${index}][pageType]`, activity.pageType || '');
+				if (activity.activityImg && activity.activityImg instanceof File) {
+					formData.append(`activities[${index}][activityImg]`, activity.activityImg);
+				}
+				formData.append(`activities[${index}][program]`, activity.program || '');
+				formData.append(`activities[${index}][type]`, activity.type || '');
+				formData.append(`activities[${index}][topic]`, activity.topic || '');
+				formData.append(`activities[${index}][point]`, activity.point ? activity.point.toString() : '');
+				formData.append(`activities[${index}][agency]`, activity.agency);
+				formData.append(`activities[${index}][date]`, activity.date);
+				formData.append(`activities[${index}][detail]`, activity.detail);
+			});
+
+			const response = await axios.post('http://localhost:8080/zs', formData, {
+				headers : {
+					'Content-Type' : 'multipart/form-data'
+				}
+			});
+			console.log(response);
+			
+		}catch(error){
+			console.error("Error : ", error);
+			
+		}
 	}
 
 	const handleRemoveActivity = (index : number) => {
@@ -48,6 +90,7 @@ const SWValuePage:React.FC = () => {
 		<MainLayout>	
 			<div className={classes.button_container}>
 				<button className={classes.button} onClick={handlePlusButton}>+</button>
+				<button className={classes.button} onClick={handleSaveButton}>저장</button>
 			</div>
 			
 			{activitiesData.map((item, index) => (

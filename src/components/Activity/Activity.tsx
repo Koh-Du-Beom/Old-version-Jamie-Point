@@ -132,7 +132,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			
 			<div className={classes.wrapper}>
 				<div className={classes.big_title}>사진 입력</div>
-				<ImageControler onImageChange={handleActivityImg}/>
+				<ImageControler onImageChange={handleActivityImg} data={activitiesData.activityImg}/>
 			</div>
 
 			<div className={classes.wrapper}>
