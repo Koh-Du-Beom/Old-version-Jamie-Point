@@ -43,6 +43,7 @@ const SWConvergencePage:React.FC = () => {
 		
 	}, [activitiesData])
 
+
 	return (
 		<MainLayout>	
 			<div className={classes.button_container}>
