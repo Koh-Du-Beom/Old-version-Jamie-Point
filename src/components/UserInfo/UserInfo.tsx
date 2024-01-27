@@ -20,20 +20,39 @@ const UserInfo : React.FC = () => {
   const [signImg, setSignImg] = useState<File|null>(null); // 사인사진
 
 	const handleSaveButton = async () => {
-		const body = JSON.stringify(formData);
-		console.log(body);
-		
-    try {
-      const response = await axios.post('http://localhost:8080/zs', formData);
-      if (response.status === 200) {
-        alert('정보가 성공적으로 저장되었습니다.');
-      } else {
-        alert('정보 저장에 실패했습니다. 서버 응답: ' + response.status);
-      }
-    } catch (error) {
-      console.error('저장 중 오류 발생:', error);
-      alert('정보 저장 중 오류가 발생했습니다.');
-    }
+		try{
+			const formData = new FormData();
+			formData.append('name', name);
+			formData.append('grade', grade);
+			formData.append('major', major);
+			formData.append('studentNumber', studentNumber);
+			formData.append('phoneNumber', phoneNumber);
+			formData.append('email', email);
+			formData.append('bankAccount', bankAccount);
+			formData.append('bankName', bankName);
+			if (bankBookImg) {
+				formData.append('bankBookImg', bankBookImg);
+			}
+			if (idCardImg) {
+				formData.append('idCardImg', idCardImg);
+			}
+			if (signImg) {
+				formData.append('signImg', signImg);
+			}
+
+			const response = await axios.post('http://localhost:8080/zs', formData, {
+				headers: {
+					'Content-Type' : 'multipart/form-data'
+				}
+			});
+
+			console.log(response.data);
+			
+		}catch(error){
+			console.error("Error : ", error);
+			
+		}
+	
   };
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -79,22 +98,6 @@ const UserInfo : React.FC = () => {
 	const handleSignImg = (file : File | null) => {
 		setSignImg(file);
 	}
-
-	//은행명이랑 계좌번호 입력하는 input만들지?
-	const formData : UserInfoType = {
-			pageType : "회원정보", // 어떤 페이지에서 온 정보인지 밝히기?
-			name : name,
-			grade : grade,
-			major : major,
-			studentNumber : studentNumber,
-			phoneNumber : phoneNumber,
-			email : email,
-			bankAccount : bankAccount,
-			bankName : bankName,
-			bankBookImg: bankBookImg,
-			idCardImg : idCardImg,
-			signImg : signImg,
-		}
 
 
 	return (
