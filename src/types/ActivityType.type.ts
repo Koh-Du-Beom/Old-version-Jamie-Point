@@ -1,5 +1,5 @@
 interface ActivityType{
-	pageType : string | undefined,
+	pageType : string,
 	activityImg : File | null,
 	program: string | null,
 	type : string | null,

@@ -12,6 +12,43 @@
 
 }
 
+.end_double{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	
+}
+
+.button_wrapper {
+	border: none;
+	background-color: transparent;
+	padding: 0 10px;
+	border-radius: 8px;
+}
+
+.button_wrapper img {
+	width: 30px;
+	height: auto;
+}
+
+.button_wrapper:hover{
+	background-color: #c49bff;
+	color: #ffffff;
+}
+
+/*X 이쁘게 그리는 방법*/
+.close_button{
+	display: inline-block;
+	border: none;
+}
+
+.close_button:after{
+	display: inline-block;
+	content : "\00d7";
+	font-size: 30px;
+}
+
+
 .double{
 	display: flex;
 	flex-direction: row;
@@ -35,21 +72,4 @@
 	border: none;
 }
 
-.button_wrapper{
-	margin: 0 10px 10px 0;
-	display: flex;
-	justify-content: space-between;
-}
 
-/*X 이쁘게 그리는 방법*/
-.close_button{
-	display: inline-block;
-	border-radius: 50%;
-	border: none;
-}
-
-.close_button:after{
-	display: inline-block;
-	content : "\00d7";
-	font-size: 15px;
-}

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import useAutoSave from '../../hooks/useAutoSave';
 import axios from 'axios';
 import UserInfoType from '../../types/UserInfoType.type';
+import saveIcon from '../../assets/saveIcon.png'
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
@@ -22,6 +23,7 @@ const UserInfo : React.FC = () => {
 	const handleSaveButton = async () => {
 		try{
 			const formData = new FormData();
+			formData.append('pageType', '회원정보');
 			formData.append('name', name);
 			formData.append('grade', grade);
 			formData.append('major', major);
@@ -45,8 +47,6 @@ const UserInfo : React.FC = () => {
 					'Content-Type' : 'multipart/form-data'
 				}
 			});
-
-			console.log(response.data);
 			
 		}catch(error){
 			console.error("Error : ", error);
@@ -102,7 +102,18 @@ const UserInfo : React.FC = () => {
 
 	return (
 		<div className={classes.container}>
-			<div className={classes.big_title}>내 정보</div>
+			<div className={`${classes.wrapper} ${classes.end_double}`}>
+				<div>
+					<div className={classes.big_title}>내 정보</div>
+				</div>
+				<div>
+					<button className={classes.button_wrapper} onClick={handleSaveButton}>
+						<img src={saveIcon} alt='Save_Icon'/>
+					</button>
+				</div>
+				
+			</div>
+		
 			<hr/>
 			
 			<div className={classes.big_title}>기본 정보</div>
@@ -222,8 +233,6 @@ const UserInfo : React.FC = () => {
 					<ImageControler onImageChange={handleSignImg} data={signImg}/>
 				</div>
 			</div>
-			
-			<button onClick={handleSaveButton}>saveButton</button>
 		</div>
 	)
 }

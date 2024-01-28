@@ -85,11 +85,6 @@ const SWCorePage:React.FC = () => {
 		setActivitiesData(updatedActivitesData);
 	}
 
-	useEffect(()=> {
-		console.log(activitiesData);
-		
-	}, [activitiesData])
-
 	return (
 		<MainLayout>	
 			<div className={classes.button_container}>

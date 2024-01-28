@@ -4,9 +4,18 @@ import classes from "../../styles/FormStyles.module.css";
 import ImageControler from "../ImageControler";
 import ActivityDropDown from "./ActivityDropDown";
 import ActivityType from "../../types/ActivityType.type";
+import saveIcon from '../../assets/saveIcon.png';
+import styled from "styled-components";
+import axios from "axios";
+
+const AreaWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
 
 interface ActivityProps {
-	area?: string;
+	area: string;
 	activitiesData : ActivityType;
 	onRemove : (index : number) => void;
 	onActivityChange : (index : number, updatedActivity : ActivityType) => void;
@@ -23,6 +32,7 @@ interface ActivityDropDownProps {
 //Activity 데이터가 area 별로 여러개 있을텐데, 이걸 index별로 어떻게 받아와볼지 고민.
 
 const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , index}) => {
+	
 	const [activityImg, setActivityImg] = useState<File|null>(null);
 	const [program, setProgram] = useState<string | null>("");
 	const [type, setType] = useState<string | null>("");
@@ -33,7 +43,44 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	const [date, setDate] = useState<string>("");
 	const [detail, setDetail] = useState<string>("");
 
-	const dropDowns = {
+	const handleSaveButton = async (index : number) => {
+
+		try{
+			const formData = new FormData;
+			formData.append('pageType', area);
+			if (activityImg){
+				formData.append('activityImg', activityImg);
+			}
+			if(program){
+				formData.append('program', program);
+			}
+			if(type){
+				formData.append('type', type);
+			}
+			if(topic){
+				formData.append('topic', topic);
+			}
+			if(point){ //po
+				formData.append('point', point.toString());
+			}
+			formData.append('agency', agency);
+			formData.append('date', date);
+			formData.append('detail', detail);
+
+			const response = await axios.post('http://localhost:8080/zs', formData, {
+				headers: {
+					'Content-Type' : 'multipart/form-data'
+				}
+			});
+
+			// 정상적으로 저장됐으면 alert해주는 로직 짜면 좋을듯.
+		}catch(error){
+			console.log("Error : ", error);
+			
+		}
+	}
+
+	const dropDowns : ActivityDropDownProps= {
 		program : program,
 		type : type,
 		topic : topic,
@@ -118,16 +165,24 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 		onActivityChange(index, updatedActivity);
 	}
 
+	
+
 	return (
 		<div className={classes.container}>
 			
-			<div className={`${classes.button_wrapper}`} >
-				<div className={classes.big_title}>{area}</div>
-				<div>
-					<button className={classes.close_button} onClick={()=>onRemove(index)}></button>
-				</div>
+			<div className={`${classes.end_double}`}>
+				<AreaWrapper>
+					<div className={classes.big_title}>{area}</div>
+				</AreaWrapper>
+				<div className={`${classes.wrapper} ${classes.double}`}>
+					<button className={classes.button_wrapper} onClick={() => handleSaveButton(index)}>
+						<img src={saveIcon} alt='saveIcon'/>
+					</button>
+					<button className={`${classes.button_wrapper} ${classes.close_button}`} onClick={()=>onRemove(index)}>
+						
+					</button>
+				</div>			
 			</div>
-			
 			<hr/>
 			
 			<div className={classes.wrapper}>
