@@ -84,7 +84,7 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 	// 	console.log(selectedProgram, selectedType,`토픽 : ${selectedTopic} ${typeof selectedTopic}`, selectedPoint);
 	// }, [selectedProgram, selectedType, selectedTopic, selectedPoint])
 
-	useEffect(()=>{
+	useEffect(()=>{ 
 		
 		setSelectedProgram(dropDownData.program);
 		setSelectedType(dropDownData.type);

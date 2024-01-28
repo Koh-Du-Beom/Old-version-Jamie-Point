@@ -1,9 +1,11 @@
+/*eslint-disable*/
 import classes from '../../styles/FormStyles.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
 import useAutoSave from '../../hooks/useAutoSave';
 import axios from 'axios';
 import UserInfoType from '../../types/UserInfoType.type';
+import saveIcon from '../../assets/saveIcon.png'
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
@@ -19,20 +21,38 @@ const UserInfo : React.FC = () => {
   const [signImg, setSignImg] = useState<File|null>(null); // 사인사진
 
 	const handleSaveButton = async () => {
-		const body = JSON.stringify(formData);
-		console.log(body);
-		
-    try {
-      const response = await axios.post('http://localhost:8080/zs', formData);
-      if (response.status === 200) {
-        alert('정보가 성공적으로 저장되었습니다.');
-      } else {
-        alert('정보 저장에 실패했습니다. 서버 응답: ' + response.status);
-      }
-    } catch (error) {
-      console.error('저장 중 오류 발생:', error);
-      alert('정보 저장 중 오류가 발생했습니다.');
-    }
+		try{
+			const formData = new FormData();
+			formData.append('pageType', '회원정보');
+			formData.append('name', name);
+			formData.append('grade', grade);
+			formData.append('major', major);
+			formData.append('studentNumber', studentNumber);
+			formData.append('phoneNumber', phoneNumber);
+			formData.append('email', email);
+			formData.append('bankAccount', bankAccount);
+			formData.append('bankName', bankName);
+			if (bankBookImg) {
+				formData.append('bankBookImg', bankBookImg);
+			}
+			if (idCardImg) {
+				formData.append('idCardImg', idCardImg);
+			}
+			if (signImg) {
+				formData.append('signImg', signImg);
+			}
+
+			const response = await axios.post('http://localhost:8080/zs', formData, {
+				headers: {
+					'Content-Type' : 'multipart/form-data'
+				}
+			});
+			
+		}catch(error){
+			console.error("Error : ", error);
+			
+		}
+	
   };
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -79,29 +99,21 @@ const UserInfo : React.FC = () => {
 		setSignImg(file);
 	}
 
-	//은행명이랑 계좌번호 입력하는 input만들지?
-	const formData : UserInfoType = {
-			pageType : "회원정보", // 어떤 페이지에서 온 정보인지 밝히기?
-			name : name,
-			grade : grade,
-			major : major,
-			studentNumber : studentNumber,
-			phoneNumber : phoneNumber,
-			email : email,
-			bankAccount : bankAccount,
-			bankName : bankName,
-			bankBookImg: bankBookImg,
-			idCardImg : idCardImg,
-			signImg : signImg,
-		}
-	
-	// useAutoSave(formData);
-
-
 
 	return (
 		<div className={classes.container}>
-			<div className={classes.big_title}>내 정보</div>
+			<div className={`${classes.wrapper} ${classes.end_double}`}>
+				<div>
+					<div className={classes.big_title}>내 정보</div>
+				</div>
+				<div>
+					<button className={classes.button_wrapper} onClick={handleSaveButton}>
+						<img src={saveIcon} alt='Save_Icon'/>
+					</button>
+				</div>
+				
+			</div>
+		
 			<hr/>
 			
 			<div className={classes.big_title}>기본 정보</div>
@@ -181,7 +193,7 @@ const UserInfo : React.FC = () => {
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>통장사본</div>
-					<ImageControler onImageChange={handlebankBookImg}/>
+					<ImageControler onImageChange={handlebankBookImg} data={bankBookImg}/>
 				</div>
 			</div>
 			<div className={`${classes.wrapper} ${classes.double}`}>
@@ -211,18 +223,16 @@ const UserInfo : React.FC = () => {
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>신분증사본</div>
-					<ImageControler onImageChange={handleIdCardImg}/>
+					<ImageControler onImageChange={handleIdCardImg} data={idCardImg}/>
 				</div>
 			</div>
 
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>사진 사진</div>
-					<ImageControler onImageChange={handleSignImg}/>
+					<ImageControler onImageChange={handleSignImg} data={signImg}/>
 				</div>
 			</div>
-			
-			<button onClick={handleSaveButton}>saveButton</button>
 		</div>
 	)
 }
