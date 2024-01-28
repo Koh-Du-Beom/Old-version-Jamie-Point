@@ -239,7 +239,7 @@ const ActivityDropDownData = [
         program : '전공 분야 자격증',
         types : [
           {
-            type : '사용자가 직접 입력 가능하게 할듯',
+            type : '상세정보에 자격증을 설명해주세요',
             points : [
               {
                 topic : '',
