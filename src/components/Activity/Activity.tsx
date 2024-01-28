@@ -7,6 +7,7 @@ import ActivityType from "../../types/ActivityType.type";
 import saveIcon from '../../assets/saveIcon.png';
 import styled from "styled-components";
 import axios from "axios";
+import TierCalculator from "./TierCalculator";
 
 const AreaWrapper = styled.div`
 	display: flex;
@@ -47,6 +48,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 
 		try{
 			const formData = new FormData;
+			formData.append('index', index.toString())
 			formData.append('pageType', area);
 			if (activityImg){
 				formData.append('activityImg', activityImg);
@@ -198,6 +200,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 					dropDownData={dropDowns}
 				/>
 				{point ? <div className={classes.small_title}>{`환산점수 : ${point}`}</div> : null}
+				<TierCalculator/>
 			</div>
 			
 			<div className={classes.big_title}>활동 세부 사항 </div>
