@@ -2,10 +2,11 @@
 import classes from '../../styles/FormStyles.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
-import useAutoSave from '../../hooks/useAutoSave';
 import axios from 'axios';
 import UserInfoType from '../../types/UserInfoType.type';
 import saveIcon from '../../assets/saveIcon.png'
+import { useEffect } from 'react';
+import useUnSavedAlert from '../../hooks/useUnSavedAlert';
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
@@ -20,7 +21,16 @@ const UserInfo : React.FC = () => {
 	const [idCardImg, setIdCardImg] = useState<File|null>(null);
   const [signImg, setSignImg] = useState<File|null>(null); // 사인사진
 
-	const handleSaveButton = async () => {
+	const [lastBlurTime, setLastBlurTime] = useState<number>(0);
+	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
+
+	const handleSaveButtonClick = async () => {
+		if(!isValueChanged){
+			alert('이미 저장된 정보입력입니다!');
+			return;
+		}
+		setIsValueChanged(false);
+
 		try{
 			const formData = new FormData();
 			formData.append('pageType', '회원정보');
@@ -42,6 +52,11 @@ const UserInfo : React.FC = () => {
 				formData.append('signImg', signImg);
 			}
 
+			for (let [key, value] of formData.entries()){
+				console.log(key, value);
+				
+			}
+
 			const response = await axios.post('http://localhost:8080/zs', formData, {
 				headers: {
 					'Content-Type' : 'multipart/form-data'
@@ -55,48 +70,76 @@ const UserInfo : React.FC = () => {
 	
   };
 
+	const handleBlur = () => {
+		setLastBlurTime(Date.now());
+	}
+
+	useEffect(() => {
+		if (lastBlurTime === 0 || !isValueChanged) return;
+
+		const timer = setTimeout(async()=>{
+			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
+			setIsValueChanged(false);
+		}, 10000);
+
+		return () => clearTimeout(timer);
+	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
+
+	useUnSavedAlert(isValueChanged);
+
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.target.value);
+		setIsValueChanged(true);
 	}
 
 	const handleGrade = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setGrade(event.target.value);
+		setIsValueChanged(true);
 	}
 
 	const handleMajor = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setMajor(event.target.value);
+		setIsValueChanged(true);
 	}
 
 	const handleStudentNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setStudentNumber(event.target.value);
+		setIsValueChanged(true);
 	}
 
 	const handlePhoneNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setPhoneNumber(event.target.value);
+		setIsValueChanged(true);
 	}
 
 	const handleEmail = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(event.target.value)
+		setIsValueChanged(true);
 	}
 
 	const handlebankBookImg = (file : File | null) => {
 		setBankBookImg(file);
+		setIsValueChanged(true);
 	};
 
 	const handleBankAccount = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setBankAccount(event.target.value);
+		setIsValueChanged(true);
 	}
 
 	const handleBankName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setBankName(event.target.value);
+		setIsValueChanged(true);
 	}
 
 	const handleIdCardImg= (file : File | null) => {
 		setIdCardImg(file);
+		setIsValueChanged(true);
 	}
 
 	const handleSignImg = (file : File | null) => {
 		setSignImg(file);
+		setIsValueChanged(true);
 	}
 
 
@@ -107,7 +150,7 @@ const UserInfo : React.FC = () => {
 					<div className={classes.big_title}>내 정보</div>
 				</div>
 				<div>
-					<button className={classes.button_wrapper} onClick={handleSaveButton}>
+					<button className={classes.button_wrapper} onClick={handleSaveButtonClick}>
 						<img src={saveIcon} alt='Save_Icon'/>
 					</button>
 				</div>
@@ -126,6 +169,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleName}
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
@@ -136,6 +180,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleMajor}	
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
@@ -149,6 +194,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleGrade}
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
@@ -159,6 +205,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleStudentNumber}	
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
@@ -172,6 +219,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handlePhoneNumber}
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
@@ -182,6 +230,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleEmail}	
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
@@ -204,6 +253,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleBankAccount}	
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
@@ -214,6 +264,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleBankName}
+							onBlur={handleBlur}
 						/>
 					</div>
 				</div>
