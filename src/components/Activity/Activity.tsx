@@ -58,16 +58,25 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			}
 			if(type){
 				formData.append('type', type);
+			}else{
+				formData.append('type', '');
 			}
 			if(topic){
 				formData.append('topic', topic);
+			}else{
+				formData.append('topic', '');
 			}
-			if(point){ //po
+			if(point){ //point가 0일때 실행안되니 참고
 				formData.append('point', point.toString());
 			}
 			formData.append('agency', agency);
 			formData.append('date', date);
 			formData.append('detail', detail);
+
+			for (let [key, value] of formData.entries()){
+				console.log(key, value);
+				
+			}
 
 			const response = await axios.post('http://localhost:8080/zs', formData, {
 				headers: {
@@ -199,8 +208,9 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 					onDropDownChange={handleDropDownChange}
 					dropDownData={dropDowns}
 				/>
+				{program === '코딩 문제풀이' && type && <TierCalculator selectedType={type}/>}
 				{point ? <div className={classes.small_title}>{`환산점수 : ${point}`}</div> : null}
-				<TierCalculator/>
+				
 			</div>
 			
 			<div className={classes.big_title}>활동 세부 사항 </div>

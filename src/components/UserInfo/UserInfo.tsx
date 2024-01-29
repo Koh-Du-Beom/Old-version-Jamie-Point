@@ -42,6 +42,8 @@ const UserInfo : React.FC = () => {
 				formData.append('signImg', signImg);
 			}
 
+			
+
 			const response = await axios.post('http://localhost:8080/zs', formData, {
 				headers: {
 					'Content-Type' : 'multipart/form-data'
