@@ -60,4 +60,3 @@ const ImageControler : React.FC<ImageControlerProps> = ({onImageChange, data}) =
 }
 
 export default ImageControler;
-

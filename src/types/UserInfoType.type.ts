@@ -1,16 +1,15 @@
 interface UserInfoType{
-	pageType : string;
 	name : string;
-	grade : string;
+	grade : number;
 	major : string;
 	studentNumber : string;
 	phoneNumber : string;
 	email : string;
 	bankAccount : string;
 	bankName : string;
-	bankBookImg : File | null;
-	idCardImg : File | null;
-	signImg : File | null;
+	bankBook : string | null;
+	idCard : string | null;
+	sign : string | null;
 }
 
 export default UserInfoType;
