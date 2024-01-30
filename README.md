@@ -36,3 +36,4 @@ SW융합 : SWConvergence (배열)
 총포인트: totalPoint
 총 수상 개수: totalAwards
 총 포인트: totalPoint
+
