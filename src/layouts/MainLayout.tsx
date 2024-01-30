@@ -2,6 +2,8 @@ import React from 'react';
 import TopNavBar from '../components/TopNavBar';
 import RightNavBar from '../components/RightNavBar';
 import classes from '../styles/layouts/MainLayout.module.css';
+import BottomNavBar from '../components/Footer/BottomNavBar';
+import BottomInfo from '../components/Footer/BottomInfo';
 
 const MainLayout: React.FC<{children : React.ReactNode}> = ({children}) => {
 
@@ -15,7 +17,8 @@ const MainLayout: React.FC<{children : React.ReactNode}> = ({children}) => {
 					
 				</div>
       </div>
-      
+      <BottomNavBar/>
+			<BottomInfo/>
     </div>
   )
 }
