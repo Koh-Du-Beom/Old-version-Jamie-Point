@@ -2,88 +2,77 @@
 import classes from '../../styles/FormStyles.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
-import axios from 'axios';
-import UserInfoType from '../../types/UserInfoType.type';
 import saveIcon from '../../assets/saveIcon.png'
 import { useEffect } from 'react';
 import useUnSavedAlert from '../../hooks/useUnSavedAlert';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../stores/redux/store';
+import { updateUserInfo } from '../../stores/redux/userSlice';
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
-	const [grade, setGrade] = useState<string>('');
+	const [grade, setGrade] = useState<number>(0);
 	const [major, setMajor] = useState<string>(''); //전공
 	const [studentNumber, setStudentNumber] = useState<string>('');
 	const [phoneNumber, setPhoneNumber] = useState<string>('');
 	const [email, setEmail] = useState<string>('');
-	const [bankBookImg, setBankBookImg] = useState<File|null>(null);
+	
 	const [bankAccount, setBankAccount] = useState<string>('');//계좌번호
 	const [bankName, setBankName] = useState<string>(''); // 은행명
+	const [bankBookImg, setBankBookImg] = useState<File|null>(null);
 	const [idCardImg, setIdCardImg] = useState<File|null>(null);
   const [signImg, setSignImg] = useState<File|null>(null); // 사인사진
 
 	const [lastBlurTime, setLastBlurTime] = useState<number>(0);
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
+	const dispatch = useDispatch<AppDispatch>();
+	const userInfo = useSelector((state: RootState) => state.userInfo);
+
 	const handleSaveButtonClick = async () => {
-		// if(!isValueChanged){
-		// 	alert('이미 저장된 정보입력입니다!');
-		// 	return;
-		// }
-		// setIsValueChanged(false);
-
-		try{
-			const formData = new FormData();
-			formData.append('name', name);
-			formData.append('grade', grade);
-			formData.append('major', major);
-			formData.append('studentNumber', studentNumber);
-			formData.append('phoneNumber', phoneNumber);
-			formData.append('email', email);
-			formData.append('bankAccount', bankAccount);
-			formData.append('bankName', bankName);
-			if (bankBookImg) {
-				formData.append('bankBookImg', bankBookImg);
-			}
-			if (idCardImg) {
-				formData.append('idCardImg', idCardImg);
-			}
-			if (signImg) {
-				formData.append('signImg', signImg);
-			}
-
-			for (let [key, value] of formData.entries()){
-				console.log(key, value);
-			}
-
-			const response = await axios.post('http://localhost:8080/zs', formData, {
-				headers: {
-					'Content-Type' : 'multipart/form-data'
-				}
-			});
-			
-		}catch(error){
-			console.error("Error : ", error);
-			
+		if(!isValueChanged){
+			alert('이미 저장된 정보입력입니다!');
+			return;
 		}
-	
+		setIsValueChanged(false);
+
+		dispatch(updateUserInfo({
+			name: name,
+      grade: grade,
+      major: major,
+      studentNumber: studentNumber,
+      phoneNumber: phoneNumber,
+      email: email,
+      bankAccount: bankAccount,
+      bankName: bankName,
+      bankBookImg: bankBookImg,
+      idCardImg: idCardImg,
+      signImg: signImg,
+		}));
+
   };
 
 	const handleBlur = () => {
 		setLastBlurTime(Date.now());
 	}
 
-	// useEffect(() => {
-	// 	if (lastBlurTime === 0 || !isValueChanged) return;
+	useEffect(() => {
+		if (lastBlurTime === 0 || !isValueChanged) return;
 
-	// 	const timer = setTimeout(async()=>{
-	// 		await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
-	// 		setIsValueChanged(false);
-	// 	}, 10000); // 라우터(페이지 이동 시에도 실행되도록 하기)
+		const timer = setTimeout(async()=>{
+			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
+			setIsValueChanged(false);
+		}, 5000); // 라우터(페이지 이동 시에도 실행되도록 하기)
 
-	// 	return () => clearTimeout(timer);
-	// }, [lastBlurTime, isValueChanged, handleSaveButtonClick])
+		return () => clearTimeout(timer);
+	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
 
-	// useUnSavedAlert(isValueChanged);
+	useEffect(()=> {
+		console.log(userInfo);
+		
+	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
+
+	useUnSavedAlert(isValueChanged);
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.target.value);
@@ -91,7 +80,8 @@ const UserInfo : React.FC = () => {
 	}
 
 	const handleGrade = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setGrade(event.target.value);
+		const newGrade = event.target.value;
+		setGrade(Number(newGrade));
 		setIsValueChanged(true);
 	}
 
@@ -115,10 +105,6 @@ const UserInfo : React.FC = () => {
 		setIsValueChanged(true);
 	}
 
-	const handlebankBookImg = (file : File | null) => {
-		setBankBookImg(file);
-		setIsValueChanged(true);
-	};
 
 	const handleBankAccount = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setBankAccount(event.target.value);
@@ -129,6 +115,11 @@ const UserInfo : React.FC = () => {
 		setBankName(event.target.value);
 		setIsValueChanged(true);
 	}
+
+	const handlebankBookImg = (file : File | null) => {
+		setBankBookImg(file);
+		setIsValueChanged(true);
+	};
 
 	const handleIdCardImg= (file : File | null) => {
 		setIdCardImg(file);
@@ -153,11 +144,8 @@ const UserInfo : React.FC = () => {
 						<img src={saveIcon} alt='Save_Icon'/>
 					</button>
 				</div>
-				
 			</div>
-		
-			<hr/>
-			
+			<hr/>		
 			<div className={classes.big_title}>기본 정보</div>
 
 			<div className={`${classes.wrapper} ${classes.double}`}>

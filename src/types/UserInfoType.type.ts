@@ -1,7 +1,6 @@
 interface UserInfoType{
-	pageType : string;
 	name : string;
-	grade : string;
+	grade : number;
 	major : string;
 	studentNumber : string;
 	phoneNumber : string;
