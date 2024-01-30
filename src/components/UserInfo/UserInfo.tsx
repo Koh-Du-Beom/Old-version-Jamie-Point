@@ -19,10 +19,14 @@ const UserInfo : React.FC = () => {
 	
 	const [bankAccount, setBankAccount] = useState<string>('');//계좌번호
 	const [bankName, setBankName] = useState<string>(''); // 은행명
-	const [bankBookImg, setBankBookImg] = useState<File|null>(null);
-	const [idCardImg, setIdCardImg] = useState<File|null>(null);
-  const [signImg, setSignImg] = useState<File|null>(null); // 사인사진
+	const [bankBookImg] = useState<File|null>(null);
+	const [idCardImg] = useState<File|null>(null);
+  const [signImg] = useState<File|null>(null); 
 
+	const [bankBook, setBankBook] = useState<string>('');
+	const [idCard, setIdCard] = useState<string>('');
+	const [sign, setSign] = useState<string>('');
+	
 	const [lastBlurTime, setLastBlurTime] = useState<number>(0);
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
@@ -45,9 +49,9 @@ const UserInfo : React.FC = () => {
       email: email,
       bankAccount: bankAccount,
       bankName: bankName,
-      bankBookImg: bankBookImg,
-      idCardImg: idCardImg,
-      signImg: signImg,
+      bankBook: bankBook,
+      idCard: idCard,
+      sign: sign,
 		}));
 
   };
@@ -68,7 +72,7 @@ const UserInfo : React.FC = () => {
 	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
 
 	useEffect(()=> {
-		console.log(userInfo);
+		console.log('useInfo : ', userInfo);
 		
 	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
 
@@ -117,20 +121,42 @@ const UserInfo : React.FC = () => {
 	}
 
 	const handlebankBookImg = (file : File | null) => {
-		setBankBookImg(file);
-		setIsValueChanged(true);
+		if(file){
+			convertToBase64(file, setBankBook);
+			setIsValueChanged(true);
+		}else{
+			setBankBook('');
+		}
+		handleBlur();
 	};
 
 	const handleIdCardImg= (file : File | null) => {
-		setIdCardImg(file);
-		setIsValueChanged(true);
+		if(file){
+			convertToBase64(file, setIdCard);
+			setIsValueChanged(true);
+		}else{
+			setIdCard('');
+		}
+		handleBlur();
 	}
 
 	const handleSignImg = (file : File | null) => {
-		setSignImg(file);
-		setIsValueChanged(true);
+		if(file){
+			convertToBase64(file, setSign);
+			setIsValueChanged(true);
+		}else{
+			setSign('');
+		}
+		handleBlur();
 	}
 
+	const convertToBase64 = (file : File, callback: (base64String : string) => void) => {
+		const reader = new FileReader();
+		reader.onload = () => {
+			callback(reader.result as string);
+		};
+		reader.readAsDataURL(file); 
+	}//fileReader 알아보기
 	
 
 	return (
