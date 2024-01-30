@@ -1,0 +1,35 @@
+
+
+.navbar{
+	display: flex;
+	position: sticky;
+	bottom: 0px;
+	background-color: #a654ec;
+	height: 80px;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
+}
+
+.wrapper{
+	display: flex;
+	justify-content: space-between;
+	width: 100vw;
+	padding: 20px;
+}
+
+.web_button{
+	border-radius: 8px;
+	border: none;
+}
+
+.send_button{
+	border-radius: 8px;
+	border: none;
+	background-color: #D0B0FF;
+}
+
+.send_button:hover{
+	background-color: #c49bff;
+	
+}
