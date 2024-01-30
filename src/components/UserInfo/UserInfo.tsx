@@ -33,7 +33,6 @@ const UserInfo : React.FC = () => {
 
 		try{
 			const formData = new FormData();
-			formData.append('pageType', '회원정보');
 			formData.append('name', name);
 			formData.append('grade', grade);
 			formData.append('major', major);
@@ -54,7 +53,6 @@ const UserInfo : React.FC = () => {
 
 			for (let [key, value] of formData.entries()){
 				console.log(key, value);
-				
 			}
 
 			const response = await axios.post('http://localhost:8080/zs', formData, {
@@ -80,7 +78,7 @@ const UserInfo : React.FC = () => {
 		const timer = setTimeout(async()=>{
 			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
 			setIsValueChanged(false);
-		}, 10000);
+		}, 10000); // 라우터(페이지 이동 시에도 실행되도록 하기)
 
 		return () => clearTimeout(timer);
 	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
