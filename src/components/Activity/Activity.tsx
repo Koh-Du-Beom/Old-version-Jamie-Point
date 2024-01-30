@@ -51,7 +51,6 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 
 	const handleSaveButtonClick = async (index : number) => {
 		if(!isValueChanged){
-			alert('이미 저장된 정보입력입니다!');
 			return;
 		}
 		setIsValueChanged(false);
