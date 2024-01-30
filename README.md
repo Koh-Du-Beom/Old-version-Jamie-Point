@@ -1,1 +1,1 @@
-Jamie is God
+Jamie gives your grade in c++
