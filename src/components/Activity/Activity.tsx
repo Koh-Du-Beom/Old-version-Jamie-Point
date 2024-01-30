@@ -31,6 +31,7 @@ interface ActivityDropDownProps {
 	point : number | null;
 }
 
+
 //Activity 데이터가 area 별로 여러개 있을텐데, 이걸 index별로 어떻게 받아와볼지 고민.
 
 const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , index}) => {
@@ -57,11 +58,13 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 
 		try{
 			const formData = new FormData;
-			formData.append('index', index.toString())
+			formData.append('index', index.toString()) // 필요없을듯
 			formData.append('pageType', area);
 			if (activityImg){
 				formData.append('activityImg', activityImg);
 			}
+
+
 			if(program){
 				formData.append('program', program);
 			}
@@ -78,6 +81,8 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			if(point){ //point가 0일때 실행안되니 참고
 				formData.append('point', point.toString());
 			}
+
+
 			formData.append('agency', agency);
 			formData.append('date', date);
 			formData.append('detail', detail);
