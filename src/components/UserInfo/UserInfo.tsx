@@ -25,11 +25,11 @@ const UserInfo : React.FC = () => {
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
 	const handleSaveButtonClick = async () => {
-		if(!isValueChanged){
-			alert('이미 저장된 정보입력입니다!');
-			return;
-		}
-		setIsValueChanged(false);
+		// if(!isValueChanged){
+		// 	alert('이미 저장된 정보입력입니다!');
+		// 	return;
+		// }
+		// setIsValueChanged(false);
 
 		try{
 			const formData = new FormData();
@@ -72,18 +72,18 @@ const UserInfo : React.FC = () => {
 		setLastBlurTime(Date.now());
 	}
 
-	useEffect(() => {
-		if (lastBlurTime === 0 || !isValueChanged) return;
+	// useEffect(() => {
+	// 	if (lastBlurTime === 0 || !isValueChanged) return;
 
-		const timer = setTimeout(async()=>{
-			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
-			setIsValueChanged(false);
-		}, 10000); // 라우터(페이지 이동 시에도 실행되도록 하기)
+	// 	const timer = setTimeout(async()=>{
+	// 		await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
+	// 		setIsValueChanged(false);
+	// 	}, 10000); // 라우터(페이지 이동 시에도 실행되도록 하기)
 
-		return () => clearTimeout(timer);
-	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
+	// 	return () => clearTimeout(timer);
+	// }, [lastBlurTime, isValueChanged, handleSaveButtonClick])
 
-	useUnSavedAlert(isValueChanged);
+	// useUnSavedAlert(isValueChanged);
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		setName(event.target.value);
