@@ -16,9 +16,9 @@ interface UserState{
   email: string;
   bankAccount: string;
   bankName: string;
-  bankBookImg: string | null;
-  idCardImg: string | null;
-  signImg: string | null;
+  bankBookImg: string;
+  idCardImg: string;
+  signImg: string;
 
   activities: ActivityType[];
 	swCoreInfo : TotalActivity;
@@ -31,16 +31,16 @@ interface UserState{
 
 const initialState: UserState = {
 	name : '',
-	grade : 201912345,
+	grade : 0,
 	major : '',
 	studentNumber: '',
-	phoneNumber: '010-0000-0000',
-  email: 'example@mail.com',
-  bankAccount: '123456789',
-  bankName: '예시은행',
-  bankBookImg: null,
-  idCardImg: null,
-  signImg: null,
+	phoneNumber: '',
+  email: '',
+  bankAccount: '',
+  bankName: '',
+  bankBookImg: '',
+  idCardImg: '',
+  signImg: '',
   activities: [],
 	swCoreInfo : {activityCount: 0, totalPoint: 0},
 	swCooperationInfo : {activityCount: 0, totalPoint: 0},
