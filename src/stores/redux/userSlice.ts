@@ -73,12 +73,38 @@ export const userSlice = createSlice({
 		},
 		removeActivity: (state, action : PayloadAction<{id : string }>) => {
 			state.activities = state.activities.filter(activity => activity.id !== action.payload.id)
-		}
+		},
+		updateSWCoreInfo: (state, action: PayloadAction<{activityCount : number, totalPoint : number}>) => {
+			state.swCoreInfo.activityCount = action.payload.activityCount;
+			state.swCoreInfo.totalPoint = action.payload.totalPoint;
+		},
+		updateSWCooperationInfo: (state, action: PayloadAction<{activityCount : number, totalPoint : number}>) => {
+			state.swCooperationInfo.activityCount = action.payload.activityCount;
+			state.swCooperationInfo.totalPoint = action.payload.totalPoint;
+		},
+		updateSWValueInfo: (state, action: PayloadAction<{activityCount : number, totalPoint : number}>) => {
+			state.swValueInfo.activityCount = action.payload.activityCount;
+			state.swValueInfo.totalPoint = action.payload.totalPoint;
+		},
+		updateSWConvergenceInfo: (state, action: PayloadAction<{activityCount : number, totalPoint : number}>) => {
+			state.swConvergenceInfo.activityCount = action.payload.activityCount;
+			state.swConvergenceInfo.totalPoint = action.payload.totalPoint;
+		},
+		updateTotals: (state) => {
+			state.totalAwards = state.swCoreInfo.activityCount
+				+ state.swCooperationInfo.activityCount
+				+ state.swValueInfo.activityCount
+				+ state.swConvergenceInfo.activityCount;
+
+			state.totalPoint = state.swCoreInfo.totalPoint
+				+ state.swCooperationInfo.totalPoint
+				+ state.swValueInfo.totalPoint
+				+ state.swConvergenceInfo.totalPoint;
+	},
 	},
 });
 
-export const { updateUserInfo, updateActivity, removeActivity } = userSlice.actions;
-
+export const { updateUserInfo, updateActivity, removeActivity, updateSWCoreInfo, updateSWCooperationInfo, updateSWValueInfo, updateSWConvergenceInfo, updateTotals } = userSlice.actions;
 export default userSlice.reducer;
 
 

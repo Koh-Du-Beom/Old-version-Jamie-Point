@@ -58,7 +58,6 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 		point : point,
 	};
 
-
 	const handleActivityImg = (newImage: File) => {
 		if (newImage) {
 			convertToBase64(newImage, (base64String) => {
