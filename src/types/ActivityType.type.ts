@@ -1,4 +1,5 @@
 interface ActivityType{
+	id : string;
 	pageType : string,
 	activityImg : string | null,
 	program: string | null,

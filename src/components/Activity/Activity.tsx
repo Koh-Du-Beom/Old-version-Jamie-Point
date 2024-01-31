@@ -22,9 +22,9 @@ const AreaWrapper = styled.div`
 interface ActivityProps {
 	area: string;
 	activitiesData : ActivityType;
-	onRemove : (index : number) => void;
-	onActivityChange : (index : number, updatedActivity : ActivityType) => void;
-	index : number;
+	onRemove: (activityId: string) => void;
+  onActivityChange: (activityId: string, updatedActivity: ActivityType) => void;
+	id : string;
 }
 
 interface ActivityDropDownProps {
@@ -35,9 +35,8 @@ interface ActivityDropDownProps {
 }
 
 
-const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , index}) => {
+const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , id}) => {
 	
-	const [activity] = useState<File|null>(null);
 	const [activityImg, setActivityImg] = useState<string|null>(null);
 	const [program, setProgram] = useState<string | null>("");
 	const [type, setType] = useState<string | null>("");
@@ -47,13 +46,8 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	const [agency, setAgency] = useState<string>("");
 	const [date, setDate] = useState<string>("");
 	const [detail, setDetail] = useState<string>("");
-
-	const [lastBlurTime, setLastBlurTime] = useState<number>(0);
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
-	const handleBlur = () => {
-		setLastBlurTime(Date.now());
-	}
 
 	useUnSavedAlert(isValueChanged);
 
@@ -73,7 +67,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 					...activitiesData,
 					activityImg: base64String,
 				};
-				onActivityChange(index, updatedActivity);
+				onActivityChange(id, updatedActivity);
 			});
 			setIsValueChanged(true);
 		} else {
@@ -82,7 +76,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 				...activitiesData,
 				activityImg: null,
 			};
-			onActivityChange(index, updatedActivity);
+			onActivityChange(id, updatedActivity);
 		}
 	};
 	
@@ -104,7 +98,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			agency : newAgency,
 		};
 		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
 
 	const handleDate = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +110,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			date : newDate,
 		};
 		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
 
 	const handleDetail = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +122,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			detail : newDetail,
 		};
 		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
 
 
@@ -159,8 +153,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			point: point,
 		};
 		setIsValueChanged(true);
-		handleBlur();
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
 
 	return (
@@ -171,7 +164,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 					<div className={classes.big_title}>{area}</div>
 				</AreaWrapper>
 				<div className={`${classes.wrapper} ${classes.double}`}>
-					<button className={`${classes.button_wrapper} ${classes.close_button}`} onClick={()=>onRemove(index)}>
+					<button className={`${classes.button_wrapper} ${classes.close_button}`} onClick={()=>onRemove(id)}>
 					</button>
 				</div>			
 			</div>
@@ -203,7 +196,6 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 							className={classes.input}
 							type='text'
 							onChange={(e) =>handleAgency(e)}
-							onBlur={handleBlur}
 							value={agency}
 						/>
 					</div>

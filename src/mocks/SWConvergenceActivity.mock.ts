@@ -2,6 +2,7 @@ import ActivityType from "../types/ActivityType.type";
 
 const SWConvergenceActivityMock : ActivityType[] = [
 	{
+		id : '0',
 		pageType : 'SW융합역량',
 		activityImg : null,
 		program : 'SW융합트랙',
@@ -13,6 +14,7 @@ const SWConvergenceActivityMock : ActivityType[] = [
 		detail : '전북대학교 SW 융합트랙 교과목 수강'
 	},
 	{
+		id : '1',
 		pageType : 'SW융합역량',
 		activityImg : null,
 		program : 'SW 교양',

@@ -19,10 +19,6 @@ const UserInfo : React.FC = () => {
 	
 	const [bankAccount, setBankAccount] = useState<string>('');//계좌번호
 	const [bankName, setBankName] = useState<string>(''); // 은행명
-	const [bankBook] = useState<File|null>(null);
-	const [idCard] = useState<File|null>(null);
-  const [sign] = useState<File|null>(null); 
-
 	const [bankBookImg, setBankBookImg] = useState<string>('');
 	const [idCardImg, setIdCardImg] = useState<string>('');
 	const [signImg, setSignImg] = useState<string>('');
@@ -48,9 +44,9 @@ const UserInfo : React.FC = () => {
       email: email,
       bankAccount: bankAccount,
       bankName: bankName,
-      bankBook: bankBookImg,
-      idCard: idCardImg,
-      sign: signImg,
+      bankBookImg: bankBookImg,
+      idCardImg: idCardImg,
+      signImg: signImg,
 		}));
 
   };
@@ -71,7 +67,7 @@ const UserInfo : React.FC = () => {
 	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
 
 	useEffect(()=> {
-		console.log('useInfo : ', userInfo);
+		console.log('userInfo : ', userInfo);
 		
 	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
 

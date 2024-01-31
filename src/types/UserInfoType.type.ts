@@ -7,9 +7,9 @@ interface UserInfoType{
 	email : string;
 	bankAccount : string;
 	bankName : string;
-	bankBook : string | null;
-	idCard : string | null;
-	sign : string | null;
+	bankBookImg : string | null;
+	idCardImg : string | null;
+	signImg : string | null;
 }
 
 export default UserInfoType;

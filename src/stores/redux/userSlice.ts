@@ -19,7 +19,8 @@ interface UserState{
   bankBookImg: string | null;
   idCardImg: string | null;
   signImg: string | null;
-  activities: ActivityType[] | [];
+
+  activities: ActivityType[];
 	swCoreInfo : TotalActivity;
 	swCooperationInfo : TotalActivity;
 	swValueInfo : TotalActivity;
@@ -56,14 +57,27 @@ export const userSlice = createSlice({
 		updateUserInfo: (state, action: PayloadAction<UserInfoType>) => {
 			return { ...state, ...action.payload};
 		},
-		updateActivity: (state, action: PayloadAction<{ index: number, activity: ActivityType }>) => {
-      const { index, activity } = action.payload;
-      state.activities[index] = activity; // 인덱스에 해당하는 활동을 업데이트
-    },
+		updateActivity: (state, action: PayloadAction<{ id: string, activity: ActivityType }>) => {
+			const { id, activity } = action.payload;
+
+			// activities 배열에서 주어진 id를 가진 항목 찾기
+			const activityIndex = state.activities.findIndex(a => a.id === id);		
+
+			// 검색된 자료가 있으면 그 항목 업데이트, 없으면 새로 push
+			if (activityIndex !== -1) {
+				state.activities[activityIndex] = activity;
+			} else {
+				state.activities.push(activity);
+			}
+					
+		},
+		removeActivity: (state, action : PayloadAction<{id : string }>) => {
+			state.activities = state.activities.filter(activity => activity.id !== action.payload.id)
+		}
 	},
 });
 
-export const { updateUserInfo, updateActivity } = userSlice.actions;
+export const { updateUserInfo, updateActivity, removeActivity } = userSlice.actions;
 
 export default userSlice.reducer;
 
