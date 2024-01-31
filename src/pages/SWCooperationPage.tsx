@@ -2,28 +2,21 @@
 import MainLayout from "../layouts/MainLayout";
 import Activity from "../components/Activity/Activity";
 import { useState, useEffect } from "react";
-import axios from "axios";
-import SWCooperationActivityMock from "../mocks/SWCooperationActivity.mock";
 import ActivityType from "../types/ActivityType.type";
 import classes from '../styles/page/PageStyles.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from "../stores/redux/store";
+import { updateActivity, removeActivity } from "../stores/redux/userSlice";
+import { v4 as uuidv4 } from 'uuid';
 
 const SWCooperationPage : React.FC = () =>{
 	const area:string = 'SW산학협력·창업역량';
-	const defaultActivity : ActivityType = {
-		pageType : area,
-		activityImg : null,
-		program: null,
-		type : null,
-		topic : null, 
-		point : null,
-		agency : "",
-		date : "",
-		detail : "",
-	}
-	const [activitiesData, setActivitiesData] = useState<ActivityType[]>([defaultActivity]);
+	
+	const [activitiesData, setActivitiesData] = useState<ActivityType[]>([]);
 	
 	const handlePlusButton = () => {
 		const newActivity : ActivityType= {
+			id : uuidv4(),
 			pageType : area,
 			activityImg : null,
 			program: null,
@@ -37,51 +30,46 @@ const SWCooperationPage : React.FC = () =>{
 		setActivitiesData([newActivity, ...activitiesData]);
 	}
 
-	const handleSaveButton = async() => {
-		try{
-			const formData = new FormData();
-			activitiesData.forEach((activity, index) => {
-				formData.append(`activities[${index}][pageType]`, activity.pageType || '');
-				if (activity.activityImg && activity.activityImg instanceof File) {
-					formData.append(`activities[${index}][activityImg]`, activity.activityImg);
-				}
-				formData.append(`activities[${index}][program]`, activity.program || '');
-				formData.append(`activities[${index}][type]`, activity.type || '');
-				formData.append(`activities[${index}][topic]`, activity.topic || '');
-				formData.append(`activities[${index}][point]`, activity.point ? activity.point.toString() : '');
-				formData.append(`activities[${index}][agency]`, activity.agency);
-				formData.append(`activities[${index}][date]`, activity.date);
-				formData.append(`activities[${index}][detail]`, activity.detail);
+	const dispatch = useDispatch<AppDispatch>();
+	const userInfo = useSelector((state : RootState) => state.userInfo);
+	const [isSaved, setIsSaved] = useState<boolean>(false);
+
+	//리덕스 비동기 데이터 업데이트를 잘 해결해야한다.
+	const handleSaveButton = () => {
+		activitiesData.forEach((activity) => {
+		  dispatch(updateActivity({id : activity.id, activity}))
+		})
+
+		setTimeout(()=>console.log(userInfo), 10000);
+	};
+
+	//현재 상태를 하위컴포넌트의 handleActivityChange를 통해서 상위컴포넌트의 activityData를 업데이트해주는 로직을
+	//선택했는데, 이거 때문에 최신값이 반영이 안되는 문제점이 있었음,
+	const handleActivityChange = (activityId : string, updatedActivity : ActivityType) => {
+		setActivitiesData(activitiesData => {
+			const updatedActivitiesData = activitiesData.map(activity =>
+				activity.id === activityId ? updatedActivity : activity
+			);
+			// 업데이트된 activitiesData로 상태를 설정한 직후에 리덕스 스토어를 업데이트합니다.
+			updatedActivitiesData.forEach(activity => {
+				dispatch(updateActivity({id: activity.id, activity}))
 			});
+			return updatedActivitiesData;
+		});
 
-			const response = await axios.post('http://localhost:8080/zs', formData, {
-				headers : {
-					'Content-Type' : 'multipart/form-data'
-				}
-			});
-			console.log(response);
-			
-		}catch(error){
-			console.error("Error : ", error);
-			
-		}
-	}
+		//원래 잘못된 코드
+		// const updatedActivitiesData = activitiesData.map(activity =>
+    //   activity.id === activityId ? updatedActivity : activity
+    // );
+    // setActivitiesData(updatedActivitiesData);
+	};
 
-	const handleRemoveActivity = (index : number) => {
-		const newActivitiesData = activitiesData.filter((_, idx) => idx !== index);
-		setActivitiesData(newActivitiesData);
-	}
-	const handleActivityChange = (index : number, updatedActivity : ActivityType) => {
-		const updatedActivitesData = activitiesData.map((item, idx) => 
-			idx === index ? updatedActivity : item
-		);
-		setActivitiesData(updatedActivitesData);
-	}
+	const handleRemoveActivity = (activityId : string) => {
+    setActivitiesData(activitiesData.filter(activity => activity.id !== activityId));
+		dispatch(removeActivity({ id : activityId}))
+	};
 
-	useEffect(()=> {
-		console.log(activitiesData);
-		
-	}, [activitiesData])
+
 
 	return (
 		<MainLayout>	
@@ -90,14 +78,15 @@ const SWCooperationPage : React.FC = () =>{
 				<button className={classes.button} onClick={handleSaveButton}>저장</button>
 			</div>
 			
-			{activitiesData.map((item, index) => (
+			{activitiesData.map((activity) => (
 				<Activity 
-				key={index} 
-				area={area} 
-				activitiesData={item}
-				onRemove={handleRemoveActivity}
-				onActivityChange={handleActivityChange}
-				index={index}/>
+					key={activity.id} 
+					id={activity.id}
+					area={area} 
+					activitiesData={activity}
+					onRemove={handleRemoveActivity}
+					onActivityChange={handleActivityChange}
+				/>
 			))}
 		</MainLayout>
 	)

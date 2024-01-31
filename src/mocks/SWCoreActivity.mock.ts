@@ -2,6 +2,7 @@ import ActivityType from "../types/ActivityType.type";
 
 const SWCoreActivityMock : ActivityType[] = [
 	{
+		id : '0',
 		pageType : 'SW핵심역량',
 		activityImg : null,
 		program : '코딩 문제풀이',
@@ -13,6 +14,7 @@ const SWCoreActivityMock : ActivityType[] = [
 		detail : '백준 코딩'
 	},
 	{
+		id : '1',
 		pageType : 'SW핵심역량',
 		activityImg : null,
 		program : 'SW 공모전',

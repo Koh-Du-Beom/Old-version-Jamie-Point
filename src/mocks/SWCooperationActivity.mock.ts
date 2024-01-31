@@ -2,6 +2,7 @@ import ActivityType from "../types/ActivityType.type";
 
 const SWCooperationActivityMock : ActivityType[] = [
 	{
+		id : '0',
 		pageType : 'SW산학협력·창업역량',
 		activityImg : null,
 		program : 'SW 인턴십',
@@ -13,6 +14,7 @@ const SWCooperationActivityMock : ActivityType[] = [
 		detail : 'SW인턴십 지원'
 	},
 	{
+		id : '1',
 		pageType : 'SW산학협력·창업역량',
 		activityImg : null,
 		program : '연구활동',

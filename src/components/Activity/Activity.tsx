@@ -6,9 +6,12 @@ import ActivityDropDown from "./ActivityDropDown";
 import ActivityType from "../../types/ActivityType.type";
 import saveIcon from '../../assets/saveIcon.png';
 import styled from "styled-components";
-import axios from "axios";
 import TierCalculator from "./TierCalculator";
 import useUnSavedAlert from "../../hooks/useUnSavedAlert";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../stores/redux/store';
+import { updateActivity } from '../../stores/redux/userSlice';
+
 
 const AreaWrapper = styled.div`
 	display: flex;
@@ -19,9 +22,9 @@ const AreaWrapper = styled.div`
 interface ActivityProps {
 	area: string;
 	activitiesData : ActivityType;
-	onRemove : (index : number) => void;
-	onActivityChange : (index : number, updatedActivity : ActivityType) => void;
-	index : number;
+	onRemove: (activityId: string) => void;
+  onActivityChange: (activityId: string, updatedActivity: ActivityType) => void;
+	id : string;
 }
 
 interface ActivityDropDownProps {
@@ -32,11 +35,9 @@ interface ActivityDropDownProps {
 }
 
 
-//Activity 데이터가 area 별로 여러개 있을텐데, 이걸 index별로 어떻게 받아와볼지 고민.
-
-const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , index}) => {
+const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , id}) => {
 	
-	const [activityImg, setActivityImg] = useState<File|null>(null);
+	const [activityImg, setActivityImg] = useState<string|null>(null);
 	const [program, setProgram] = useState<string | null>("");
 	const [type, setType] = useState<string | null>("");
 	const [topic, setTopic] = useState<string | null>("");
@@ -45,82 +46,8 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	const [agency, setAgency] = useState<string>("");
 	const [date, setDate] = useState<string>("");
 	const [detail, setDetail] = useState<string>("");
-
-	const [lastBlurTime, setLastBlurTime] = useState<number>(0);
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
-	const handleSaveButtonClick = async (index : number) => {
-		if(!isValueChanged){
-			return;
-		}
-		setIsValueChanged(false);
-
-		try{
-			const formData = new FormData;
-			formData.append('index', index.toString()) // 필요없을듯
-			formData.append('pageType', area);
-			if (activityImg){
-				formData.append('activityImg', activityImg);
-			}
-
-
-			if(program){
-				formData.append('program', program);
-			}
-			if(type){
-				formData.append('type', type);
-			}else{
-				formData.append('type', '');
-			}
-			if(topic){
-				formData.append('topic', topic);
-			}else{
-				formData.append('topic', '');
-			}
-			if(point){ //point가 0일때 실행안되니 참고
-				formData.append('point', point.toString());
-			}
-
-
-			formData.append('agency', agency);
-			formData.append('date', date);
-			formData.append('detail', detail);
-
-			console.log(formData);
-			
-
-			for (let [key, value] of formData.entries()){
-				console.log(key, value);
-				
-			}
-
-			const response = await axios.post('http://localhost:8080/zs', formData, {
-				headers: {
-					'Content-Type' : 'multipart/form-data'
-				}
-			});
-			
-			// 정상적으로 저장됐으면 alert해주는 로직 짜면 좋을듯.
-		}catch(error){
-			console.log("Error : ", error);
-			
-		}
-	};
-
-	const handleBlur = () => {
-		setLastBlurTime(Date.now());
-	}
-
-	useEffect(() => {
-		if (lastBlurTime === 0 || !isValueChanged) return;
-
-		const timer = setTimeout(async()=>{
-			await handleSaveButtonClick(index); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
-			setIsValueChanged(false);
-		}, 10000);
-
-		return () => clearTimeout(timer);
-	}, [lastBlurTime, index, isValueChanged, handleSaveButtonClick])
 
 	useUnSavedAlert(isValueChanged);
 
@@ -132,15 +59,35 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	};
 
 
-	const handleActivityImg = (newImage : File | null) => {
-		setActivityImg(newImage);
-		const updatedActivity: ActivityType = {
-			...activitiesData,
-			activityImg : newImage,
+	const handleActivityImg = (newImage: File | null) => {
+		if (newImage) {
+			convertToBase64(newImage, (base64String) => {
+				setActivityImg(base64String);
+				const updatedActivity: ActivityType = {
+					...activitiesData,
+					activityImg: base64String,
+				};
+				onActivityChange(id, updatedActivity);
+			});
+			setIsValueChanged(true);
+		} else {
+			setActivityImg(null);
+			const updatedActivity: ActivityType = {
+				...activitiesData,
+				activityImg: null,
+			};
+			onActivityChange(id, updatedActivity);
+		}
+	};
+	
+	const convertToBase64 = (file : File, callback: (base64String : string) => void) => {
+		const reader = new FileReader();
+		reader.onload = () => {
+			callback(reader.result as string);
 		};
-		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
-	}
+		reader.readAsDataURL(file); 
+	}//fileReader 알아보기
+	
 
 	const handleAgency = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newAgency = event.target.value;
@@ -151,7 +98,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			agency : newAgency,
 		};
 		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
 
 	const handleDate = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -163,7 +110,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			date : newDate,
 		};
 		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
 
 	const handleDetail = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -175,7 +122,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			detail : newDetail,
 		};
 		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
 
 
@@ -206,10 +153,8 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			point: point,
 		};
 		setIsValueChanged(true);
-		onActivityChange(index, updatedActivity);
+		onActivityChange(id, updatedActivity);
 	}
-
-	
 
 	return (
 		<div className={classes.container}>
@@ -219,10 +164,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 					<div className={classes.big_title}>{area}</div>
 				</AreaWrapper>
 				<div className={`${classes.wrapper} ${classes.double}`}>
-					<button className={classes.button_wrapper} onClick={() => handleSaveButtonClick(index)}>
-						<img src={saveIcon} alt='saveIcon'/>
-					</button>
-					<button className={`${classes.button_wrapper} ${classes.close_button}`} onClick={()=>onRemove(index)}>
+					<button className={`${classes.button_wrapper} ${classes.close_button}`} onClick={()=>onRemove(id)}>
 					</button>
 				</div>			
 			</div>
@@ -230,7 +172,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			
 			<div className={classes.wrapper}>
 				<div className={classes.big_title}>사진 입력</div>
-				<ImageControler onImageChange={handleActivityImg} data={activitiesData.activityImg}/>
+				<ImageControler onImageChange={handleActivityImg} data={activityImg}/>
 			</div>
 
 			<div className={classes.wrapper}>
@@ -254,7 +196,6 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 							className={classes.input}
 							type='text'
 							onChange={(e) =>handleAgency(e)}
-							onBlur={handleBlur}
 							value={agency}
 						/>
 					</div>

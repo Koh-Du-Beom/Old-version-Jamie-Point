@@ -2,6 +2,7 @@ import ActivityType from "../types/ActivityType.type";
 
 const SWValueActivityMock : ActivityType[] = [
 	{
+		id : '0',
 		pageType : 'SW가치확산역량',
 		activityImg : null,
 		program : 'SW 관련 봉사',
@@ -13,6 +14,7 @@ const SWValueActivityMock : ActivityType[] = [
 		detail : '전북대학교 SW 동아리 봉사'
 	},
 	{
+		id : '1',
 		pageType : 'SW가치확산역량',
 		activityImg : null,
 		program : '타대학간 학술 교류',

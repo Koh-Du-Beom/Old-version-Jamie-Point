@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 
 interface ImageControlerProps {
 	onImageChange : (file : File | null) => void;
-	data : File | null;
+	data : string | null;
 }
 
 const ImageControler : React.FC<ImageControlerProps> = ({onImageChange, data}) => {
@@ -33,12 +33,7 @@ const ImageControler : React.FC<ImageControlerProps> = ({onImageChange, data}) =
 	}
 
 	useEffect(() => {
-		if (data) {
-			const fileUrl = URL.createObjectURL(data);
-			setImgURL(fileUrl);
-		} else {
-			setImgURL(null);
-		}
+		setImgURL(data);
 	}, [data]);
 
 	return (
