@@ -28,20 +28,20 @@ interface ActivityProps {
 }
 
 interface ActivityDropDownProps {
-	program : string|null;
-	type : string | null;
-	topic : string | null;
-	point : number | null;
+	program : string;
+	type : string;
+	topic : string;
+	point : number;
 }
 
 
 const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onActivityChange , id}) => {
 	
-	const [activityImg, setActivityImg] = useState<string|null>(null);
-	const [program, setProgram] = useState<string | null>("");
-	const [type, setType] = useState<string | null>("");
-	const [topic, setTopic] = useState<string | null>("");
-	const [point, setPoint] = useState<number | null>(null);
+	const [activityImg, setActivityImg] = useState<string>("");
+	const [program, setProgram] = useState<string>("");
+	const [type, setType] = useState<string>("");
+	const [topic, setTopic] = useState<string>("");
+	const [point, setPoint] = useState<number>(0);
 	
 	const [agency, setAgency] = useState<string>("");
 	const [date, setDate] = useState<string>("");
@@ -59,7 +59,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	};
 
 
-	const handleActivityImg = (newImage: File | null) => {
+	const handleActivityImg = (newImage: File) => {
 		if (newImage) {
 			convertToBase64(newImage, (base64String) => {
 				setActivityImg(base64String);
@@ -71,10 +71,10 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			});
 			setIsValueChanged(true);
 		} else {
-			setActivityImg(null);
+			setActivityImg("");
 			const updatedActivity: ActivityType = {
 				...activitiesData,
-				activityImg: null,
+				activityImg: "",
 			};
 			onActivityChange(id, updatedActivity);
 		}

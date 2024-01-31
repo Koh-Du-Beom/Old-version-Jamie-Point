@@ -4,7 +4,7 @@ const SWConvergenceActivityMock : ActivityType[] = [
 	{
 		id : '0',
 		pageType : 'SW융합역량',
-		activityImg : null,
+		activityImg : "",
 		program : 'SW융합트랙',
 		type : 'SW-STEMCELL 교과목 수강',
 		topic : '',
@@ -16,7 +16,7 @@ const SWConvergenceActivityMock : ActivityType[] = [
 	{
 		id : '1',
 		pageType : 'SW융합역량',
-		activityImg : null,
+		activityImg : "",
 		program : 'SW 교양',
 		type : 'SW 교양 과목 이수',
 		topic : '',

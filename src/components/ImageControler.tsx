@@ -3,13 +3,13 @@ import classes from '../styles/components/ImageControler.module.css';
 import { useState, useRef, useEffect } from 'react';
 
 interface ImageControlerProps {
-	onImageChange : (file : File | null) => void;
-	data : string | null;
+	onImageChange : (file : File) => void;
+	data : string;
 }
 
 const ImageControler : React.FC<ImageControlerProps> = ({onImageChange, data}) => {
 
-	const [imgURL, setImgURL] = useState<string | null>(null);
+	const [imgURL, setImgURL] = useState<string>("");
 	const fileInputRef = useRef<HTMLInputElement>(null);
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,17 +19,12 @@ const ImageControler : React.FC<ImageControlerProps> = ({onImageChange, data}) =
         const fileUrl = URL.createObjectURL(selectedFile);
         setImgURL(fileUrl); 
     } else {
-        onImageChange(null);
-        setImgURL(null);
+        setImgURL("");
     }
 	};
 
 	const handleImageContainerClick = () => {
 		fileInputRef.current?.click();
-	}
-
-	const handleCloseButtonClick = () => {
-		setImgURL(null);
 	}
 
 	useEffect(() => {
