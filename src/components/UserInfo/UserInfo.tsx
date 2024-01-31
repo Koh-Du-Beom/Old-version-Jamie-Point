@@ -23,9 +23,9 @@ const UserInfo : React.FC = () => {
 	const [idCard] = useState<File|null>(null);
   const [sign] = useState<File|null>(null); 
 
-	const [bankBookImg, setBankBook] = useState<string>('');
-	const [idCardImg, setIdCard] = useState<string>('');
-	const [signImg, setSign] = useState<string>('');
+	const [bankBookImg, setBankBookImg] = useState<string>('');
+	const [idCardImg, setIdCardImg] = useState<string>('');
+	const [signImg, setSignImg] = useState<string>('');
 	
 	const [lastBlurTime, setLastBlurTime] = useState<number>(0);
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
@@ -121,30 +121,30 @@ const UserInfo : React.FC = () => {
 
 	const handlebankBookImg = (file : File | null) => {
 		if(file){
-			convertToBase64(file, setBankBook);
+			convertToBase64(file, setBankBookImg);
 			setIsValueChanged(true);
 		}else{
-			setBankBook('');
+			setBankBookImg('');
 		}
 		handleBlur();
 	};
 
 	const handleIdCardImg= (file : File | null) => {
 		if(file){
-			convertToBase64(file, setIdCard);
+			convertToBase64(file, setIdCardImg);
 			setIsValueChanged(true);
 		}else{
-			setIdCard('');
+			setIdCardImg('');
 		}
 		handleBlur();
 	}
 
 	const handleSignImg = (file : File | null) => {
 		if(file){
-			convertToBase64(file, setSign);
+			convertToBase64(file, setSignImg);
 			setIsValueChanged(true);
 		}else{
-			setSign('');
+			setSignImg('');
 		}
 		handleBlur();
 	}
@@ -254,7 +254,7 @@ const UserInfo : React.FC = () => {
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>통장사본</div>
-					<ImageControler onImageChange={handlebankBookImg} data={bankBook}/>
+					<ImageControler onImageChange={handlebankBookImg} data={bankBookImg}/>
 				</div>
 			</div>
 			<div className={`${classes.wrapper} ${classes.double}`}>
@@ -286,14 +286,14 @@ const UserInfo : React.FC = () => {
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>신분증사본</div>
-					<ImageControler onImageChange={handleIdCardImg} data={idCard}/>
+					<ImageControler onImageChange={handleIdCardImg} data={idCardImg}/>
 				</div>
 			</div>
 
 			<div className={classes.wrapper}>
 				<div>
 					<div className={classes.small_title}>사진 사진</div>
-					<ImageControler onImageChange={handleSignImg} data={sign}/>
+					<ImageControler onImageChange={handleSignImg} data={signImg}/>
 				</div>
 			</div>
 		</div>

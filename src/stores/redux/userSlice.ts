@@ -56,10 +56,14 @@ export const userSlice = createSlice({
 		updateUserInfo: (state, action: PayloadAction<UserInfoType>) => {
 			return { ...state, ...action.payload};
 		},
-	}
+		updateActivity: (state, action: PayloadAction<{ index: number, activity: ActivityType }>) => {
+      const { index, activity } = action.payload;
+      state.activities[index] = activity; // 인덱스에 해당하는 활동을 업데이트
+    },
+	},
 });
 
-export const { updateUserInfo } = userSlice.actions;
+export const { updateUserInfo, updateActivity } = userSlice.actions;
 
 export default userSlice.reducer;
 
