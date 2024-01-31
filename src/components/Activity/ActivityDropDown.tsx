@@ -5,10 +5,10 @@ import styled from 'styled-components';
 import classes from '../../styles/components/ActivityDropDown.module.css';
 
 interface SelectedData {
-	program : string | null;
-	type : string | null;
-	topic : string | null;
-	point : number | null;
+	program : string;
+	type : string;
+	topic : string;
+	point : number;
 
 }
 
@@ -19,31 +19,31 @@ interface ActivityDropDownProps {
 }
 
 const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDropDownChange, dropDownData}) => {
-  const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
-  const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-  const [selectedPoint, setSelectedPoint] = useState<number | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<string>("");
+  const [selectedType, setSelectedType] = useState<string>("");
+  const [selectedTopic, setSelectedTopic] = useState<string>("");
+  const [selectedPoint, setSelectedPoint] = useState<number>(0);
 
   const handleProgramChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedProgramValue = event.target.value;
     setSelectedProgram(selectedProgramValue);
-    setSelectedType(null);
-    setSelectedTopic(null);
-    setSelectedPoint(null);
+    setSelectedType("");
+    setSelectedTopic("");
+    setSelectedPoint(0);
 
     onDropDownChange({
         program: selectedProgramValue,
-        type: null,
-        topic: null,
-        point: null,
+        type: "",
+        topic: "",
+        point: 0,
     });
 	};
 
 	const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedTypeValue = event.target.value;
 		setSelectedType(selectedTypeValue);
-		setSelectedTopic(null);
-		setSelectedPoint(null); 
+		setSelectedTopic("");
+		setSelectedPoint(0); 
 
 		const foundType = ActivityDropDownData.find(area => area.area === selectedArea)
 		?.programs.find(program => program.program === selectedProgram)
@@ -56,8 +56,8 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 		onDropDownChange({
 			program: selectedProgram,
 			type: selectedTypeValue,
-			topic: null,
-			point: foundType && foundType.points.length === 1 ? foundType.points[0].point : null
+			topic: "",
+			point: foundType && foundType.points.length === 1 ? foundType.points[0].point : 0
 		});
 	};
 
@@ -70,12 +70,12 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 		?.types.find(type => type.type === selectedType)
 		?.points.find(point => point.topic === selectedTopicValue);
 
-		setSelectedPoint(foundPoint ? foundPoint.point : null);
+		setSelectedPoint(foundPoint ? foundPoint.point : 0);
 		onDropDownChange({
 			program: selectedProgram,
 			type: selectedType,
 			topic: selectedTopicValue,
-			point: foundPoint ? foundPoint.point : null,
+			point: foundPoint ? foundPoint.point : 0,
 		});
 	};
 
@@ -126,7 +126,7 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 						?.programs.find(program => program.program === selectedProgram)
 						?.types.find(type => type.type === selectedType)
 						?.points[0].topic === '' 
-						? null
+						? ""
 						: <select value={selectedTopic ?? ''} onChange={handleTopicChange}>
 								<option value="">주제를 선택해주세요</option>
 								{ActivityDropDownData.find(area => area.area === selectedArea)

@@ -4,7 +4,7 @@ const SWCoreActivityMock : ActivityType[] = [
 	{
 		id : '0',
 		pageType : 'SW핵심역량',
-		activityImg : null,
+		activityImg : "",
 		program : '코딩 문제풀이',
 		type : '백준 Bronze/Silver/Gold/Platinum/Diamond/Ruby',
 		topic : '',
@@ -16,7 +16,7 @@ const SWCoreActivityMock : ActivityType[] = [
 	{
 		id : '1',
 		pageType : 'SW핵심역량',
-		activityImg : null,
+		activityImg : "",
 		program : 'SW 공모전',
 		type : '(교내-학과주관)작품경진대회, 게임경진대회, 인공지능 경진대회 등',
 		topic : '대상',

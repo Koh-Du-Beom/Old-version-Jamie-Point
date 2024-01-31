@@ -6,22 +6,34 @@ import ActivityType from "../types/ActivityType.type";
 import classes from '../styles/page/PageStyles.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from "../stores/redux/store";
-import { updateActivity, removeActivity } from "../stores/redux/userSlice";
+import { updateActivity, removeActivity, updateSWConvergenceInfo, updateTotals } from "../stores/redux/userSlice";
 import { v4 as uuidv4 } from 'uuid';
 
 const SWConvergencePage:React.FC = () => {
 	const area:string = 'SW융합역량';
-	const [activitiesData, setActivitiesData] = useState<ActivityType[]>([]);
-	
+	const defaultActivity: ActivityType = {
+		id: uuidv4(),
+		pageType: area,
+		activityImg: "",
+		program: "",
+		type: "",
+		topic: "", 
+		point: 0,
+		agency: "",
+		date: "",
+		detail: "",
+	};
+	const [activitiesData, setActivitiesData] = useState<ActivityType[]>([defaultActivity]);
+
 	const handlePlusButton = () => {
 		const newActivity : ActivityType= {
 			id : uuidv4(),
 			pageType : area,
-			activityImg : null,
-			program: null,
-			type : null,
-			topic : null, 
-			point : null,
+			activityImg : "",
+			program: "",
+			type : "",
+			topic : "", 
+			point : 0,
 			agency : "",
 			date : "",
 			detail : "",
@@ -29,19 +41,24 @@ const SWConvergencePage:React.FC = () => {
 		setActivitiesData([newActivity, ...activitiesData]);
 	}
 
+
 	const dispatch = useDispatch<AppDispatch>();
 	const userInfo = useSelector((state : RootState) => state.userInfo);
-	const [isSaved, setIsSaved] = useState<boolean>(false);
 
-	//리덕스 비동기 데이터 업데이트를 잘 해결해야한다.
-	const handleSaveButton = () => {
-		activitiesData.forEach((activity) => {
-		  dispatch(updateActivity({id : activity.id, activity}))
-		})
+	useEffect(()=> {	
+		console.log('userInfo : ', userInfo);
+		
+	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
 
-		setTimeout(()=>console.log(userInfo), 10000);
-	};
-
+	useEffect(()=>{
+		const filteredActivities = userInfo.activities.filter(activity => activity.pageType === area);
+		if (filteredActivities.length === 0){
+			setActivitiesData([defaultActivity]);
+		}else{
+			setActivitiesData(filteredActivities);
+		}
+		calculateSWConvergenceInfo();
+	}, [userInfo.activities, area])
 	//현재 상태를 하위컴포넌트의 handleActivityChange를 통해서 상위컴포넌트의 activityData를 업데이트해주는 로직을
 	//선택했는데, 이거 때문에 최신값이 반영이 안되는 문제점이 있었음,
 	const handleActivityChange = (activityId : string, updatedActivity : ActivityType) => {
@@ -68,12 +85,18 @@ const SWConvergencePage:React.FC = () => {
 		dispatch(removeActivity({ id : activityId}))
 	};
 
+	const calculateSWConvergenceInfo = () => {
+		const totalPoint = activitiesData.reduce((acc, activity) => acc + (activity.point || 0), 0);
+		const activityCount = activitiesData.length;
+
+		dispatch(updateSWConvergenceInfo({ activityCount, totalPoint }));
+		dispatch(updateTotals());
+	}
 	
 	return (
 		<MainLayout>	
 			<div className={classes.button_container}>
 				<button className={classes.button} onClick={handlePlusButton}>+</button>
-				<button className={classes.button} onClick={handleSaveButton}>저장</button>
 			</div>
 			
 			{activitiesData.map((activity) => (

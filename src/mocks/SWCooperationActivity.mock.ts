@@ -4,7 +4,7 @@ const SWCooperationActivityMock : ActivityType[] = [
 	{
 		id : '0',
 		pageType : 'SW산학협력·창업역량',
-		activityImg : null,
+		activityImg : "",
 		program : 'SW 인턴십',
 		type : '연구실 인턴',
 		topic : '',
@@ -16,7 +16,7 @@ const SWCooperationActivityMock : ActivityType[] = [
 	{
 		id : '1',
 		pageType : 'SW산학협력·창업역량',
-		activityImg : null,
+		activityImg : "",
 		program : '연구활동',
 		type : '산학협력프로젝트 참여(2학기 적용)',
 		topic : '5개월 이상',

@@ -61,7 +61,7 @@ const UserInfo : React.FC = () => {
 		const timer = setTimeout(async()=>{
 			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
 			setIsValueChanged(false);
-		}, 5000); // 라우터(페이지 이동 시에도 실행되도록 하기)
+		}, 1000); // 라우터(페이지 이동 시에도 실행되도록 하기)
 
 		return () => clearTimeout(timer);
 	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
@@ -71,11 +71,29 @@ const UserInfo : React.FC = () => {
 		
 	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
 
+	useEffect(() => {
+    if (userInfo) {
+      setName(userInfo.name);
+      setGrade(userInfo.grade);
+      setMajor(userInfo.major);
+      setStudentNumber(userInfo.studentNumber);
+      setPhoneNumber(userInfo.phoneNumber);
+      setEmail(userInfo.email);
+      setBankAccount(userInfo.bankAccount);
+      setBankName(userInfo.bankName);
+      setBankBookImg(userInfo.bankBookImg || '');
+      setIdCardImg(userInfo.idCardImg || '');
+      setSignImg(userInfo.signImg || '');
+    }
+  }, [userInfo]);
+
 	useUnSavedAlert(isValueChanged);
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
+		
 		setName(event.target.value);
 		setIsValueChanged(true);
+
 	}
 
 	const handleGrade = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -178,6 +196,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleName}
 							onBlur={handleBlur}
+							value={name}
 						/>
 					</div>
 				</div>
@@ -189,6 +208,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleMajor}	
 							onBlur={handleBlur}
+							value={major}
 						/>
 					</div>
 				</div>
@@ -203,6 +223,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleGrade}
 							onBlur={handleBlur}
+							value={grade === 0 ? '' : grade.toString()}
 						/>
 					</div>
 				</div>
@@ -214,6 +235,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleStudentNumber}	
 							onBlur={handleBlur}
+							value={studentNumber}
 						/>
 					</div>
 				</div>
@@ -228,6 +250,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handlePhoneNumber}
 							onBlur={handleBlur}
+							value={phoneNumber}
 						/>
 					</div>
 				</div>
@@ -239,6 +262,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleEmail}	
 							onBlur={handleBlur}
+							value={email}
 						/>
 					</div>
 				</div>
@@ -262,6 +286,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleBankAccount}	
 							onBlur={handleBlur}
+							value={bankAccount}
 						/>
 					</div>
 				</div>
@@ -273,6 +298,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleBankName}
 							onBlur={handleBlur}
+							value={bankName}
 						/>
 					</div>
 				</div>

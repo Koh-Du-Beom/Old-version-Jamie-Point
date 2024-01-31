@@ -1,11 +1,11 @@
 interface ActivityType{
 	id : string;
 	pageType : string,
-	activityImg : string | null,
-	program: string | null,
-	type : string | null,
-	topic : string | null, 
-	point : number | null,
+	activityImg : string,
+	program: string,
+	type : string,
+	topic : string, 
+	point : number,
 	agency : string,
 	date : string,
 	detail : string,
