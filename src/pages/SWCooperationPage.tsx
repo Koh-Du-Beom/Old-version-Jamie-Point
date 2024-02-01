@@ -44,12 +44,6 @@ const SWCooperationPage : React.FC = () =>{
 
 	const dispatch = useDispatch<AppDispatch>();
 	const userInfo = useSelector((state : RootState) => state.userInfo);
-	const [isSaved, setIsSaved] = useState<boolean>(false);
-
-	useEffect(()=> {
-		console.log('userInfo : ', userInfo);
-		
-	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
 
 	useEffect(()=>{
 		const filteredActivities = userInfo.activities.filter(activity => activity.pageType === area);
@@ -58,7 +52,6 @@ const SWCooperationPage : React.FC = () =>{
 		}else{
 			setActivitiesData(filteredActivities);
 		}
-		calculateSWCooperationInfo();
 	}, [userInfo.activities, area])
 
 	//현재 상태를 하위컴포넌트의 handleActivityChange를 통해서 상위컴포넌트의 activityData를 업데이트해주는 로직을
@@ -72,9 +65,10 @@ const SWCooperationPage : React.FC = () =>{
 			updatedActivitiesData.forEach(activity => {
 				dispatch(updateActivity({id: activity.id, activity}))
 			});
+			
 			return updatedActivitiesData;
 		});
-
+		calculateSWCooperationInfo();
 		//원래 잘못된 코드
 		// const updatedActivitiesData = activitiesData.map(activity =>
     //   activity.id === activityId ? updatedActivity : activity
