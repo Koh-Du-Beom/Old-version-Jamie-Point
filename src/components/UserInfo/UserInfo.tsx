@@ -66,11 +66,6 @@ const UserInfo : React.FC = () => {
 		return () => clearTimeout(timer);
 	}, [lastBlurTime, isValueChanged, handleSaveButtonClick])
 
-	useEffect(()=> {
-		console.log('userInfo : ', userInfo);
-		
-	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
-
 	useEffect(() => {
     if (userInfo) {
       setName(userInfo.name);
@@ -177,11 +172,6 @@ const UserInfo : React.FC = () => {
 			<div className={`${classes.wrapper} ${classes.end_double}`}>
 				<div>
 					<div className={classes.big_title}>내 정보</div>
-				</div>
-				<div>
-					<button className={classes.button_wrapper} onClick={handleSaveButtonClick}>
-						<img src={saveIcon} alt='Save_Icon'/>
-					</button>
 				</div>
 			</div>
 			<hr/>		

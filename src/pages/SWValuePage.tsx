@@ -46,11 +46,6 @@ const SWValuePage:React.FC = () => {
 	const userInfo = useSelector((state : RootState) => state.userInfo);
 	const [isSaved, setIsSaved] = useState<boolean>(false);
 
-	useEffect(()=> {
-		console.log('userInfo : ', userInfo);
-		
-	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
-
 	useEffect(()=>{
 		const filteredActivities = userInfo.activities.filter(activity => activity.pageType === area);
 		if (filteredActivities.length === 0){
@@ -58,7 +53,6 @@ const SWValuePage:React.FC = () => {
 		}else{
 			setActivitiesData(filteredActivities);
 		}
-		calculateSWValueInfo();
 	}, [userInfo.activities, area])
 
 	//현재 상태를 하위컴포넌트의 handleActivityChange를 통해서 상위컴포넌트의 activityData를 업데이트해주는 로직을
@@ -74,6 +68,7 @@ const SWValuePage:React.FC = () => {
 			});
 			return updatedActivitiesData;
 		});
+		calculateSWValueInfo();
 
 		//원래 잘못된 코드
 		// const updatedActivitiesData = activitiesData.map(activity =>

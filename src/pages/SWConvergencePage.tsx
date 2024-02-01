@@ -45,10 +45,6 @@ const SWConvergencePage:React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const userInfo = useSelector((state : RootState) => state.userInfo);
 
-	useEffect(()=> {	
-		console.log('userInfo : ', userInfo);
-		
-	}, [userInfo]); //redux의 상태변경은 비동기적으로 이루어짐.
 
 	useEffect(()=>{
 		const filteredActivities = userInfo.activities.filter(activity => activity.pageType === area);
@@ -57,7 +53,7 @@ const SWConvergencePage:React.FC = () => {
 		}else{
 			setActivitiesData(filteredActivities);
 		}
-		calculateSWConvergenceInfo();
+		
 	}, [userInfo.activities, area])
 	//현재 상태를 하위컴포넌트의 handleActivityChange를 통해서 상위컴포넌트의 activityData를 업데이트해주는 로직을
 	//선택했는데, 이거 때문에 최신값이 반영이 안되는 문제점이 있었음,
@@ -72,6 +68,7 @@ const SWConvergencePage:React.FC = () => {
 			});
 			return updatedActivitiesData;
 		});
+		calculateSWConvergenceInfo();
 
 		//원래 잘못된 코드
 		// const updatedActivitiesData = activitiesData.map(activity =>
