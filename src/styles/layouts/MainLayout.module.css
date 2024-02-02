@@ -7,7 +7,7 @@
 .content {
 	display: flex;
 	margin: 0 auto;
-	padding-top: 80px; 
+	padding-top: 20px; 
 	align-items: flex-start;
 }
 
@@ -18,6 +18,4 @@
 .rightNavBarWrapper{
 	display: flex;
 	flex-direction: column;
-	position: sticky;
-	top: 180px;
 }
