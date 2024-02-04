@@ -11,6 +11,7 @@ import useUnSavedAlert from "../../hooks/useUnSavedAlert";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../stores/redux/store';
 import { updateActivity } from '../../stores/redux/userSlice';
+import Divider from "../Divider";
 
 
 const AreaWrapper = styled.div`
@@ -86,7 +87,6 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 		};
 		reader.readAsDataURL(file); 
 	}//fileReader 알아보기
-	
 
 	const handleAgency = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newAgency = event.target.value;
@@ -163,11 +163,10 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 					<div className={classes.big_title}>{area}</div>
 				</AreaWrapper>
 				<div className={`${classes.wrapper} ${classes.double}`}>
-					<button className={`${classes.button_wrapper} ${classes.close_button}`} onClick={()=>onRemove(id)}>
-					</button>
+					<button className={`${classes.button_wrapper} ${classes.close_button}`} onClick={()=>onRemove(id)}/>		
 				</div>			
 			</div>
-			<hr/>
+			<Divider/>
 			
 			<div className={classes.wrapper}>
 				<div className={classes.big_title}>사진 입력</div>
