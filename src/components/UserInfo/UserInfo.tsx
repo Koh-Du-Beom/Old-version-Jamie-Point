@@ -7,7 +7,7 @@ import useUnSavedAlert from '../../hooks/useUnSavedAlert';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../stores/redux/store';
 import { updateUserInfo } from '../../stores/redux/userSlice';
-import Divider from '../Diveder';
+import Divider from '../Divider';
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');

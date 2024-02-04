@@ -15,8 +15,8 @@ const TopNavBar : React.FC = () => {
 				<div className={classes.navItem}>2</div>
 			</div>
 			<div className={classes.navIcons}>
-				<div className={classes.navIcon}>3</div>
-				<div className={classes.navIcon}>4</div>
+				<div className={classes.navIcon} onClick={()=>navigate('/info')}>유저 정보</div>
+				<div className={classes.navIcon} onClick={()=>navigate('activity/SW핵심역량')}>활동</div>
 				<div className={classes.navIcon}>5</div>
 			</div>
 		</div>

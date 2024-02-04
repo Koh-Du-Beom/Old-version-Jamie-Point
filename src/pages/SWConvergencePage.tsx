@@ -91,10 +91,13 @@ const SWConvergencePage:React.FC = () => {
 	}
 	
 	return (
-		<MainLayout>	
-			<div className={classes.button_container}>
-				<button className={classes.button} onClick={handlePlusButton}>+</button>
+		<MainLayout>
+			<div className={`${classes.button_container}`}>
+				<div className={classes.button_wrapper}>
+					<button className={classes.button} onClick={handlePlusButton}>+</button>
+				</div>
 			</div>
+			
 			
 			{activitiesData.map((activity) => (
 				<Activity 

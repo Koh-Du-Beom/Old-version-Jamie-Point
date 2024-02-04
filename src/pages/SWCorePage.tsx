@@ -93,9 +93,10 @@ const SWCorePage:React.FC = () => {
 
 	return (
 		<MainLayout>	
-			<div className={classes.button_container}>
-				<button className={classes.button} onClick={handlePlusButton}>+</button>
-				{/* <button className={classes.button} onClick={handleSaveButton}>저장</button> */}
+			<div className={`${classes.button_container}`}>
+				<div className={classes.button_wrapper}>
+					<button className={classes.button} onClick={handlePlusButton}>+</button>
+				</div>
 			</div>
 			
 			{activitiesData.map((activity) => (
