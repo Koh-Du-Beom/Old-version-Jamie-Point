@@ -4,7 +4,7 @@
 	display: flex;
 	position: sticky;
 	bottom: 0px;
-	background-color: #a654ec;
+	background-color: #ffffff;
 	height: 80px;
 	align-items: center;
 	justify-content: center;
@@ -26,10 +26,13 @@
 .send_button{
 	border-radius: 8px;
 	border: none;
-	background-color: #D0B0FF;
+	background-color: #000000;
+	color: #ffffff;
+	font-size: 20px;
+	padding: 10px;
 }
 
 .send_button:hover{
-	background-color: #c49bff;
+	background-color: #2B2C31;
 	
 }

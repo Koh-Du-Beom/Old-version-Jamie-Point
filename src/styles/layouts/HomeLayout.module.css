@@ -1,0 +1,24 @@
+.homeLayout{
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.imageContainer{
+
+}
+
+.content{
+	display: flex;
+	margin: 0 auto;
+	padding-top: 20px;
+	align-items: flex-start;
+}
+
+.input{
+	padding: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+  cursor: pointer; 
+	border-radius: 10px;
+	border: none;
+}

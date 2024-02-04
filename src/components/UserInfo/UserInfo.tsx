@@ -2,12 +2,12 @@
 import classes from '../../styles/FormStyles.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
-import saveIcon from '../../assets/saveIcon.png'
 import { useEffect } from 'react';
 import useUnSavedAlert from '../../hooks/useUnSavedAlert';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../stores/redux/store';
 import { updateUserInfo } from '../../stores/redux/userSlice';
+import Divider from '../Diveder';
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
@@ -174,7 +174,7 @@ const UserInfo : React.FC = () => {
 					<div className={classes.big_title}>내 정보</div>
 				</div>
 			</div>
-			<hr/>		
+			<Divider/>		
 			<div className={classes.big_title}>기본 정보</div>
 
 			<div className={`${classes.wrapper} ${classes.double}`}>
@@ -258,7 +258,7 @@ const UserInfo : React.FC = () => {
 				</div>
 			</div>
 			
-			<hr/>
+			<Divider/>	
 			
 			<div className={classes.big_title}>통장 및 신분증사본</div>
 			<div className={classes.wrapper}>

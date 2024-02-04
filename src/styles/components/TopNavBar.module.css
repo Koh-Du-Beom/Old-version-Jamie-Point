@@ -1,12 +1,42 @@
 .navbar{
-  background-color: #D0B0FF; 
-  height: 50px; 
-  width: 100%;
-  position: fixed;
-	margin-bottom: 20px; 
-	/* fixed 속성 사용하는 요소들이 흐름에서 벗어남. */
-  top: 0; 
-  left: 0; 
-  z-index: 1000; 
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+	background-color: #000000;
+	position: sticky;
+	color: #8c8c8c;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 20px;
+	height: 50px;
+	top: 0;
+	z-index: 1000;
+}
+
+.logo{
+	cursor: pointer;
+	transition: color 0.3s;
+}
+
+.logo:hover{
+	color: #ffffff;
+}
+
+.navItems{
+	display: flex;
+	flex-direction: row;
+}
+
+.navIcons{
+	display: flex;
+	flex-direction: row;
+	align-items: right;
+}
+
+.navItem, .navIcon {
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s; 
+}
+
+.navItem:hover, .navIcon:hover {
+  color: #ffffff; 
 }
