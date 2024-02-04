@@ -1,11 +1,12 @@
-import MainLayout from "../layouts/MainLayout";
+import HomeLayout from "../layouts/HomeLayout";
 
-const ActivityPage = () => {
+
+const HomePage = () => {
   return (
-    <MainLayout>
-			홈페이지입니다.
-		</MainLayout>
+    <HomeLayout>
+			콘텐츠 고민
+		</HomeLayout>
   )
 }
 
-export default ActivityPage;
+export default HomePage;
