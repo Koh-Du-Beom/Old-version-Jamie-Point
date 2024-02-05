@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../stores/redux/store';
 import { updateUserInfo } from '../../stores/redux/userSlice';
 import Divider from '../Divider';
+import { isValidAccountNumber, isValidEmail, isValidName, isValidPhoneNumber, isValidStudentNumber, } from '../../utils/regularExpression/isValidUserInfo';
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
@@ -85,10 +86,9 @@ const UserInfo : React.FC = () => {
 	useUnSavedAlert(isValueChanged);
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
-		
+		const newName = event.target.value;
 		setName(event.target.value);
 		setIsValueChanged(true);
-
 	}
 
 	const handleGrade = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -98,33 +98,39 @@ const UserInfo : React.FC = () => {
 	}
 
 	const handleMajor = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setMajor(event.target.value);
+		const newMajor = event.target.value;
+		setMajor(newMajor);
 		setIsValueChanged(true);
 	}
 
 	const handleStudentNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setStudentNumber(event.target.value);
+		const newStudentNumber = event.target.value;
+		setStudentNumber(newStudentNumber);
 		setIsValueChanged(true);
 	}
 
 	const handlePhoneNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setPhoneNumber(event.target.value);
+		const newPhoneNumber = event.target.value;
+		setPhoneNumber(newPhoneNumber);
 		setIsValueChanged(true);
 	}
 
 	const handleEmail = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setEmail(event.target.value)
+		const newEmail = event.target.value;
+		setEmail(newEmail);
 		setIsValueChanged(true);
 	}
 
 
 	const handleBankAccount = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setBankAccount(event.target.value);
+		const newBankAccount = event.target.value;
+		setBankAccount(newBankAccount);
 		setIsValueChanged(true);
 	}
 
 	const handleBankName = (event : React.ChangeEvent<HTMLInputElement>) => {
-		setBankName(event.target.value);
+		const newBankName = event.target.value;
+		setBankName(newBankName);
 		setIsValueChanged(true);
 	}
 
