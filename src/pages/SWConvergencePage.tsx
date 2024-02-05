@@ -38,7 +38,7 @@ const SWConvergencePage:React.FC = () => {
 			date : "",
 			detail : "",
 		}
-		setActivitiesData([newActivity, ...activitiesData]);
+		setActivitiesData([...activitiesData, newActivity]);
 	}
 
 
