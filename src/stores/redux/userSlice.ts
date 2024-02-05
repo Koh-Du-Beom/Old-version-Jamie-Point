@@ -9,7 +9,7 @@ interface TotalActivity{
 
 interface UserState{
 	name: string;
-  grade: number;
+  grade: string;
   major: string;
   studentNumber: string;
   phoneNumber: string;
@@ -31,7 +31,7 @@ interface UserState{
 
 const initialState: UserState = {
 	name : '',
-	grade : 0,
+	grade : '',
 	major : '',
 	studentNumber: '',
 	phoneNumber: '',
