@@ -11,7 +11,7 @@ import Divider from '../Divider';
 
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
-	const [grade, setGrade] = useState<number>(0);
+	const [grade, setGrade] = useState<string>('');
 	const [major, setMajor] = useState<string>(''); //전공
 	const [studentNumber, setStudentNumber] = useState<string>('');
 	const [phoneNumber, setPhoneNumber] = useState<string>('');
@@ -93,7 +93,7 @@ const UserInfo : React.FC = () => {
 
 	const handleGrade = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newGrade = event.target.value;
-		setGrade(Number(newGrade));
+		setGrade(newGrade);
 		setIsValueChanged(true);
 	}
 
@@ -213,7 +213,7 @@ const UserInfo : React.FC = () => {
 							type='text'
 							onChange={handleGrade}
 							onBlur={handleBlur}
-							value={grade === 0 ? '' : grade.toString()}
+							value={!grade ? '' : grade.toString()}
 						/>
 					</div>
 				</div>
