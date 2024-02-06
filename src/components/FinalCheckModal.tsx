@@ -15,7 +15,7 @@ const FinalCheckModal: React.FC<ModalProps> = ({ onClose }) => {
   const handleDocumentation = async () => {
     const body = JSON.stringify(userInfo);
     console.log(body);
-
+    console.log("Jamie");
     try {
       const response = await axios.post("http://localhost:8080/zs", body, {
         headers: {
