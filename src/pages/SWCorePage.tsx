@@ -54,7 +54,7 @@ const SWCorePage:React.FC = () => {
 		}else{
 			setActivitiesData(filteredActivities);
 		}
-	}, [userInfo.activities, area])
+	}, [userInfo.activities, area]);
 
 	//현재 상태를 하위컴포넌트의 handleActivityChange를 통해서 상위컴포넌트의 activityData를 업데이트해주는 로직을
 	//선택했는데, 이거 때문에 최신값이 반영이 안되는 문제점이 있었음,
@@ -69,28 +69,28 @@ const SWCorePage:React.FC = () => {
 			
 			return updatedActivitiesData;
 		});
-
-		calculateSWCoreInfo();
-		//원래 잘못된 코드
-		// const updatedActivitiesData = activitiesData.map(activity =>
-    //   activity.id === activityId ? updatedActivity : activity
-    // );
-    // setActivitiesData(updatedActivitiesData);
 	};
 
 	const handleRemoveActivity = (activityId : string) => {
     setActivitiesData(activitiesData.filter(activity => activity.id !== activityId));
 		dispatch(removeActivity({ id : activityId}))
 	};
-	
-	const calculateSWCoreInfo = () => {
-		const totalPoint = activitiesData.reduce((acc, activity) => acc + (activity.point || 0), 0);
-		const activityCount = activitiesData.length;
-		
-		dispatch(updateSWCoreInfo({ activityCount, totalPoint }));
-		dispatch(updateTotals());
-	}
 
+	useEffect(()=>{
+		const calculateSWCoreInfo = () => {
+			const totalPoint = activitiesData.reduce((acc, activity) => acc + (activity.point || 0), 0);
+			const activityCount = activitiesData.length;
+
+			dispatch(updateSWCoreInfo({ activityCount, totalPoint }));
+		};
+
+		calculateSWCoreInfo();
+	}, [activitiesData, dispatch]);
+	// 사이드이펙트의 관리. 원래 handleActivityChange에서 calculate을 했지만, 이 경우 
+	//Cannot update a component (`SWCooperationPage`) while rendering a different component 오류가 발생
+	//리액트최적화와 안맞는 코드이므로 useEffect를 통해 sideEffect를 관리해야한다.
+	//이 경우 발생하는 이슈는 렌더링 최적화가 안되어 만약 포인트가 바뀐경우 바로 반영되지 않고 다른 컴포넌트 정보를 바꿔야
+	//되는 이슈가 가장 크다. 이걸 해결하기 위해 useEffect를 사용하는것임.
 	return (
 		<MainLayout>	
 			<div className={`${classes.button_container}`}>

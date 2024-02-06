@@ -3,7 +3,6 @@ import classes from '../../styles/FormStyles.module.css';
 import ImageControler from '../ImageControler';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import useUnSavedAlert from '../../hooks/useUnSavedAlert';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../stores/redux/store';
 import { updateUserInfo } from '../../stores/redux/userSlice';
@@ -45,7 +44,7 @@ const UserInfo : React.FC = () => {
 			return;
 		}
 		setIsValueChanged(false);
-		console.log('저장되었습니다.');
+		setLastBlurTime(0);
 		
 		dispatch(updateUserInfo({
 			name: name,
@@ -60,7 +59,7 @@ const UserInfo : React.FC = () => {
       idCardImg: idCardImg,
       signImg: signImg,
 		}));
-
+		
   };
 
 	const handleBlur = () => {
@@ -69,8 +68,6 @@ const UserInfo : React.FC = () => {
 
 	useEffect(() => {
 		if (lastBlurTime === 0 || !isValueChanged) return;
-
-		console.log(lastBlurTime, isValueChanged);
 		
 		const timer = setTimeout(async()=>{
 			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
@@ -93,124 +90,145 @@ const UserInfo : React.FC = () => {
       setBankBookImg(userInfo.bankBookImg || '');
       setIdCardImg(userInfo.idCardImg || '');
       setSignImg(userInfo.signImg || '');
-    }
+    }		
   }, [userInfo]);
-
-	useUnSavedAlert(isValueChanged);
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newName = event.target.value;
-		setName(event.target.value);
+		setName(newName);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handleNameBlur = () => {
 		if (!isValidName(name)){
-			setErrorMsg((prev) => ({...prev, name : '올바른 이름 형식이 아닙니다.'}));
+			setErrorMsg((prev) => ({...prev, name : `${name? '올바른 이름이 아닙니다' : ''}`}));
+			setName('');
+			setIsValueChanged(false);
 		}else{
 			setErrorMsg((prev) => ({...prev, name : undefined}));
 			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 	const handleGrade = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newGrade = event.target.value;
 		setGrade(newGrade);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handleGradeBlur = () => {
 		if (!isValidStudentNumber(grade)){
-			setErrorMsg((prev) => ({...prev, grade : '올바른 학년이 아닙니다.'}));
+			setErrorMsg((prev) => ({...prev, grade : `${grade? '올바른 학년이 아닙니다' : ''}`}));
+			setGrade('');
+			setIsValueChanged(false);
 		}else{
 			setErrorMsg((prev) => ({...prev, grade : undefined}));
+			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 	const handleMajor = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newMajor = event.target.value;
 		setMajor(newMajor);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handleMajorBlur = () => {
-		if(isValidName(major)){
-			setErrorMsg((prev) => ({...prev, major : '올바른 전공이 아닙니다.'}));
+		if(!isValidName(major)){
+			setErrorMsg((prev) => ({...prev, major : `${major? '올바른 학과가 아닙니다' : ''}`}));
+			setMajor('');
+			setIsValueChanged(false);
 		}else{
 			setErrorMsg((prev) => ({...prev, major : undefined}));
+			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 	const handleStudentNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newStudentNumber = event.target.value;
 		setStudentNumber(newStudentNumber);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handleStudentNumberBlur = () => {
 		if (!isValidStudentNumber(studentNumber)){
-			setErrorMsg((prev) => ({...prev, studentNumber : '올바른 학번 형식이 아닙니다.'}));
+			setErrorMsg((prev) => ({...prev, studentNumber : `${studentNumber? '올바른 학번이 아닙니다' : ''}`}));
+			setStudentNumber('');
+			setIsValueChanged(false);
 		}else{
-			setErrorMsg((prev) => ({...prev, name: undefined}));
+			setErrorMsg((prev) => ({...prev, studentNumber: undefined}));
+			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 	const handlePhoneNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newPhoneNumber = event.target.value;
 		setPhoneNumber(newPhoneNumber);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handlePhoneNumberBlur = () => {
 		if (!isValidPhoneNumber(phoneNumber)){
-			setErrorMsg((prev) => ({...prev, phoneNumber : '올바른 연락처 형식이 아닙니다.'}));
+			setErrorMsg((prev) => ({...prev, phoneNumber : `${phoneNumber? '올바른 연락처가 아닙니다' : ''}`}));
+			setPhoneNumber('');
+			setIsValueChanged(false);
 		}else{
 			setErrorMsg((prev) => ({...prev, phoneNumber : undefined}));
+			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 	const handleEmail = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newEmail = event.target.value;
 		setEmail(newEmail);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handleEmailBlur = () => {
 		if (!isValidEmail(email)){
-			setErrorMsg((prev) => ({...prev, email : '올바른 이메일 형식이 아닙니다.'}));
+			setErrorMsg((prev) => ({...prev, email : `${email? '올바른 이메일이 아닙니다' : ''}`}));
+			setEmail('');
+			setIsValueChanged(false);
 		}else{
 			setErrorMsg((prev) => ({...prev, email : undefined}));
+			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 
 	const handleBankAccount = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newBankAccount = event.target.value;
 		setBankAccount(newBankAccount);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handleBankAccountBlur = () => {
 		if (!isValidAccountNumber(bankAccount)){
-			setErrorMsg((prev) => ({...prev, bankAccount : '올바른 계좌번호 형식이 아닙니다.'}));
+			setErrorMsg((prev) => ({...prev, bankAccount : `${bankAccount? '올바른 계좌번호가 아닙니다' : ''}`}));
+			setBankAccount('');
+			setIsValueChanged(false);
 		}else{
 			setErrorMsg((prev) => ({...prev, bankAccount : undefined}));
+			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 	const handleBankName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newBankName = event.target.value;
 		setBankName(newBankName);
 		setIsValueChanged(true);
-	}
+	};
 
 	const handleBankNameBlur = () => {
 		if(!isValidName(bankName)){
-			setErrorMsg((prev) => ({...prev, bankName : '올바른 은행명이 아닙니다.'}));
+			setErrorMsg((prev) => ({...prev, bankName : `${bankName? '올바른 은행명이 아닙니다' : ''}`}));
+			setBankName('');
+			setIsValueChanged(false);
 		}else{
 			setErrorMsg((prev) => ({...prev, bankName : undefined}));
+			setLastBlurTime(Date.now());
 		}
-	}
+	};
 
 	const handlebankBookImg = (file : File | null) => {
 		if(file){
@@ -230,7 +248,7 @@ const UserInfo : React.FC = () => {
 			setIdCardImg('');
 		}
 		handleBlur();
-	}
+	};
 
 	const handleSignImg = (file : File | null) => {
 		if(file){
@@ -240,7 +258,7 @@ const UserInfo : React.FC = () => {
 			setSignImg('');
 		}
 		handleBlur();
-	}
+	};
 
 	const convertToBase64 = (file : File, callback: (base64String : string) => void) => {
 		const reader = new FileReader();
@@ -248,7 +266,7 @@ const UserInfo : React.FC = () => {
 			callback(reader.result as string);
 		};
 		reader.readAsDataURL(file); 
-	}//fileReader 알아보기
+	};//fileReader 알아보기
 	
 
 	return (

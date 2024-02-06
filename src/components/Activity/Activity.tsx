@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../stores/redux/store';
 import { updateActivity } from '../../stores/redux/userSlice';
 import Divider from "../Divider";
+import { isValidName, } from '../../utils/regularExpression/isValidUserInfo';
 
 
 const AreaWrapper = styled.div`
@@ -48,9 +49,6 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	const [date, setDate] = useState<string>("");
 	const [detail, setDetail] = useState<string>("");
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
-
-
-	useUnSavedAlert(isValueChanged);
 
 	const dropDowns : ActivityDropDownProps= {
 		program : program,
