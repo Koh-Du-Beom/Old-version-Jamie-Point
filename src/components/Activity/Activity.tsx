@@ -89,39 +89,41 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	const handleAgency = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newAgency = event.target.value;
 		setAgency(newAgency);
+	}
 
+	const handleAgencyBlur = () => {
 		const updatedActivity : ActivityType = {
 			...activitiesData,
-			agency : newAgency,
+			agency : agency,
 		};
-		setIsValueChanged(true);
 		onActivityChange(id, updatedActivity);
 	}
 
 	const handleDate = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newDate = event.target.value;
 		setDate(newDate);
-
+	}
+	//원래 handle함수에서 아래 로직까지 다 수행하게 했는데 마찬가지로 로
+	const handleDateBlur = () => {
 		const updatedActivity : ActivityType = {
 			...activitiesData,
-			date : newDate,
+			date : date,
 		};
-		setIsValueChanged(true);
 		onActivityChange(id, updatedActivity);
 	}
 
 	const handleDetail = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newDetail = event.target.value;
 		setDetail(newDetail);
-
-		const updatedActivity : ActivityType = {
-			...activitiesData,
-			detail : newDetail,
-		};
-		setIsValueChanged(true);
-		onActivityChange(id, updatedActivity);
 	}
 
+	const handleDetailBlur = () => {
+		const updatedActivity : ActivityType = {
+			...activitiesData,
+			detail : detail,
+		};
+		onActivityChange(id, updatedActivity);
+	}
 
 	useEffect(() => {		
 		setActivityImg(activitiesData.activityImg);
@@ -192,6 +194,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 							className={classes.input}
 							type='text'
 							onChange={(e) =>handleAgency(e)}
+							onBlur={handleAgencyBlur}
 							value={agency}
 						/>
 					</div>
@@ -204,6 +207,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 							className={classes.input} 
 							type='text'
 							onChange={(e) => handleDate(e)}
+							onBlur={handleDateBlur}
 							value={date}
 						/>
 					</div>
@@ -216,6 +220,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 					className={classes.input}
 					type='text'
 					onChange={(e) => handleDetail(e)}
+					onBlur={handleDetailBlur}
 					value={detail}
 				/>
 			</div>

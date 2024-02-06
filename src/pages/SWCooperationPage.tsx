@@ -94,11 +94,11 @@ const SWCooperationPage : React.FC = () =>{
 				</div>
 			</div>
 			
-			{activitiesData.map((activity) => (
-				<Activity 
-					key={activity.id} 
+			{activitiesData.slice().reverse().map((activity) => (
+				<Activity
+					key={activity.id}
 					id={activity.id}
-					area={area} 
+					area={area}
 					activitiesData={activity}
 					onRemove={handleRemoveActivity}
 					onActivityChange={handleActivityChange}

@@ -32,10 +32,10 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
     setSelectedPoint(0);
 
     onDropDownChange({
-        program: selectedProgramValue,
-        type: "",
-        topic: "",
-        point: 0,
+			program: selectedProgramValue,
+			type: "",
+			topic: "",
+			point: 0,
     });
 	};
 

@@ -66,6 +66,7 @@ const SWCorePage:React.FC = () => {
 			updatedActivitiesData.forEach(activity => {
 				dispatch(updateActivity({id: activity.id, activity}))
 			});
+		
 			
 			return updatedActivitiesData;
 		});
@@ -98,12 +99,13 @@ const SWCorePage:React.FC = () => {
 					<button className={classes.button} onClick={handlePlusButton}>+</button>
 				</div>
 			</div>
-			
-			{activitiesData.map((activity) => (
-				<Activity 
-					key={activity.id} 
+			{/* 원래 activitiesData를 그래도 map해서 보여주는 식으로 했지만, slice를 통한 얕은 복사를 통해 
+			원본인 activititiesData에도 손상이 가지 않으면서 의도한 대로 보여주기 */}
+			{activitiesData.slice().reverse().map((activity) => (
+				<Activity
+					key={activity.id}
 					id={activity.id}
-					area={area} 
+					area={area}
 					activitiesData={activity}
 					onRemove={handleRemoveActivity}
 					onActivityChange={handleActivityChange}
