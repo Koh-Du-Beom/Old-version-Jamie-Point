@@ -5,4 +5,4 @@ const Divider: React.FC = () => {
 	return <div className={classes.divider}></div>
 }
 
-export default Divider
+export default Divider;

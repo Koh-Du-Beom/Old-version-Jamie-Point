@@ -29,8 +29,6 @@
 	color: #ffffff;
 }
 
-
-
 .button_wrapper img {
 	width: 30px;
 	height: auto;
@@ -92,4 +90,7 @@
   border: none;
 }
 
+.errorMsg{
+	color: red;
+}
 

@@ -26,6 +26,16 @@ const UserInfo : React.FC = () => {
 	
 	const [lastBlurTime, setLastBlurTime] = useState<number>(0);
 	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
+	const [errorMsg, setErrorMsg] = useState<{
+		name?: string;
+		grade?: string;
+		major?: string;
+		email?: string;
+		phoneNumber?: string;
+		studentNumber?: string;
+		bankAccount?: string;
+		bankName?: string;
+	}>({});
 
 	const dispatch = useDispatch<AppDispatch>();
 	const userInfo = useSelector((state: RootState) => state.userInfo);
@@ -35,7 +45,8 @@ const UserInfo : React.FC = () => {
 			return;
 		}
 		setIsValueChanged(false);
-
+		console.log('저장되었습니다.');
+		
 		dispatch(updateUserInfo({
 			name: name,
       grade: grade,
@@ -59,6 +70,8 @@ const UserInfo : React.FC = () => {
 	useEffect(() => {
 		if (lastBlurTime === 0 || !isValueChanged) return;
 
+		console.log(lastBlurTime, isValueChanged);
+		
 		const timer = setTimeout(async()=>{
 			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
 			setIsValueChanged(false);
@@ -91,10 +104,27 @@ const UserInfo : React.FC = () => {
 		setIsValueChanged(true);
 	}
 
+	const handleNameBlur = () => {
+		if (!isValidName(name)){
+			setErrorMsg((prev) => ({...prev, name : '올바른 이름 형식이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, name : undefined}));
+			setLastBlurTime(Date.now());
+		}
+	}
+
 	const handleGrade = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newGrade = event.target.value;
 		setGrade(newGrade);
 		setIsValueChanged(true);
+	}
+
+	const handleGradeBlur = () => {
+		if (!isValidStudentNumber(grade)){
+			setErrorMsg((prev) => ({...prev, grade : '올바른 학년이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, grade : undefined}));
+		}
 	}
 
 	const handleMajor = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -103,10 +133,26 @@ const UserInfo : React.FC = () => {
 		setIsValueChanged(true);
 	}
 
+	const handleMajorBlur = () => {
+		if(isValidName(major)){
+			setErrorMsg((prev) => ({...prev, major : '올바른 전공이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, major : undefined}));
+		}
+	}
+
 	const handleStudentNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newStudentNumber = event.target.value;
 		setStudentNumber(newStudentNumber);
 		setIsValueChanged(true);
+	}
+
+	const handleStudentNumberBlur = () => {
+		if (!isValidStudentNumber(studentNumber)){
+			setErrorMsg((prev) => ({...prev, studentNumber : '올바른 학번 형식이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, name: undefined}));
+		}
 	}
 
 	const handlePhoneNumber = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -115,10 +161,26 @@ const UserInfo : React.FC = () => {
 		setIsValueChanged(true);
 	}
 
+	const handlePhoneNumberBlur = () => {
+		if (!isValidPhoneNumber(phoneNumber)){
+			setErrorMsg((prev) => ({...prev, phoneNumber : '올바른 연락처 형식이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, phoneNumber : undefined}));
+		}
+	}
+
 	const handleEmail = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newEmail = event.target.value;
 		setEmail(newEmail);
 		setIsValueChanged(true);
+	}
+
+	const handleEmailBlur = () => {
+		if (!isValidEmail(email)){
+			setErrorMsg((prev) => ({...prev, email : '올바른 이메일 형식이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, email : undefined}));
+		}
 	}
 
 
@@ -128,10 +190,26 @@ const UserInfo : React.FC = () => {
 		setIsValueChanged(true);
 	}
 
+	const handleBankAccountBlur = () => {
+		if (!isValidAccountNumber(bankAccount)){
+			setErrorMsg((prev) => ({...prev, bankAccount : '올바른 계좌번호 형식이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, bankAccount : undefined}));
+		}
+	}
+
 	const handleBankName = (event : React.ChangeEvent<HTMLInputElement>) => {
 		const newBankName = event.target.value;
 		setBankName(newBankName);
 		setIsValueChanged(true);
+	}
+
+	const handleBankNameBlur = () => {
+		if(!isValidName(bankName)){
+			setErrorMsg((prev) => ({...prev, bankName : '올바른 은행명이 아닙니다.'}));
+		}else{
+			setErrorMsg((prev) => ({...prev, bankName : undefined}));
+		}
 	}
 
 	const handlebankBookImg = (file : File | null) => {
@@ -191,9 +269,12 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleName}
-							onBlur={handleBlur}
+							onBlur={() => {
+								handleNameBlur();
+							}}
 							value={name}
 						/>
+						{errorMsg.name && <div className={classes.errorMsg}>{errorMsg.name}</div>}
 					</div>
 				</div>
 				<div className={classes.wrapper}>
@@ -203,9 +284,10 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleMajor}	
-							onBlur={handleBlur}
+							onBlur={handleMajorBlur}
 							value={major}
 						/>
+						{errorMsg.major && <div className={classes.errorMsg}>{errorMsg.major}</div>}
 					</div>
 				</div>
 			</div>
@@ -218,9 +300,10 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleGrade}
-							onBlur={handleBlur}
+							onBlur={handleGradeBlur}
 							value={!grade ? '' : grade.toString()}
 						/>
+						{errorMsg.grade && <div className={classes.errorMsg}>{errorMsg.grade}</div>}
 					</div>
 				</div>
 				<div className={classes.wrapper}>
@@ -230,9 +313,10 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleStudentNumber}	
-							onBlur={handleBlur}
+							onBlur={handleStudentNumberBlur}
 							value={studentNumber}
 						/>
+						{errorMsg.studentNumber && <div className={classes.errorMsg}>{errorMsg.studentNumber}</div>}
 					</div>
 				</div>
 			</div>
@@ -245,9 +329,10 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handlePhoneNumber}
-							onBlur={handleBlur}
+							onBlur={handlePhoneNumberBlur}
 							value={phoneNumber}
 						/>
+						{errorMsg.phoneNumber && <div className={classes.errorMsg}>{errorMsg.phoneNumber}</div>}
 					</div>
 				</div>
 				<div className={classes.wrapper}>
@@ -257,9 +342,10 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleEmail}	
-							onBlur={handleBlur}
+							onBlur={handleEmailBlur}
 							value={email}
 						/>
+						{errorMsg.email && <div className={classes.errorMsg}>{errorMsg.email}</div>}
 					</div>
 				</div>
 			</div>
@@ -281,9 +367,10 @@ const UserInfo : React.FC = () => {
 							className={classes.input} 
 							type='text'
 							onChange={handleBankAccount}	
-							onBlur={handleBlur}
+							onBlur={handleBankAccountBlur}
 							value={bankAccount}
 						/>
+						{errorMsg.bankAccount && <div className={classes.errorMsg}>{errorMsg.bankAccount}</div>}
 					</div>
 				</div>
 				<div className={classes.wrapper}>
@@ -293,9 +380,10 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleBankName}
-							onBlur={handleBlur}
+							onBlur={handleBankNameBlur}
 							value={bankName}
 						/>
+						{errorMsg.bankName && <div className={classes.errorMsg}>{errorMsg.bankName}</div>}
 					</div>
 				</div>
 			</div>
