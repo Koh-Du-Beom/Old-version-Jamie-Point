@@ -68,13 +68,6 @@ const SWConvergencePage:React.FC = () => {
 			});
 			return updatedActivitiesData;
 		});
-		calculateSWConvergenceInfo();
-
-		//원래 잘못된 코드
-		// const updatedActivitiesData = activitiesData.map(activity =>
-    //   activity.id === activityId ? updatedActivity : activity
-    // );
-    // setActivitiesData(updatedActivitiesData);
 	};
 
 	const handleRemoveActivity = (activityId : string) => {
@@ -82,13 +75,16 @@ const SWConvergencePage:React.FC = () => {
 		dispatch(removeActivity({ id : activityId}))
 	};
 
-	const calculateSWConvergenceInfo = () => {
-		const totalPoint = activitiesData.reduce((acc, activity) => acc + (activity.point || 0), 0);
-		const activityCount = activitiesData.length;
+	useEffect(()=>{
+		const calculateSWCoreInfo = () => {
+			const totalPoint = activitiesData.reduce((acc, activity) => acc + (activity.point || 0), 0);
+			const activityCount = activitiesData.length;
 
-		dispatch(updateSWConvergenceInfo({ activityCount, totalPoint }));
-		dispatch(updateTotals());
-	}
+			dispatch(updateSWConvergenceInfo({ activityCount, totalPoint }));
+		};
+
+		calculateSWCoreInfo();
+	}, [activitiesData, dispatch]);
 	
 	return (
 		<MainLayout>
@@ -98,12 +94,11 @@ const SWConvergencePage:React.FC = () => {
 				</div>
 			</div>
 			
-			
-			{activitiesData.map((activity) => (
-				<Activity 
-					key={activity.id} 
+			{activitiesData.slice().reverse().map((activity) => (
+				<Activity
+					key={activity.id}
 					id={activity.id}
-					area={area} 
+					area={area}
 					activitiesData={activity}
 					onRemove={handleRemoveActivity}
 					onActivityChange={handleActivityChange}

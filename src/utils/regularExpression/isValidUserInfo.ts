@@ -16,7 +16,8 @@ const isValidEmail = (email : string) : boolean => {
 
 const isValidPhoneNumber = (phoneNumber : string) : boolean => {
 	const regex = /^01[016789]-\d{3,4}-\d{4}$|^\d{2,3}-\d{3,4}-\d{4}$/;
-	return regex.test(phoneNumber);
+	const regex2 = /^\d+$/;
+	return regex.test(phoneNumber) || (regex2.test(phoneNumber));
 }
 
 const isValidStudentNumber = (studentNumber : string) : boolean => {

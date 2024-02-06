@@ -32,10 +32,10 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
     setSelectedPoint(0);
 
     onDropDownChange({
-        program: selectedProgramValue,
-        type: "",
-        topic: "",
-        point: 0,
+			program: selectedProgramValue,
+			type: "",
+			topic: "",
+			point: 0,
     });
 	};
 
@@ -79,11 +79,6 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 		});
 	};
 
-
-	// useEffect(()=>{
-	// 	console.log(selectedProgram, selectedType,`토픽 : ${selectedTopic} ${typeof selectedTopic}`, selectedPoint);
-	// }, [selectedProgram, selectedType, selectedTopic, selectedPoint])
-
 	useEffect(()=>{ 
 		
 		setSelectedProgram(dropDownData.program);
@@ -91,6 +86,8 @@ const ActivityDropDown: React.FC<ActivityDropDownProps> = ({selectedArea, onDrop
 		setSelectedTopic(dropDownData.topic);
 		setSelectedPoint(dropDownData.point);
 	}, [dropDownData])
+
+	
 
   return (
 		<div className={classes.container}>
