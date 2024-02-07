@@ -6,9 +6,10 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 0 20px;
-	height: 50px;
+	height: 100px;
 	top: 0;
 	z-index: 1000;
+	font-size: 20px;
 }
 
 .logo{
@@ -16,27 +17,39 @@
 	transition: color 0.3s;
 }
 
-.logo:hover{
-	color: #ffffff;
+.logo img{
+	width: 100px;
+	height: auto;
+	transition: opacity 0.3s ease;
+}
+
+.logo img:hover{
+	opacity: 0.7;
 }
 
 .navItems{
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 
-.navIcons{
-	display: flex;
-	flex-direction: row;
-	align-items: right;
-}
-
-.navItem, .navIcon {
+.navItem{
   margin-right: 20px;
   cursor: pointer;
-  transition: color 0.3s; 
+	transition: color 0.3s;
 }
 
-.navItem:hover, .navIcon:hover {
-  color: #ffffff; 
+.navItem:hover{
+	color: #ffffff;
 }
+
+.navItem img{
+	width: 100px;
+	height: auto;
+	transition: opaticity 0.3s ease;
+}
+
+.navItem img:hover{
+	opacity: 0.7;
+}
+

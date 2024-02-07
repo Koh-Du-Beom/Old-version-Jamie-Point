@@ -92,6 +92,9 @@ const SWCooperationPage : React.FC = () =>{
 				<div className={classes.button_wrapper}>
 					<button className={classes.button} onClick={handlePlusButton}>+</button>
 				</div>
+				<div className={classes.button_wrapper}>
+					<button className={classes.button}>-</button>
+				</div>
 			</div>
 			
 			{activitiesData.slice().reverse().map((activity) => (

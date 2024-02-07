@@ -98,6 +98,9 @@ const SWCorePage:React.FC = () => {
 				<div className={classes.button_wrapper}>
 					<button className={classes.button} onClick={handlePlusButton}>+</button>
 				</div>
+				<div className={classes.button_wrapper}>
+					<button className={classes.button}>-</button>
+				</div>
 			</div>
 			{/* 원래 activitiesData를 그래도 map해서 보여주는 식으로 했지만, slice를 통한 얕은 복사를 통해 
 			원본인 activititiesData에도 손상이 가지 않으면서 의도한 대로 보여주기 */}
