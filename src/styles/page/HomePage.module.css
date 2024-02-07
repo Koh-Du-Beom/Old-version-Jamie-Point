@@ -1,0 +1,9 @@
+.container{
+	display: flex;
+	flex-direction: column;
+}
+
+.wrapper{
+	margin: 40px;
+	font-size: 30px;
+}
