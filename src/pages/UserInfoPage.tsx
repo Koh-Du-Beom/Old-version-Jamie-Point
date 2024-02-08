@@ -1,11 +1,11 @@
-import MainLayout from "../layouts/MainLayout";
+import UserInfoLayout from "../layouts/UserInfoLayout";
 import UserInfo from "../components/UserInfo/UserInfo";
 
 const UserInfoPage:React.FC = () => {
 	return (
-		<MainLayout>
+		<UserInfoLayout>
 			<UserInfo/>
-		</MainLayout>
+		</UserInfoLayout>
 	)
 }
 
