@@ -1,15 +1,15 @@
 
-import HomeLayout from "../layouts/HomeLayout";
-import classes from '../styles/page/HomePage.module.css';
+import HomeLayout from "../../layouts/HomeLayout/HomeLayout";
+import classes from './HomePage.module.css';
 import { useState, useEffect } from "react";
 
 const homePictures = [
-	require('../assets/HomePageMock/homePicture1.jpg'),
-	require('../assets/HomePageMock/homePicture2.jpg'),
-	require('../assets/HomePageMock/homePicture3.jpg'),
-	require('../assets/HomePageMock/homePicture4.jpg'),
-	require('../assets/HomePageMock/homePicture5.png'),
-	require('../assets/HomePageMock/homePicture6.jpg'),
+	require('../../assets/HomePageMock/homePicture1.jpg'),
+	require('../../assets/HomePageMock/homePicture2.jpg'),
+	require('../../assets/HomePageMock/homePicture3.jpg'),
+	require('../../assets/HomePageMock/homePicture4.jpg'),
+	require('../../assets/HomePageMock/homePicture5.png'),
+	require('../../assets/HomePageMock/homePicture6.jpg'),
 ];
 
 
@@ -44,7 +44,7 @@ const HomePage = () => {
 				</div>
 
 				<div className={classes.wrapper}>
-					콘텐츠고민 2
+					How To Use?
 				</div>
 			</div>
 		</HomeLayout>

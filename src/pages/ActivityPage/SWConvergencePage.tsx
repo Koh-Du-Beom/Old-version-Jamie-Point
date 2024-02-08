@@ -1,12 +1,12 @@
 /*eslint-disable*/
-import MainLayout from "../layouts/MainLayout";
-import Activity from "../components/Activity/Activity";
+import MainLayout from "../../layouts/MainLayout/MainLayout";
+import Activity from "../../components/Activity/Activity";
 import { useState, useEffect } from "react";
-import ActivityType from "../types/ActivityType.type";
-import classes from '../styles/page/PageStyles.module.css';
+import ActivityType from "../../types/ActivityType.type";
+import classes from './PageStyles.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from "../stores/redux/store";
-import { updateActivity, removeActivity, updateSWConvergenceInfo, updateTotals } from "../stores/redux/userSlice";
+import { RootState, AppDispatch } from "../../stores/redux/store";
+import { updateActivity, removeActivity, updateSWConvergenceInfo, updateTotals } from "../../stores/redux/userSlice";
 import { v4 as uuidv4 } from 'uuid';
 
 const SWConvergencePage:React.FC = () => {

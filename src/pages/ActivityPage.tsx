@@ -1,11 +1,5 @@
 /*eslint-disable*/
-import MainLayout from "../layouts/MainLayout";
-import Activity from "../components/Activity/Activity";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import ActivityMock from "../mocks/SWCoreActivity.mock";
-import ActivityType from "../types/ActivityType.type";
-import RightNavBar from "../components/RightNavBar";
+import RightNavBar from "../components/RightNavBar/RightNavBar";
 
 const ActivityPage:React.FC = () => {
 	

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import classes from "../styles/components/FinalCheckModal.module.css";
+import classes from "./FinalCheckModal.module.css";
 import { useSelector } from "react-redux";
-import { RootState } from "../stores/redux/store";
+import { RootState } from "../../stores/redux/store";
 import axios from "axios";
-import saveIcon from "../assets/saveIcon.png";
+import saveIcon from "../../assets/saveIcon.png";
 
 interface ModalProps {
   onClose: () => void;

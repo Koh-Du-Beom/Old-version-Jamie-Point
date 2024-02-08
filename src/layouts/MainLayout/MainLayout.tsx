@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import TopNavBar from '../components/TopNavBar';
-import RightNavBar from '../components/RightNavBar';
-import classes from '../styles/layouts/MainLayout.module.css';
-import BottomNavBar from '../components/Footer/BottomNavBar';
-import BottomInfo from '../components/Footer/BottomInfo';
-import FinalCheckModal from '../components/FinalCheckModal';
+import React, { useState } from 'react';
+import TopNavBar from '../../components/TopNavBar/TopNavBar';
+import RightNavBar from '../../components/RightNavBar/RightNavBar';
+import classes from './MainLayout.module.css';
+import BottomNavBar from '../../components/Footer/BottomNavBar/BottomNavBar';
+import BottomInfo from '../../components/Footer/BottomInfo/BottomInfo';
+import FinalCheckModal from '../../components/Modal/FinalCheckModal';
 import { useEffect } from 'react';
 
 const MainLayout: React.FC<{children : React.ReactNode}> = ({children}) => {

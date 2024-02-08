@@ -1,4 +1,4 @@
-import classes from '../../styles/components/Footer/BottomInfo.module.css';
+import classes from './BottomInfo.module.css';
 
 const BottomInfo:React.FC = () => {
 	return (
