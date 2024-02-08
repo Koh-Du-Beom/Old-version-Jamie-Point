@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import classes from '../styles/components/ImageControler.module.css';
+import classes from './ImageControler.module.css';
 import { useState, useRef, useEffect } from 'react';
 
 interface ImageControlerProps {

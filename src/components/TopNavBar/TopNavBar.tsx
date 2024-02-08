@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import classes from '../styles/components/TopNavBar.module.css';
-import JPointLogo from '../assets/JPointLogo2.webp';
-import userInfoLogo from '../assets/userInfo.webp';
+import classes from './TopNavBar.module.css';
+import JPointLogo from '../../assets/JPointLogo2.webp';
+import userInfoLogo from '../../assets/userInfo.webp';
 const TopNavBar : React.FC = () => {
 	const navigate = useNavigate();
 

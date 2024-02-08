@@ -1,16 +1,16 @@
 /*eslint-disable*/
-import MainLayout from "../layouts/MainLayout";
-import Activity from "../components/Activity/Activity";
+import MainLayout from "../../layouts/MainLayout/MainLayout";
+import Activity from "../../components/Activity/Activity";
 import { useState, useEffect } from "react";
-import ActivityType from "../types/ActivityType.type";
-import classes from '../styles/page/PageStyles.module.css';
+import ActivityType from "../../types/ActivityType.type";
+import classes from './PageStyles.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from "../stores/redux/store";
-import { updateActivity, removeActivity, updateSWValueInfo, updateTotals } from "../stores/redux/userSlice";
-import {v4 as uuidv4} from 'uuid'
+import { RootState, AppDispatch } from "../../stores/redux/store";
+import { updateActivity, removeActivity, updateSWCooperationInfo, updateTotals } from "../../stores/redux/userSlice";
+import { v4 as uuidv4 } from 'uuid';
 
-const SWValuePage:React.FC = () => {
-	const area:string = 'SW가치확산역량';
+const SWCooperationPage : React.FC = () =>{
+	const area:string = 'SW산학협력·창업역량';
 	const defaultActivity: ActivityType = {
 		id: uuidv4(),
 		pageType: area,
@@ -44,7 +44,6 @@ const SWValuePage:React.FC = () => {
 
 	const dispatch = useDispatch<AppDispatch>();
 	const userInfo = useSelector((state : RootState) => state.userInfo);
-	const [isSaved, setIsSaved] = useState<boolean>(false);
 
 	useEffect(()=>{
 		const filteredActivities = userInfo.activities.filter(activity => activity.pageType === area);
@@ -66,6 +65,7 @@ const SWValuePage:React.FC = () => {
 			updatedActivitiesData.forEach(activity => {
 				dispatch(updateActivity({id: activity.id, activity}))
 			});
+			
 			return updatedActivitiesData;
 		});
 	};
@@ -80,7 +80,7 @@ const SWValuePage:React.FC = () => {
 			const totalPoint = activitiesData.reduce((acc, activity) => acc + (activity.point || 0), 0);
 			const activityCount = activitiesData.length;
 
-			dispatch(updateSWValueInfo({ activityCount, totalPoint }));
+			dispatch(updateSWCooperationInfo({ activityCount, totalPoint }));
 		};
 
 		calculateSWCoreInfo();
@@ -109,6 +109,6 @@ const SWValuePage:React.FC = () => {
 			))}
 		</MainLayout>
 	)
-};
+}
 
-export default SWValuePage;
+export default SWCooperationPage;

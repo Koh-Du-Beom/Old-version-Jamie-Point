@@ -1,12 +1,12 @@
 /*eslint-disable*/
-import MainLayout from "../layouts/MainLayout";
-import Activity from "../components/Activity/Activity";
-import ActivityType from "../types/ActivityType.type";
+import MainLayout from "../../layouts/MainLayout/MainLayout";
+import Activity from "../../components/Activity/Activity";
+import ActivityType from "../../types/ActivityType.type";
 import { useState, useEffect } from "react";
-import classes from '../styles/page/PageStyles.module.css';
+import classes from './PageStyles.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from "../stores/redux/store";
-import { updateActivity, removeActivity, updateSWCoreInfo, updateTotals } from "../stores/redux/userSlice";
+import { RootState, AppDispatch } from "../../stores/redux/store";
+import { updateActivity, removeActivity, updateSWCoreInfo, updateTotals } from "../../stores/redux/userSlice";
 import { v4 as uuidv4 } from 'uuid';
 
 

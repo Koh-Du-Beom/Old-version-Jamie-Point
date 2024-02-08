@@ -1,16 +1,13 @@
 /*eslint-disable*/
 import { useEffect, useState } from "react";
 import classes from "../../styles/FormStyles.module.css";
-import ImageControler from "../ImageControler";
-import ActivityDropDown from "./ActivityDropDown";
+import ImageControler from "../ImageControler/ImageControler";
+import ActivityDropDown from "./ActivityDropDown/ActivityDropDown";
 import ActivityType from "../../types/ActivityType.type";
 import saveIcon from '../../assets/saveIcon.png';
 import styled from "styled-components";
 import TierCalculator from "./TierCalculator";
 import useUnSavedAlert from "../../hooks/useUnSavedAlert";
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../../stores/redux/store';
-import { updateActivity } from '../../stores/redux/userSlice';
 import Divider from "../Divider";
 import { isValidName, } from '../../utils/regularExpression/isValidUserInfo';
 

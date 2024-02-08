@@ -2,13 +2,13 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import UserInfoPage from './pages/UserInfoPage';
 import ActivityPage from './pages/ActivityPage';
-import SWCorePage from './pages/SWCorePage';
-import SWCooperationPage from './pages/SWCooperationPage';
-import SWValuePage from './pages/SWValuePage';
-import SWConvergencePage from './pages/SWConvergencePage';
+import SWCorePage from './pages/ActivityPage/SWCorePage';
+import SWCooperationPage from './pages/ActivityPage/SWCooperationPage';
+import SWValuePage from './pages/ActivityPage/SWValuePage';
+import SWConvergencePage from './pages/ActivityPage/SWConvergencePage';
 
 function App() {
   

@@ -1,5 +1,5 @@
 
-import classes from '../styles/FormStyles.module.css';
+import classes from './Divider.module.css';
 
 const Divider: React.FC = () => {
 	return <div className={classes.divider}></div>
