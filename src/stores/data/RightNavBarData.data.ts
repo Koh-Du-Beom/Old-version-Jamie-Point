@@ -7,10 +7,6 @@ const rightNavBarData = (navigate : NavigateFunction) => {
       onClick: () => window.scrollTo({ top: 0, behavior: 'smooth' }),
 		},
 		{
-			title : '회원정보',
-			onClick : () => {navigate('/info')},
-		},
-		{
 			title : 'SW핵심역량',
 			onClick : () => {navigate('/activity/SW핵심역량')},
 		},

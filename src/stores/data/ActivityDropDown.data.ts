@@ -575,7 +575,7 @@ const ActivityDropDownData = [
             type : '(사업단, 교내) SW 가치확산 프로그램(세미나, 멘토 활동 등)',
             points : [
               {
-                topic : '대상',
+                topic : '',
                 point : 30,
               },
               
