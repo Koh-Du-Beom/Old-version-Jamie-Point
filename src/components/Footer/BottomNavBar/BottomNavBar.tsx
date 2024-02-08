@@ -11,12 +11,12 @@ const BottomNavBar: React.FC<BottomNavBarProps> = ({openModal}) => {
 
 	const userInfo = useSelector((state : RootState) => state.userInfo)
 	const isAbleToDocument = () => {
-		const swCoreCount = userInfo.swCoreInfo.activityCount;
-		const swCooperationCount = userInfo.swCooperationInfo.activityCount;
-		const swValueCount = userInfo.swValueInfo.activityCount;
-		const swConvergenceCount = userInfo.swConvergenceInfo.activityCount;
+		const swCorePoint = userInfo.swCoreInfo.totalPoint;
+		const swCooperationPoint = userInfo.swCooperationInfo.totalPoint;
+		const swValuePoint = userInfo.swValueInfo.totalPoint;
+		const swConvergencePoint = userInfo.swConvergenceInfo.totalPoint;
 
-		return swCoreCount && swCooperationCount && swValueCount && swConvergenceCount;
+		return swCorePoint || swCooperationPoint || swValuePoint || swConvergencePoint;
 	}
 
 	return (
