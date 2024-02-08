@@ -8,7 +8,7 @@ import saveIcon from '../../assets/saveIcon.png';
 import styled from "styled-components";
 import TierCalculator from "./TierCalculator";
 import useUnSavedAlert from "../../hooks/useUnSavedAlert";
-import Divider from "../Divider";
+import Divider from "../Divider/Divider";
 import { isValidName, } from '../../utils/regularExpression/isValidUserInfo';
 
 

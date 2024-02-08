@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../stores/redux/store';
 import { updateUserInfo } from '../../stores/redux/userSlice';
-import Divider from '../Divider';
+import Divider from '../Divider/Divider';
 import { isValidAccountNumber, isValidEmail, isValidName, isValidPhoneNumber, isValidStudentNumber, } from '../../utils/regularExpression/isValidUserInfo';
 
 const UserInfo : React.FC = () => {
