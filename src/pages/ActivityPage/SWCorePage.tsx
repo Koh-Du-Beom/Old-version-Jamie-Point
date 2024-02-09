@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from "../../stores/redux/store";
 import { updateActivity, removeActivity, updateSWCoreInfo, updateTotals } from "../../stores/redux/userSlice";
 import { v4 as uuidv4 } from 'uuid';
-
+import plusButton from '../../assets/plusButton.webp';
+import summaryButton from '../../assets/summaryButton.webp';
 
 const SWCorePage:React.FC = () => {
 
@@ -67,7 +68,6 @@ const SWCorePage:React.FC = () => {
 				dispatch(updateActivity({id: activity.id, activity}))
 			});
 		
-			
 			return updatedActivitiesData;
 		});
 	};
@@ -94,12 +94,14 @@ const SWCorePage:React.FC = () => {
 	//되는 이슈가 가장 크다. 이걸 해결하기 위해 useEffect를 사용하는것임.
 	return (
 		<MainLayout>	
-			<div className={`${classes.button_container}`}>
-				<div className={classes.button_wrapper}>
-					<button className={classes.button} onClick={handlePlusButton}>+</button>
+			<div className={`${classes.button_container}` }>
+				<div className={`${classes.button_wrapper} ${classes.tooltip}`}>
+					<img src={plusButton} onClick={handlePlusButton} alt="plusButton"/>
+					<span className={classes.tooltiptext}>활동 추가하기</span>
 				</div>
-				<div className={classes.button_wrapper}>
-					<button className={classes.button}>-</button>
+				<div className={`${classes.button_wrapper} ${classes.tooltip}`}>
+					<img src={summaryButton} alt="summaryButton"/>
+					<span className={classes.tooltiptext}>등록 활동 목록</span>
 				</div>
 			</div>
 			{/* 원래 activitiesData를 그래도 map해서 보여주는 식으로 했지만, slice를 통한 얕은 복사를 통해 

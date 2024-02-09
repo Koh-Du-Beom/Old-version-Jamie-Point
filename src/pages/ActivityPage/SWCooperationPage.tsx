@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from "../../stores/redux/store";
 import { updateActivity, removeActivity, updateSWCooperationInfo, updateTotals } from "../../stores/redux/userSlice";
 import { v4 as uuidv4 } from 'uuid';
+import plusButton from '../../assets/plusButton.webp';
+import summaryButton from '../../assets/summaryButton.webp';
 
 const SWCooperationPage : React.FC = () =>{
 	const area:string = 'SW산학협력·창업역량';
@@ -88,12 +90,14 @@ const SWCooperationPage : React.FC = () =>{
 
 	return (
 		<MainLayout>	
-			<div className={`${classes.button_container}`}>
-				<div className={classes.button_wrapper}>
-					<button className={classes.button} onClick={handlePlusButton}>+</button>
+			<div className={`${classes.button_container}` }>
+				<div className={`${classes.button_wrapper} ${classes.tooltip}`}>
+					<img src={plusButton} onClick={handlePlusButton} alt="plusButton"/>
+					<span className={classes.tooltiptext}>활동 추가하기</span>
 				</div>
-				<div className={classes.button_wrapper}>
-					<button className={classes.button}>-</button>
+				<div className={`${classes.button_wrapper} ${classes.tooltip}`}>
+					<img src={summaryButton} alt="summaryButton"/>
+					<span className={classes.tooltiptext}>등록 활동 목록</span>
 				</div>
 			</div>
 			

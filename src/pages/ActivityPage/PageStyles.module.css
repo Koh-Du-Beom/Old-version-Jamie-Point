@@ -1,8 +1,47 @@
 
+.tooltip{
+	position: relative;
+	display: inline-block;
+}
+.tooltip .tooltiptext{
+	visibility: hidden;
+	width: 120px;
+	background-color: #ffffff;
+	color: #000000;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+
+	position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext{
+	visibility: visible;
+	opacity: 1;
+}
+
+.tooltiptext::after{
+	border-top:0px solid transparent;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid white;
+	content:"";
+	position:absolute;
+	top:-10px;
+	right: 50px;
+}
+
 .button_container{
 	display: flex;
 	margin: 0 auto;
-	background-color: #2B2C31;
+	background-color: #000000;
 	border-radius: 10px;
 	width: 30%;
 	justify-content: center;
@@ -13,20 +52,16 @@
 	justify-content: center;
 	align-items: center;
 	border: 20px;
+	cursor: pointer;
+	transition: color 0.3s;
 }
 
-.button{
-	margin: 10px;
-	padding: 10px;
-	width: 60px;
-	height: 60px;
-	background-color: #ffffff;
-	color: #000000;
-	border-radius: 10px;
-	border: 2px solid #ffffff;
-	font-size: 25px;
+.button_wrapper img{
+	width: 80px;
+	height: auto;
+	transition: opacity 0.3s ease;
 }
 
-.button:hover{
-	border: 2px solid #32A4FF;
+.button_wrapper img:hover{
+	opacity: 0.7;
 }
