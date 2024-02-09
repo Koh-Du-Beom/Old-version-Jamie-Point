@@ -1,5 +1,51 @@
 .container{
-	height: 100px;
+	height: 300px;
 	display: flex;
 	color: #ffffff;
+	padding: 40px;
+
+}
+
+.main_logo{
+	display: flex;
+	justify-content: space-between;
+}
+
+.main_logo img{
+	width: 200px;
+	object-fit: contain;
+	
+}
+
+.menus{
+	display: flex;
+	flex-direction: row;
+	margin: 0 auto;
+}
+
+.menu{
+	display: flex;
+	flex-direction: column;
+	margin: 0 50px;
+	position: relative;
+}
+
+.menu_title{
+	font-size: 20px;
+}
+
+.menu_title img{
+	width: 20px;
+	object-fit: contain;
+	margin-right: 10px;
+}
+
+.menu_content{
+	margin: 10px 0;
+}
+
+.link{
+	color: #ffffff;
+	text-decoration: none;
+	font-size: 20px;
 }
