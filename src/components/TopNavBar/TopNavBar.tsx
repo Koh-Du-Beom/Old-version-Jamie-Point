@@ -12,7 +12,7 @@ const TopNavBar : React.FC = () => {
 				<img src={JPointLogo} alt='JPointLogo'/>
 			</div>
 			<div className={classes.navItems}>
-				<div className={classes.navItem}>추후에 활동추가</div>
+				<div className={classes.navItem} onClick={()=>navigate('/activity')}>How To Use?</div>
 				<div className={classes.navItem}>어떤내용할지 고민</div>
 			</div>
 			<div className={classes.navItems}>

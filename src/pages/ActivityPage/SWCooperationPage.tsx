@@ -3,7 +3,7 @@ import MainLayout from "../../layouts/MainLayout/MainLayout";
 import Activity from "../../components/Activity/Activity";
 import { useState, useEffect } from "react";
 import ActivityType from "../../types/ActivityType.type";
-import classes from './PageStyles.module.css';
+import classes from './ActivityPageStyles.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from "../../stores/redux/store";
 import { updateActivity, removeActivity, updateSWCooperationInfo, updateTotals } from "../../stores/redux/userSlice";

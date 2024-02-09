@@ -1,5 +1,5 @@
 
-import HomeLayout from "../../layouts/HomeLayout/HomeLayout";
+import TopNavBarLayout from "../../layouts/TopNavBarLayout/TopNavBarLayout";
 import classes from './HomePage.module.css';
 import { useState, useEffect } from "react";
 
@@ -34,7 +34,7 @@ const HomePage = () => {
 	})
 
   return (
-    <HomeLayout>
+    <TopNavBarLayout>
 			<div className={classes.container}>
 				<div className={classes.wrapper}>Made By JBNU CSAI</div>
 				<div className={classes.imgContainer}>
@@ -47,7 +47,7 @@ const HomePage = () => {
 					How To Use?
 				</div>
 			</div>
-		</HomeLayout>
+		</TopNavBarLayout>
   )
 }
 
