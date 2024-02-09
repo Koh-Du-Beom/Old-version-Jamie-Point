@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './HomeLayout.module.css'
+import classes from './TopNavBarLayout.module.css'
 import TopNavBar from '../../components/TopNavBar/TopNavBar';
 
 const HomeLayout : React.FC<{children : React.ReactNode}> = ({ children }) => {

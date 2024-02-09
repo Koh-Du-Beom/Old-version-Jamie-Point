@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from './pages/HomePage/HomePage';
 import UserInfoPage from './pages/UserInfoPage';
-import ActivityPage from './pages/ActivityPage';
+import ActivityIntroPage from './pages/ActivityIntro/ActivityIntroPage';
 import SWCorePage from './pages/ActivityPage/SWCorePage';
 import SWCooperationPage from './pages/ActivityPage/SWCooperationPage';
 import SWValuePage from './pages/ActivityPage/SWValuePage';
@@ -16,7 +16,7 @@ function App() {
 		<Routes>
 			<Route path="/" element={<HomePage/>}/>
 			<Route path='/info' element={<UserInfoPage/>}/>
-			<Route path='/activity' element={<ActivityPage/>}/>
+			<Route path='/activity' element={<ActivityIntroPage/>}/>
 
 			<Route path='/activity/SW핵심역량' element={<SWCorePage/>}/>
 			

@@ -1,0 +1,89 @@
+
+.container{
+	display: flex;
+	flex-direction: column;
+}
+
+.title_container{
+	display: flex;
+	flex-direction: column;
+}
+
+.big_title{
+	
+	font-size: 6em;
+	width: 600px;
+	color: #ffffff;
+	position: absolute;
+	top: 80px;
+	left: 200px;
+	animation: slide 2s;
+}
+
+.sub_title{
+	font-size: 5em;
+	width: 600;
+	color: #ffffff;
+	position: absolute;
+	top: 200px;
+	left: 400px;
+	animation: slide_second 4s;
+}
+
+@keyframes slide{
+	from {
+		left: -100px;	
+		opacity : 0;
+	}
+	to{
+		left: 200px;
+		opacity: 1;
+	}
+}
+
+@keyframes slide_second{
+	from {
+		left: -800px;
+		opacity: 0;
+	}
+	to{
+		left: 400px;
+		opacity: 1;
+	}
+}
+
+.content_container{
+	display: flex;
+	flex-direction: row;
+	margin-top: 300px;
+}
+
+.content_wrapper{
+	display: flex;
+	flex-direction: column;
+	margin: 0 150px;
+	font-size: 50px;
+	opacity: 0;
+	animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}
+
+.content_wrapper:nth-child(1) {
+	animation-delay: 4s; /* 첫 번째 content_wrapper 시작 지연시간 */
+}
+
+.content_wrapper:nth-child(2) {
+	animation-delay: 5s; /* 두 번째 content_wrapper 시작 지연시간 */
+}
+
+.content_wrapper:nth-child(3) {
+	animation-delay: 6s; /* 세 번째 content_wrapper 시작 지연시간 */
+}
