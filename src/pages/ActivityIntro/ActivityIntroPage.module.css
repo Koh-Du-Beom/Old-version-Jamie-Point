@@ -54,28 +54,71 @@
 
 .content_container{
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	margin-top: 300px;
 }
 
 .content_wrapper{
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	margin: 0 150px;
-	opacity: 0;
-	animation: fadeIn 1s forwards;
+	opacity: 1;
 }
 
 .content_title{
 	font-size: 50px;
 }
 
+.content_box{
+	display: flex;
+	flex-direction: column;
+}
+
 .content{
 	font-size: 30px;
 	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-@keyframes fadeIn{
+.content .introImage{
+	height: 300px;
+	object-fit: contain;
+	margin: 10px;
+}
+
+
+.content_Icon{
+	width: 100px;
+}
+
+.navigation_button{
+	position: fixed; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  background-color: #000000; 
+  color: #FFFFFF; 
+  cursor: pointer;
+  border: none; 
+  padding: 10px 20px;
+}
+
+.button_prev{
+	left: 200px;
+}
+
+.button_next{
+	right: 200px;
+}
+
+.fadeIn{
+	animation: fadeInAnimation 1s forwards;
+}
+
+@keyframes fadeInAnimation {
 	from{
 		opacity: 0;
 	}
@@ -84,14 +127,3 @@
 	}
 }
 
-.content_wrapper:nth-child(1) {
-	animation-delay: 4s; /* 첫 번째 content_wrapper 시작 지연시간 */
-}
-
-.content_wrapper:nth-child(2) {
-	animation-delay: 5s; /* 두 번째 content_wrapper 시작 지연시간 */
-}
-
-.content_wrapper:nth-child(3) {
-	animation-delay: 6s; /* 세 번째 content_wrapper 시작 지연시간 */
-}

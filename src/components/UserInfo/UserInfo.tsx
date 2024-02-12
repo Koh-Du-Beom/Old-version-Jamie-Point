@@ -416,7 +416,7 @@ const UserInfo : React.FC = () => {
 
 			<div className={classes.wrapper}>
 				<div>
-					<div className={classes.small_title}>사진 사진</div>
+					<div className={classes.small_title}>서명 사진</div>
 					<ImageControler onImageChange={handleSignImg} data={signImg}/>
 				</div>
 			</div>
