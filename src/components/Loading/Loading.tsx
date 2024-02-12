@@ -1,6 +1,6 @@
 const Loading : React.FC = () => {
 	return(
-		<div>dddd</div>
+		<div>홈페이지 부분 로딩창 띄워주는거도 나쁘지 않을 듯.</div>
 	)
 }
 
