@@ -3,6 +3,7 @@
   flex-direction: column; 
   min-height: 100vh; 
 	background-color: #000000;
+	overflow-x: hidden;
 }
 
 .content {
@@ -21,4 +22,10 @@
 	flex-direction: column;
 	position: relative;
 	top: 30px;
+}
+
+.wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
