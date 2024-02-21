@@ -2,8 +2,7 @@
 	height: 300px;
 	display: flex;
 	color: #ffffff;
-	padding: 40px;
-
+	padding: 40px 0;
 }
 
 .main_logo{
@@ -20,13 +19,13 @@
 .menus{
 	display: flex;
 	flex-direction: row;
-	margin: 0 auto;
+	margin: 0;
 }
 
 .menu{
 	display: flex;
 	flex-direction: column;
-	margin: 0 50px;
+	margin: 0 40px;
 	position: relative;
 }
 
@@ -50,40 +49,58 @@
 	font-size: 20px;
 }
 
-@media (max-width: 1084px) {
-	.container {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.menus {
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.menu {
-		margin: 20px 0;
-	}
-
-	.main_logo img, .menu_title img {
-		width: 150px;
-	}
-
-	.link, .menu_title, .menu_content {
-		font-size: 16px; 
+@media(max-width: 1004px){
+	.menu{
+		margin: 0 30px;
 	}
 }
 
-@media (max-width: 720px) {
-	.container {
-		padding: 20px;
+@media(max-width: 924px){
+	.main_logo img{
+		width: 140px;
 	}
 
-	.main_logo img, .menu_title img {
+	.menu{
+		margin: 0 20px;
+	}
+
+	.menu_title img{
+		width: 14px;
+	}
+}
+
+
+@media (max-width: 772px){
+	
+	.menu_title{
+		font-size: 16px;
+	}
+
+	.menu{
+		margin: 0 10px;
+	}
+}
+
+@media(max-width: 627px){
+	.main_logo img{
+		width: 120px;
+	}
+}
+
+@media ( max-width : 527px){
+	.menu{
+		margin: 0;
+	}
+
+	.main_logo img{
 		width: 100px;
 	}
+	
+	.menu_title{
+		font-size: 16px;
+	}
 
-	.link, .menu_title, .menu_content {
-		font-size: 14px;
+	.menu_title img{
+		width: 14px;
 	}
 }
