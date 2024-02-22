@@ -9,6 +9,7 @@ import { updateUserInfo } from '../../stores/redux/userSlice';
 import Divider from '../Divider/Divider';
 import { isValidAccountNumber, isValidEmail, isValidName, isValidPhoneNumber, isValidStudentNumber, } from '../../utils/regularExpression/isValidUserInfo';
 
+//million-ignore
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
 	const [grade, setGrade] = useState<string>('');
@@ -39,7 +40,7 @@ const UserInfo : React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const userInfo = useSelector((state: RootState) => state.userInfo);
 
-	const handleSaveButtonClick = async () => {
+	const handleSaveButtonClick = () => {
 		if(!isValueChanged){
 			return;
 		}
@@ -69,8 +70,8 @@ const UserInfo : React.FC = () => {
 	useEffect(() => {
 		if (lastBlurTime === 0 || !isValueChanged) return;
 		
-		const timer = setTimeout(async()=>{
-			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
+		const timer = setTimeout(()=>{
+			handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
 			setIsValueChanged(false);
 		}, 1000); // 라우터(페이지 이동 시에도 실행되도록 하기)
 
@@ -91,6 +92,7 @@ const UserInfo : React.FC = () => {
       setIdCardImg(userInfo.idCardImg || '');
       setSignImg(userInfo.signImg || '');
     }		
+		
   }, [userInfo]);
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +102,9 @@ const UserInfo : React.FC = () => {
 	};
 
 	const handleNameBlur = () => {
+		console.log('blur event occured');
+		
+		
 		if (!isValidName(name)){
 			setErrorMsg((prev) => ({...prev, name : `${name? '올바른 이름이 아닙니다' : ''}`}));
 			setName('');
@@ -270,7 +275,7 @@ const UserInfo : React.FC = () => {
 	
 
 	return (
-		<div className={classes.container}>
+		<form className={classes.container}>
 			<div className={`${classes.wrapper} ${classes.end_double}`}>
 				<div>
 					<div className={classes.big_title}>내 정보</div>
@@ -287,9 +292,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleName}
-							onBlur={() => {
-								handleNameBlur();
-							}}
+							onBlur={handleNameBlur}
 							value={name}
 						/>
 						{errorMsg.name && <div className={classes.errorMsg}>{errorMsg.name}</div>}
@@ -420,7 +423,7 @@ const UserInfo : React.FC = () => {
 					<ImageControler onImageChange={handleSignImg} data={signImg}/>
 				</div>
 			</div>
-		</div>
+		</form>
 	)
 }
 
