@@ -39,7 +39,7 @@ const UserInfo : React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const userInfo = useSelector((state: RootState) => state.userInfo);
 
-	const handleSaveButtonClick = async () => {
+	const handleSaveButtonClick = () => {
 		if(!isValueChanged){
 			return;
 		}
@@ -69,8 +69,8 @@ const UserInfo : React.FC = () => {
 	useEffect(() => {
 		if (lastBlurTime === 0 || !isValueChanged) return;
 		
-		const timer = setTimeout(async()=>{
-			await handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
+		const timer = setTimeout(()=>{
+			handleSaveButtonClick(); // 둘 다 비동기 함수지만 아래 코드가 먼저 실행될 수 있음. 그런 동작 막기위함
 			setIsValueChanged(false);
 		}, 1000); // 라우터(페이지 이동 시에도 실행되도록 하기)
 
@@ -100,6 +100,9 @@ const UserInfo : React.FC = () => {
 	};
 
 	const handleNameBlur = () => {
+		const isValid = isValidName(name);
+		console.log(name, isValid);
+		
 		if (!isValidName(name)){
 			setErrorMsg((prev) => ({...prev, name : `${name? '올바른 이름이 아닙니다' : ''}`}));
 			setName('');
