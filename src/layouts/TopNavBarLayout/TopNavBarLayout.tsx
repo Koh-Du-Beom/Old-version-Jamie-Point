@@ -10,7 +10,10 @@ const HomeLayout : React.FC<{children : React.ReactNode}> = ({ children }) => {
 			<div className={classes.content}>
 				{children}
 			</div>
-			<BottomInfo/>
+			<div className={classes.footer_wrapper}>
+				<BottomInfo/>
+			</div>
+			
 		</div>
 	)
 };

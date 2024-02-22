@@ -44,7 +44,7 @@ const HomePage = () => {
 				</div>
 
 				<div className={classes.wrapper}>
-					How To Use?
+					About Our Project
 				</div>
 			</div>
 		</TopNavBarLayout>
