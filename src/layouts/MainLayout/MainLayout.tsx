@@ -42,7 +42,7 @@ const MainLayout: React.FC<{children : React.ReactNode}> = ({children}) => {
 				
       </div>	
 			<BottomNavBar openModal={openModal}/>
-			<div className={classes.wrapper}>
+			<div className={classes.footer_wrapper}>
 				<BottomInfo/>
 			</div>
 			

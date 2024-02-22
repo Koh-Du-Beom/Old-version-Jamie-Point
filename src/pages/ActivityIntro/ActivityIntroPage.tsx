@@ -6,6 +6,10 @@ import userInfoIntroFirst from '../../assets/Intro/UserInfoIntro/userInfoIntroFi
 import userInfoIntroSecond from '../../assets/Intro/UserInfoIntro/userInfoIntroSecond.png';
 import userInfoIntroThird from '../../assets/Intro/UserInfoIntro/userInfoIntroThird.png';
 
+import activityIntroFirst from '../../assets/Intro/ActivityIntro/activityIntroFirst.png';
+import activityIntroSecond from '../../assets/Intro/ActivityIntro/activityIntroSecond.png'
+import activityIntroThird from '../../assets/Intro/ActivityIntro/activityIntroThird.png'
+
 import documentationIntroFirst from '../../assets/Intro/DocumentationIntro/documentationIntroFirst.png';
 import documentationIntroSecond from '../../assets/Intro/DocumentationIntro/documentationIntroSecond.png';
 
@@ -74,7 +78,30 @@ const ActivityIntroPage:React.FC = () => {
 					{activeContent === 1 && (
 						<div className={`${classes.content_wrapper} ${classes.fadeIn}`}>
 							<div className={classes.content_title}>활동정보 입력하기</div>
-							<div className={classes.content}>활동입력 안내</div>
+							<div className={classes.content_box}>
+								<div className={classes.content}>1. 활동사진이 있다면 입력해주세요!</div>
+								<div className={classes.content}>
+									<img src={activityIntroFirst} alt='activityIntroFirst'/>
+								</div>
+							</div>
+							<div className={classes.content_box}>
+								<div className={classes.content}>
+									2. 활동 내역을 입력해주세요
+								</div>
+								<div className={classes.content}>
+									<img src={activityIntroSecond} alt='activityIntroSecond'/>
+								</div>
+							</div>
+
+							<div className={classes.content_box}>
+								<div className={classes.content}>
+									3. 활동 세부사항을 입력해주세요 
+								</div>
+								<div className={classes.content}>
+									<img src={activityIntroThird} alt='activityIntroThird'/>
+								</div>
+							</div>
+							
 						</div>
 					)}
 
@@ -88,6 +115,8 @@ const ActivityIntroPage:React.FC = () => {
 								<div className={classes.content}>
 									<img className={classes.content_Icon} src={documentationIntroFirst} alt='documentationIntroFirst'/>
 								</div>
+							</div>
+							<div className={classes.content_box}>
 								<div className={classes.content}>
 									2. 내용을 확인하고 저장버튼을 눌러 문서화해주세요
 								</div>

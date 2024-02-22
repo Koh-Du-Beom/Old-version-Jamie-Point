@@ -44,7 +44,7 @@ const HomePage = () => {
 				</div>
 
 				<div className={classes.wrapper}>
-					콘텐츠 추가
+					About Our Project
 				</div>
 			</div>
 		</TopNavBarLayout>
