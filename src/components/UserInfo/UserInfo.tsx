@@ -10,6 +10,8 @@ import Divider from '../Divider/Divider';
 import { isValidAccountNumber, isValidEmail, isValidName, isValidPhoneNumber, isValidStudentNumber, } from '../../utils/regularExpression/isValidUserInfo';
 
 //million-ignore
+//지금 프로젝트에서 million.js를 설치해서 blur 이벤트가 제대로 동작하지 않는데,
+//useRef 훅을 사용해서 일단 해결해보고, 안되면 million.js를 제거.
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
 	const [grade, setGrade] = useState<string>('');
@@ -102,8 +104,6 @@ const UserInfo : React.FC = () => {
 	};
 
 	const handleNameBlur = () => {
-		console.log('blur event occured');
-		
 		
 		if (!isValidName(name)){
 			setErrorMsg((prev) => ({...prev, name : `${name? '올바른 이름이 아닙니다' : ''}`}));
