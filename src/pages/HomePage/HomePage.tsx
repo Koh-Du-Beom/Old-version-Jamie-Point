@@ -44,7 +44,7 @@ const HomePage = () => {
 				</div>
 
 				<div className={classes.wrapper}>
-					How To Use?
+					콘텐츠 추가
 				</div>
 			</div>
 		</TopNavBarLayout>
