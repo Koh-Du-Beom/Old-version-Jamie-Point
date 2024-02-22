@@ -9,6 +9,7 @@ import { updateUserInfo } from '../../stores/redux/userSlice';
 import Divider from '../Divider/Divider';
 import { isValidAccountNumber, isValidEmail, isValidName, isValidPhoneNumber, isValidStudentNumber, } from '../../utils/regularExpression/isValidUserInfo';
 
+//million-ignore
 const UserInfo : React.FC = () => {
 	const [name, setName] = useState<string>('');
 	const [grade, setGrade] = useState<string>('');
@@ -91,6 +92,7 @@ const UserInfo : React.FC = () => {
       setIdCardImg(userInfo.idCardImg || '');
       setSignImg(userInfo.signImg || '');
     }		
+		
   }, [userInfo]);
 
 	const handleName = (event : React.ChangeEvent<HTMLInputElement>) => {
@@ -100,8 +102,8 @@ const UserInfo : React.FC = () => {
 	};
 
 	const handleNameBlur = () => {
-		const isValid = isValidName(name);
-		console.log(name, isValid);
+		console.log('blur event occured');
+		
 		
 		if (!isValidName(name)){
 			setErrorMsg((prev) => ({...prev, name : `${name? '올바른 이름이 아닙니다' : ''}`}));
@@ -273,7 +275,7 @@ const UserInfo : React.FC = () => {
 	
 
 	return (
-		<div className={classes.container}>
+		<form className={classes.container}>
 			<div className={`${classes.wrapper} ${classes.end_double}`}>
 				<div>
 					<div className={classes.big_title}>내 정보</div>
@@ -290,9 +292,7 @@ const UserInfo : React.FC = () => {
 							className={classes.input}
 							type='text'
 							onChange={handleName}
-							onBlur={() => {
-								handleNameBlur();
-							}}
+							onBlur={handleNameBlur}
 							value={name}
 						/>
 						{errorMsg.name && <div className={classes.errorMsg}>{errorMsg.name}</div>}
@@ -423,7 +423,7 @@ const UserInfo : React.FC = () => {
 					<ImageControler onImageChange={handleSignImg} data={signImg}/>
 				</div>
 			</div>
-		</div>
+		</form>
 	)
 }
 
