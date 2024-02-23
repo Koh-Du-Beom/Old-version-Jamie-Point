@@ -45,7 +45,6 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 	const [agency, setAgency] = useState<string>("");
 	const [date, setDate] = useState<string>("");
 	const [detail, setDetail] = useState<string>("");
-	const [isValueChanged, setIsValueChanged] = useState<boolean>(false);
 
 	const dropDowns : ActivityDropDownProps= {
 		program : program,
@@ -64,7 +63,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 				};
 				onActivityChange(id, updatedActivity);
 			});
-			setIsValueChanged(true);
+			
 		} else {
 			setActivityImg("");
 			const updatedActivity: ActivityType = {
@@ -148,7 +147,7 @@ const Activity : React.FC<ActivityProps> = ({area, activitiesData, onRemove, onA
 			topic: topic,
 			point: point,
 		};
-		setIsValueChanged(true);
+	
 		onActivityChange(id, updatedActivity);
 	}
 
